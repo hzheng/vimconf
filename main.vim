@@ -194,7 +194,7 @@ syntax on
 
 filetype plugin indent on
 
-"===============test new feature
+"===============test new feature(TODO: factor out or take use of plugin)
 " * Keystrokes -- For HTML Files
 
 " Some automatic HTML tag insertion operations are defined next.  They are
@@ -278,6 +278,9 @@ augroup filetype
         au! BufRead,BufNewFile *.pro    set filetype=prolog
 augroup END
 
+" load template
+au! BufNewFile * silent! 0r ~/.vim/templates/%:e | norm G
+
 " XML file {
     au FileType xml source ~/.vim/extra/xml-file.vim
 " }
@@ -316,9 +319,27 @@ augroup END
     let g:author='Hui Zheng'
     let g:snips_email='xyzdll@gmail.com'
     let g:email='xyzdll@gmail.com'
-    " let g:snips_github='https://github.com/jmoyers'
-    " let g:github='https://github.com/jmoyers'
+    let g:snips_github='https://github.com/hzheng'
+    let g:github='https://github.com/hzheng'
     "au FileType c,cpp,java,python,ruby,perl,php,objc,javascript,xml,html,xhtml,sh source ~/.vim/extra/snipMate.vim
+" }
+
+" Calendar {
+    fun! InsertChineseDate()
+        exe 'normal! ggdd'
+        let path = split(expand("%"), "/")
+        let date = path[len(path) -3 :]
+        let day = substitute(date[2], ".cal", "日", "g")
+        exe "normal! i       " date[0]."年".date[1]."月".day
+        exe 'normal! o'
+    endfun
+
+    nmap <ESC>c :Calendar<CR>
+    cmap cal Calendar<SPACE>
+    cmap caL CalendarH<SPACE>
+    let calendar_diary = "$DIARY_DIR"
+    au BufNewFile *.cal read $HOME/.vim/templates/diary | call InsertChineseDate()
+    "au BufNewFile *.cal read $HOME/.vim/templates/diary | norm ggdd
 " }
 
 :if $VIM_CRONTAB == "true"

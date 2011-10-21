@@ -1,7 +1,7 @@
 snippet #!
 	#!/usr/bin/python
 
-snippet imp
+snippet im
 	import ${1:module}
 # Module Docstring
 snippet docs
@@ -19,23 +19,37 @@ snippet for
 # New Class
 snippet cl
 	class ${1:ClassName}(${2:object}):
-		"""${3:docstring for $1}"""
+		"""${3:$1}"""
+		def __init__(self):
+			${4}
+
+snippet cls
+	class ${1:ClassName}(${2:object}):
+		"""${3:$1}"""
 		def __init__(self, ${4:arg}):
 			${5:super($1, self).__init__()}
 			self.$4 = $4
 			${6}
-# New Function
+# New Function/Method
 snippet def
 	def ${1:fname}(${2:`indent('.') ? 'self' : ''`}):
-		"""${3:docstring for $1}"""
-		${4:pass}
+		${3}
 snippet deff
 	def ${1:fname}(${2:`indent('.') ? 'self' : ''`}):
-		${3}
-# New Method
-snippet defs
+		"""${3:$1}"""
+		${4:pass}
+snippet defa
 	def ${1:mname}(self, ${2:arg}):
 		${3:pass}
+
+snippet defc
+	@classmethod
+	def ${1:mname}(cls):
+
+snippet defs
+	@staticmethod
+	def ${1:mname}():
+
 # New Property
 snippet property
 	def ${1:foo}():
@@ -78,7 +92,7 @@ snippet try Try/Except/Else/Finally
 	finally:
 		${6:pass}
 # if __name__ == '__main__':
-snippet ifmain
+snippet ifm
 	if __name__ == '__main__':
 		${1:main()}
 # __magic__
