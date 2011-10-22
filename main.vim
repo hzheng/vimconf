@@ -121,13 +121,8 @@ set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
 let mapleader = ","
 
 "=============abbreviations=============
+"most abbreviations should go to filetype-aware's scripts(under .vim/extra)
 
-" Define some abbreviations to draw comments.
-iab #b         /********************************************************
-iab #m   <Space>*                                                      *
-iab #e   <Space>********************************************************/ 
-iab #l         /*------------------------------------------------------*/ 
-iab bm <bean:message key="
 
 "=============maps=============
 " Making it so ; works like : for commands. Saves typing and eliminates :W
@@ -136,49 +131,37 @@ iab bm <bean:message key="
 
 " Map save buffer
 "map  <S-CR>       :w<CR>
-map  <F4>       :w<CR>
-map! <F4>       <ESC>:w<CR>
-map! <S-F4>     <ESC>ZZ
+"map  <F4>       :w<CR>
+"map! <F4>       <ESC>:w<CR>
+"map! <S-F4>     <ESC>ZZ
+
+"Navigate argument list
+"map  <F5>       :prev<CR>
+"map  <F6>       :n<CR>
+"map  <S-F5>     :fir<CR>
+"map  <S-F6>     :la<CR>
+
+" Turn search highlighting on and off
+"map  <F8>        :set hls!<bar>set hls?<CR>
+"imap <F8>        <ESC>:set hls!<bar>set hls?<CR>i
+
+" Delete current buffer
+"map  <F12>       :bd<CR>
 
 " fast input
 nn  <CR>         i<CR>
 nn  <Space>      i<Space>
 nn  <BS>         i<BS>
 
-"Navigate argument list
-map  <F5>       :prev<CR>
-map  <F6>       :n<CR>
-map  <S-F5>     :fir<CR>
-map  <S-F6>     :la<CR>
+" Facilitate window navigation
+nmap <ESC>w   <c-w>
+nmap <ESC>v   <c-w>w
 
-" Turn search highlighting on and off
-map  <F8>        :set hls!<bar>set hls?<CR>
-imap <F8>        <ESC>:set hls!<bar>set hls?<CR>i
+"=============syntax=============
+" Turn on syntax highlighting:
+syntax on
 
-" Delete current buffer
-map  <F12>       :bd<CR>
-
-" au FileType xml imap <Leader>v <?xml version="1.0"?><CR>
-"            \  imap <Leader>i <?xml version="1.0" encoding="iso-8858-1"?><CR>
-           
-"=============functions=============
-" Based on VIM tip 102: automatic tab completion of keywords
-function InsertTabWrapper(dir)
-    let col = col('.') - 1
-    if !col || getline('.')[col - 1] !~ '\k'
-	return "\<tab>"
-    elseif "pre" == a:dir
-	return "\<c-p>"
-    else
-	return "\<c-n>"
-    endif
-endfunction
-
-" not needed any more since SuperTab has been installed
-"inoremap <tab> <c-r>=InsertTabWrapper("pre")<CR>
-"inoremap <s-tab> <c-r>=InsertTabWrapper("next")<CR>
-
-"=============autocmds=============
+"=============C/C++ indentation and comments=============
 " For all files, set the format options, turn off C indentation, and finally set the comments option to the default.
 au FileType * set formatoptions=tcql nocindent
 \                  comments& 
@@ -188,108 +171,45 @@ au FileType c,cpp
 \       set fo=croql cindent
 \        comments=sr:/*,mb:*,ex:*/,://
 
-"=============others=============
-" Turn on syntax highlighting:
-syntax on
+" File type {
+    "filetype plugin indent on
+    filetype plugin on
+    "set ofu=syntaxcomplete#Complete
+    filetype indent on
 
-filetype plugin indent on
+    augroup filetype
+            au!
+            au! BufRead,BufNewFile *.jsp    set filetype=xml
+            au! BufRead,BufNewFile *.jspf   set filetype=xml
+            au! BufRead,BufNewFile *.tag    set filetype=xml
+            au! BufRead,BufNewFile *.pro    set filetype=prolog
+    augroup END
 
-"===============test new feature(TODO: factor out or take use of plugin)
-" * Keystrokes -- For HTML Files
+    " initialization
+    fun! FileTypeInit()
+        " load extra script
+        "au FileType xml source ~/.vim/extra/xml.vim
+        "au BufNewFile,BufRead * silent! so ~/.vim/extra/%:e.vim
+        exe "silent! so ~/.vim/extra/".&filetype.".vim"
 
-" Some automatic HTML tag insertion operations are defined next.  They are
-" allset to normal mode keystrokes beginning \h.  Insert mode function keys are
-" also defined, for terminals where they work.  The functions referred to are
-" defined at the end of this .vimrc.
-
-" \hc ("HTML close") inserts the tag needed to close the current HTML construct
-" [function at end of file]:
-au FileType html
-            \ nnoremap \hc :call InsertCloseTag()<CR>
-
-function! InsertCloseTag()
-" inserts the appropriate closing HTML tag; used for the \hc operation defined
-" above;
-" requires ignorecase to be set, or to type HTML tags in exactly the same case
-" that I do;
-" doesn't treat <P> as something that needs closing;
-" clobbers register z and mark z
-" 
-" by Smylers  http://www.stripey.com/vim/
-
-  if &filetype == 'html'
-
-    " list of tags which shouldn't be closed:
-    let UnaryTags = ' Area Base Br DD DT HR Img Input LI Link Meta P Param '
-
-    " remember current position:
-    normal mz
-
-    " loop backwards looking for tags:
-    let Found = 0
-    while Found == 0
-      " find the previous <, then go forwards one character and grab the first
-      " character plus the entire word:
-      execute "normal ?\<LT>\<CR>l"
-      normal "zyl
-      let Tag = expand('<cword>')
-
-      " if this is a closing tag, skip back to its matching opening tag:
-      if @z == '/'
-        execute "normal ?\<LT>" . Tag . "\<CR>"
-
-      " if this is a unary tag, then position the cursor for the next
-      " iteration:
-      elseif match(UnaryTags, ' ' . Tag . ' ') > 0
-        normal h
-
-      " otherwise this is the tag that needs closing:
-      else
-        let Found = 1
-
-      endif
-    endwhile " not yet found match
-
-    " create the closing tag and insert it:
-    let @z = '</' . Tag . '>'
-    normal `z
-    if col('.') == 1
-      normal "zP
-    else
-      normal "zp
-    endif
-
-  else " filetype is not HTML
-    echohl ErrorMsg
-    echo 'The InsertCloseTag() function is only intended to be used in HTML ' .
-      \ 'files.'
-    sleep
-    echohl None
-
-  endif " check on filetype
-
-endfunction " InsertCloseTag()
-
-augroup filetype
-        au!
-        au! BufRead,BufNewFile *.jsp    set filetype=xml
-        au! BufRead,BufNewFile *.jspf   set filetype=xml
-        au! BufRead,BufNewFile *.tag    set filetype=xml
-        au! BufRead,BufNewFile *.pro    set filetype=prolog
-augroup END
-
-" load template
-au! BufNewFile * silent! 0r ~/.vim/templates/%:e | norm G
-
-" XML file {
-    au FileType xml source ~/.vim/extra/xml-file.vim
+        if filereadable(expand("%"))
+            "exe "normal! i FileTypeInit old:" bufname("%") &filetype 
+        else " load template for new file
+            "au BufNewFile * silent! 0r ~/.vim/templates/%:e | norm G
+            exe "silent! 0r ~/.vim/templates/".&filetype
+            exe "normal! G"
+        endif
+    endfun
+    au FileType * call FileTypeInit()
 " }
 
+"=============plugins=============
+"
 " NerdTree {
     "load NERDTree on startup, but command line alias is prefered
     "au VimEnter * NERDTree
     "highlight main window
-    au VimEnter * wincmd p
+    au VimEnter * silent! wincmd p
 
     "map  :NERDTreeToggle
     nmap <ESC>e :NERDTreeToggle<CR>
@@ -303,6 +223,7 @@ au! BufNewFile * silent! 0r ~/.vim/templates/%:e | norm G
     let Tlist_Ctags_Cmd = '/usr/local/bin/ctags'
     let Tlist_Use_Right_Window = 1
     "let Tlist_Auto_Open = 1
+    nmap <F6> :!/usr/local/bin/ctags -R --fields=+iaS --extra=+q .<CR>
 " }
 
 " BufExplorer {
@@ -328,18 +249,20 @@ au! BufNewFile * silent! 0r ~/.vim/templates/%:e | norm G
     fun! InsertChineseDate()
         exe 'normal! ggdd'
         let path = split(expand("%"), "/")
-        let date = path[len(path) -3 :]
-        let day = substitute(date[2], ".cal", "日", "g")
-        exe "normal! i       " date[0]."年".date[1]."月".day
-        exe 'normal! o'
+        if len(path) > 3
+            let date = path[len(path) - 3 :]
+            let day = substitute(date[2], ".cal", "日", "g")
+            exe "normal! i       " date[0]."年".date[1]."月".day
+            exe 'normal! o'
+        endif
     endfun
 
     nmap <ESC>c :Calendar<CR>
-    cmap cal Calendar<SPACE>
-    cmap caL CalendarH<SPACE>
+    "cmap cal Calendar<SPACE>
+    "cmap caL CalendarH<SPACE>
     let calendar_diary = "$DIARY_DIR"
     au BufNewFile *.cal read $HOME/.vim/templates/diary | call InsertChineseDate()
-    "au BufNewFile *.cal read $HOME/.vim/templates/diary | norm ggdd
+    "au BufNewFile,BufRead *.cal set ft=rst
 " }
 
 :if $VIM_CRONTAB == "true"
