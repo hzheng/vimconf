@@ -1,3 +1,4 @@
+" XML-specific vimscript
 
 " entities
 imap <leader>> &gt;

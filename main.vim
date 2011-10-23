@@ -185,11 +185,20 @@ au FileType c,cpp
             au! BufRead,BufNewFile *.pro    set filetype=prolog
     augroup END
 
+    fun! IsProgram()
+        return index(["c","cpp","java","cs","objc","python","ruby","perl","php","javascript"], &filetype) >= 0
+    endfun
+
     " initialization
     fun! FileTypeInit()
         " load extra script
         "au FileType xml source ~/.vim/extra/xml.vim
         "au BufNewFile,BufRead * silent! so ~/.vim/extra/%:e.vim
+        if IsProgram()
+            exe "silent! so ~/.vim/extra/program.vim"
+            " set tag file
+            exe "set tags=~/tags/".&filetype
+        endif
         exe "silent! so ~/.vim/extra/".&filetype.".vim"
 
         if filereadable(expand("%"))
@@ -229,10 +238,14 @@ au FileType c,cpp
     nmap <ESC>u :TlistUpdate<CR>
     let Tlist_Ctags_Cmd = '/usr/local/bin/ctags'
     let Tlist_Use_Right_Window = 1
+    let Tlist_Show_One_File = 1 
+    let Tlist_File_Fold_Auto_Close = 1
+    let Tlist_Show_Menu = 1
+    "let Tlist_Sort_Type=1
     "let Tlist_WinWidth = 50
     "let Tlist_Auto_Open = 1
     "nmap <F6> :!/usr/local/bin/ctags -R --fields=+iaS --extra=+q .<CR>
-    nmap <F6> :!/usr/local/bin/ctags -R .<CR>
+    "nmap <F6> :!/usr/local/bin/ctags -R .<CR>
 " }
 
 " BufExplorer {

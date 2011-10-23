@@ -1,3 +1,4 @@
+" Java-specific vimscript
 
 " Define some abbreviations to draw comments.
 ia #b         /********************************************************
@@ -8,5 +9,3 @@ ia #l         /*------------------------------------------------------*/
 " Define javaEE stuffs
 ia bm <bean:message key="
 
-" Tag
-set tags=~/tags/java
