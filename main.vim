@@ -222,6 +222,7 @@ au FileType c,cpp
 
     "map  :NERDTreeToggle
     nmap <ESC>e :NERDTreeToggle<CR>
+    "nmap <ESC>e :NERDTreeToggle<CR><C-W><C-S><C-W><C-J>:BufExplorer<CR>
 
     let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr']
 " }
@@ -249,7 +250,18 @@ au FileType c,cpp
 " }
 
 " BufExplorer {
-    nmap <ESC>b :BufExplorer<CR>
+    "nmap <ESC>b :BufExplorer<CR> "built-in <leader>be
+    let g:bufExplorerSplitVertical = 1 
+    let g:bufExplorerSortBy = 'mru'
+    let g:bufExplorerUseCurrentWindow = 1
+    let g:bufExplorerShowRelativePath = 1
+    let g:bufExplorerDefaultHelp = 0
+" }
+
+" FuzzyFinder {
+    nmap <ESC>b :FufBuffer<CR>
+    nmap <ESC>f :FufFile<CR>
+    nmap <ESC>g :FufTag<CR>
 " }
 
 " SuperTab {
