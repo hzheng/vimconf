@@ -217,13 +217,22 @@ au FileType c,cpp
     let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr']
 " }
 
-" TagList {
+" Tag, TagList {
+    "set completeopt=longest,menu
+    ino <S-Space> <C-X><C-O>
+    map <S-Left> <C-T>
+    map <S-Right> <C-]>
+    map <S-Up> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+    map <S-Down> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+    
     nmap <ESC>t :TlistToggle<CR>
     nmap <ESC>u :TlistUpdate<CR>
     let Tlist_Ctags_Cmd = '/usr/local/bin/ctags'
     let Tlist_Use_Right_Window = 1
+    "let Tlist_WinWidth = 50
     "let Tlist_Auto_Open = 1
-    nmap <F6> :!/usr/local/bin/ctags -R --fields=+iaS --extra=+q .<CR>
+    "nmap <F6> :!/usr/local/bin/ctags -R --fields=+iaS --extra=+q .<CR>
+    nmap <F6> :!/usr/local/bin/ctags -R .<CR>
 " }
 
 " BufExplorer {

@@ -6,3 +6,6 @@
 
 " Set the width of text
 set tw=79
+
+" Tag
+set tags=~/tags/python
