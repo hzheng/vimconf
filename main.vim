@@ -106,9 +106,6 @@ set sts=4
 " Expand tab
 set et
 
-" smart tab
-set sta
-
 " read dictionary
 set dict=/usr/share/dict/words
 
@@ -118,7 +115,12 @@ set encoding=utf-8
 set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
 
 " variables
-let mapleader = ","
+let mapleader = "\\"
+
+set mouse=a
+"set selection=exclusive
+"set selectmode=mouse,key
+
 
 "=============abbreviations=============
 "most abbreviations should go to filetype-aware's scripts(under .vim/extra)
@@ -130,6 +132,7 @@ let mapleader = ","
 "nnoremap ; :
 
 " Map save buffer
+imap <F5> <Esc>:up<cr>
 "map  <S-CR>       :w<CR>
 "map  <F4>       :w<CR>
 "map! <F4>       <ESC>:w<CR>
@@ -154,8 +157,17 @@ nn  <Space>      i<Space>
 nn  <BS>         i<BS>
 
 " Facilitate window navigation
-nmap <ESC>w   <c-w>
-nmap <ESC>v   <c-w>w
+nmap <Tab>    <c-w>w
+nmap <S-Tab>  <c-w>p
+nmap <ESC>v   <c-w>v
+nmap <ESC>s   <c-w>s
+nmap <ESC>n   <c-w>n
+nmap <ESC>j   <c-w>j
+nmap <ESC>k   <c-w>k
+nmap <ESC>h   <c-w>h
+nmap <ESC>l   <c-w>l
+nmap <ESC>o   <c-w>o
+
 
 "=============syntax=============
 " Turn on syntax highlighting:
@@ -261,7 +273,9 @@ au FileType c,cpp
 " FuzzyFinder {
     nmap <ESC>b :FufBuffer<CR>
     nmap <ESC>f :FufFile<CR>
-    nmap <ESC>g :FufTag<CR>
+    nmap <ESC>g :FufTaggedFile<CR>
+    nmap <leader>d :FufDir<CR>
+    nmap <leader>t :FufTag<CR>
 " }
 
 " SuperTab {
