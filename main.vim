@@ -123,7 +123,7 @@ set mouse=a
 
 
 "=============abbreviations=============
-"most abbreviations should go to filetype-aware's scripts(under .vim/extra)
+"most abbreviations should go to filetype-aware's scripts(under .vim/ftplugin)
 
 
 "=============maps=============
@@ -161,13 +161,18 @@ nmap <Tab>    <c-w>w
 nmap <S-Tab>  <c-w>p
 nmap <ESC>v   <c-w>v
 nmap <ESC>s   <c-w>s
-nmap <ESC>n   <c-w>n
+nmap <ESC>q   <c-w>q
 nmap <ESC>j   <c-w>j
 nmap <ESC>k   <c-w>k
 nmap <ESC>h   <c-w>h
 nmap <ESC>l   <c-w>l
-nmap <ESC>o   <c-w>o
+nmap <leader>n <c-w>n
+nmap <leader>o <c-w>o
 
+" buffer manipulation
+nmap <ESC>d   :bd<CR>
+nmap <ESC>n   :bn<CR>
+nmap <ESC>p   :bp<CR>
 
 "=============syntax=============
 " Turn on syntax highlighting:
@@ -207,11 +212,11 @@ au FileType c,cpp
         "au FileType xml source ~/.vim/extra/xml.vim
         "au BufNewFile,BufRead * silent! so ~/.vim/extra/%:e.vim
         if IsProgram()
-            exe "silent! so ~/.vim/extra/program.vim"
+            exe "silent! so ~/.vim/ftplugin/program.vim"
             " set tag file
             exe "set tags=~/tags/".&filetype
         endif
-        exe "silent! so ~/.vim/extra/".&filetype.".vim"
+        "exe "silent! so ~/.vim/ftplugin/".&filetype.".vim"
 
         if filereadable(expand("%"))
             "exe "normal! i FileTypeInit old:" bufname("%") &filetype 
@@ -262,7 +267,8 @@ au FileType c,cpp
 " }
 
 " BufExplorer {
-    "nmap <ESC>b :BufExplorer<CR> "built-in <leader>be
+    "built-in <leader>be
+    nmap <leader>b :BufExplorer<CR>
     let g:bufExplorerSplitVertical = 1 
     let g:bufExplorerSortBy = 'mru'
     let g:bufExplorerUseCurrentWindow = 1
@@ -273,7 +279,7 @@ au FileType c,cpp
 " FuzzyFinder {
     nmap <ESC>b :FufBuffer<CR>
     nmap <ESC>f :FufFile<CR>
-    nmap <ESC>g :FufTaggedFile<CR>
+    nmap <leader>g :FufTaggedFile<CR>
     nmap <leader>d :FufDir<CR>
     nmap <leader>t :FufTag<CR>
 " }
