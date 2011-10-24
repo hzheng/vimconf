@@ -133,6 +133,7 @@ set mouse=a
 
 " Map save buffer
 imap <F5> <Esc>:up<cr>
+nmap <F5> :up<cr>
 "map  <S-CR>       :w<CR>
 "map  <F4>       :w<CR>
 "map! <F4>       <ESC>:w<CR>
@@ -244,7 +245,7 @@ au FileType c,cpp
     let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr']
 " }
 
-" Tag, TagList {
+" Tag, TagList, Tagbar {
     "set completeopt=longest,menu
     ino <S-Space> <C-X><C-O>
     map <S-Left> <C-T>
@@ -252,8 +253,9 @@ au FileType c,cpp
     map <S-Up> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
     map <S-Down> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
     
-    nmap <ESC>t :TlistToggle<CR>
-    nmap <ESC>u :TlistUpdate<CR>
+    "nmap <ESC>t :TlistToggle<CR>
+    nmap <leader>l :TlistToggle<CR>
+    nmap <leader>u :TlistUpdate<CR>
     let Tlist_Ctags_Cmd = '/usr/local/bin/ctags'
     let Tlist_Use_Right_Window = 1
     let Tlist_Show_One_File = 1 
@@ -264,6 +266,10 @@ au FileType c,cpp
     "let Tlist_Auto_Open = 1
     "nmap <F6> :!/usr/local/bin/ctags -R --fields=+iaS --extra=+q .<CR>
     "nmap <F6> :!/usr/local/bin/ctags -R .<CR>
+
+
+    nmap <ESC>t :TagbarToggle<CR>
+    let g:tagbar_ctags_bin = '/usr/local/bin/ctags'
 " }
 
 " BufExplorer {

@@ -10,3 +10,5 @@
     let g:pydiction_menu_height = 20
     set complete+=k~/.vim/pydiction iskeyword+=.,(
 " }
+
+set nosmartindent
