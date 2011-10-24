@@ -243,6 +243,11 @@ au FileType c,cpp
     "nmap <ESC>e :NERDTreeToggle<CR><C-W><C-S><C-W><C-J>:BufExplorer<CR>
 
     let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr']
+    "set autochdir
+    let NERDTreeChDirMode = 2
+    nn <leader><leader> :NERDTree .<CR>
+    ca nt NERDTree
+    ca bm Bookmark
 " }
 
 " Tag, TagList, Tagbar {
@@ -274,7 +279,7 @@ au FileType c,cpp
 
 " BufExplorer {
     "built-in <leader>be
-    nmap <leader>b :BufExplorer<CR>
+    "nmap <leader>b :BufExplorer<CR>
     let g:bufExplorerSplitVertical = 1 
     let g:bufExplorerSortBy = 'mru'
     let g:bufExplorerUseCurrentWindow = 1
@@ -283,11 +288,18 @@ au FileType c,cpp
 " }
 
 " FuzzyFinder {
-    nmap <ESC>b :FufBuffer<CR>
-    nmap <ESC>f :FufFile<CR>
+    "nmap <ESC>b :FufBuffer<CR>
+    nmap <leader>b :FufBuffer<CR>
+    "nmap <ESC>f :FufFile<CR>
+    nmap <leader>f :FufFile<CR>
     nmap <leader>g :FufTaggedFile<CR>
     nmap <leader>d :FufDir<CR>
     nmap <leader>t :FufTag<CR>
+" }
+
+" Command-T {
+    nmap <ESC>f :CommandT<CR>
+    nmap <ESC>b :CommandTBuffer<CR>
 " }
 
 " SuperTab {
@@ -317,7 +329,8 @@ au FileType c,cpp
         endif
     endfun
 
-    nmap <ESC>c :Calendar<CR>
+    "nmap <ESC>c :Calendar<CR>
+    nmap <leader>c :Calendar<CR>
     "cmap cal Calendar<SPACE>
     "cmap caL CalendarH<SPACE>
     let calendar_diary = "$DIARY_DIR"
