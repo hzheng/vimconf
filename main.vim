@@ -106,6 +106,12 @@ set sts=4
 " Expand tab
 set et
 
+"folding settings
+set foldmethod=indent   "fold based on indent
+set foldnestmax=10      "deepest fold is 10 levels
+set nofoldenable        "dont fold by default
+set foldlevel=1         
+
 " read dictionary
 set dict=/usr/share/dict/words
 
