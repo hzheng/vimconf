@@ -5,14 +5,16 @@
 " Automatically write files as needed.
 set aw 
 
-" Indentation settings
+" Indentation/Tab settings
 set ai " Turn on automatic indentation.
 set sw=4  " Set shift width or the size of an indentation.
-
-" Tab settings
-set ts=8 "tab stop
+set ts=8 "tab stop(or 4 in python?)
 set sts=4 " soft tab stop
 set et " Insert tabs as spaces
+" Set smart tab: in front of a line inserts blanks according to
+" 'shiftwidth', A <BS> will delete a 'shiftwidth' worth of space
+" at the start of the line.
+set sta
 
 " Folding settings
 set foldmethod=indent   "fold based on indent
@@ -52,11 +54,6 @@ set ww=b,s,h,l,<,>,[,]
 
 " Don't add two spaces after ., ?, !
 set nojoinspaces
-
-" Set smart tab: in front of a line inserts blanks according to
-" 'shiftwidth', A <BS> will delete a 'shiftwidth' worth of space
-" at the start of the line.
-set sta
 
 " Set textauto to recognize ^M files
 set ta
@@ -157,7 +154,7 @@ nmap <Tab>    <c-w>w
 nmap <S-Tab>  <c-w>p
 nmap <ESC>v   <c-w>v
 nmap <ESC>s   <c-w>s
-nmap <ESC>q   <c-w>q
+"nmap <ESC>q   <c-w>q
 nmap <ESC>j   <c-w>j
 nmap <ESC>k   <c-w>k
 nmap <ESC>h   <c-w>h
@@ -169,6 +166,10 @@ nmap <leader>o <c-w>o
 nmap <ESC>d   :bd<CR>
 nmap <ESC>n   :bn<CR>
 nmap <ESC>p   :bp<CR>
+" shouldn't conflict with the rarely used 'q' command(for recording)
+nmap qq       :q<CR>
+nmap qa       :qa<CR>
+nmap q!       :q!<CR>
 
 "=============syntax=============
 " Turn on syntax highlighting:
