@@ -64,26 +64,15 @@ set ls=0
 " Set wildmode
 set wim=longest,full
 
-" Swap directory
-set dir=/tmp
-
-" Turn on backup
-set backup
-
-" Turn on write backup
-set wb
-
-" Backup directory
-set bdir=/tmp
-
-" Backup extension
-set bex=~
+" Backup
+set dir=/tmp " Swap directory
+set backup " Turn on backup
+set wb " Turn on write backup
+set bdir=/tmp " Backup directory
+set bex=~ " Backup extension
 
 " Show mode
 set smd
-
-" Set mouse
-set mouse=a
 
 " Suffixes to put to the end of the list when completing file names
 set suffixes=.bak,~,.o,.class,.info,.swp
@@ -98,8 +87,12 @@ set report=0
 au BufWinLeave * silent! mkview
 au BufWinEnter * silent! loadview
 
-" read dictionary
-set dict=/usr/share/dict/words
+" Spell
+set dict+=/usr/share/dict/words " dictionary
+set thesaurus+=/usr/share/dict/mthesaur.txt " thesaurus
+"imap <Leader>s <C-o>:setlocal spell! spelllang=en_gb<CR>
+nmap <Leader>s :setlocal spell! spelllang=en_gb<CR>
+
 
 " set encoding
 set encoding=utf-8
@@ -109,6 +102,9 @@ set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
 " variables
 let mapleader = "\\"
 
+"set paste
+
+" Set mouse
 set mouse=a
 "set selection=exclusive
 "set selectmode=mouse,key
