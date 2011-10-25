@@ -1,32 +1,32 @@
 " VIM configuration file
 
 "=============sets=============
-" Turn on automatic indentation.
-set ai
 
 " Automatically write files as needed.
 set aw 
 
-" Set shift width or the size of an indentation.
-set sw=4 
+" Indentation settings
+set ai " Turn on automatic indentation.
+set sw=4  " Set shift width or the size of an indentation.
 
-" Have vim highlight the target of a search.
-set hls
+" Tab settings
+set ts=8 "tab stop
+set sts=4 " soft tab stop
+set et " Insert tabs as spaces
 
-" Do incremental searches.
-set is 
+" Folding settings
+set foldmethod=indent   "fold based on indent
+set foldnestmax=10      "deepest fold is 10 levels
+set nofoldenable        "dont fold by default
+set foldlevel=1         
 
-" Ignore case when search
-set ignorecase
+" Search settings
+set hls " Have vim highlight the target of a search.
+set is  " Do incremental searches.
+set ignorecase " Ignore case when search
+set scs " Set smart case
+set nowrapscan " No wrap scan when search
 
-" Set smart case
-set scs
-
-" No wrap scan when search
-set nowrapscan
-
-" Set the width of text to 80 characters.
-" set tw=80
 
 "set link break to avoid wraping a word
 set lbr
@@ -52,9 +52,6 @@ set ww=b,s,h,l,<,>,[,]
 
 " Don't add two spaces after ., ?, !
 set nojoinspaces
-
-" Insert tabs as spaces
-set et
 
 " Set smart tab: in front of a line inserts blanks according to
 " 'shiftwidth', A <BS> will delete a 'shiftwidth' worth of space
@@ -100,17 +97,9 @@ set wig=*.bak,~,*.o,*.info,*.swp,*.class
 " Report all change
 set report=0
 
-" Set soft tab stop
-set sts=4
-
-" Expand tab
-set et
-
-"folding settings
-set foldmethod=indent   "fold based on indent
-set foldnestmax=10      "deepest fold is 10 levels
-set nofoldenable        "dont fold by default
-set foldlevel=1         
+" Save view records
+au BufWinLeave * silent! mkview
+au BufWinEnter * silent! loadview
 
 " read dictionary
 set dict=/usr/share/dict/words
