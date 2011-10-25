@@ -2,6 +2,8 @@
 
 "=============sets=============
 
+set nocompatible
+
 " Automatically write files as needed.
 set aw 
 
