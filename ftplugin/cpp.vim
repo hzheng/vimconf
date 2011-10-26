@@ -15,3 +15,5 @@ set fdm=syntax   "fold based on syntax
 "set fo=croql
 set cindent
 set comments=sr:/*,mb:*,ex:*/,://
+
+let c_space_errors = 1 " show redundant spaces

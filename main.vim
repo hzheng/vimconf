@@ -3,9 +3,9 @@
 "=============Built-in settings=============
 
 " Basic {
+    set nocompatible " ignore vi compatibility
     "let mapleader = ","   "will slow down search
     let mapleader = "\\"
-    set nocompatible " ignore vi compatibility
 " }
 
 " Format(indentation, tab etc.) {
@@ -71,7 +71,7 @@
 
 " Edit {
     set smd " Show mode
-    set lbr "set link break to avoid wraping a word
+    set lbr "set link break to avoid wrapping a word
     set sm " Show parentheses matching
     set bs=2 " Allow backspace to delete newlines and beyond the start of the insertion point
     set ww=b,s,h,l,<,>,[,] " Allow the cursor to wrap on anything
@@ -100,6 +100,10 @@
         " for MacVim
         set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
     " }
+
+    "set list
+    set listchars=tab:>.,trail:.,extends:#,nbsp:. " Highlight problematic whitespace
+    
 " }
 
 " File {
@@ -158,6 +162,7 @@
     nmap qq       :q<CR>
     nmap qa       :qa<CR>
     nmap q!       :q!<CR>
+    nmap qa!      :qa!<CR>
 
     imap <F5> <Esc>:up<cr>
     nmap <F5> :up<cr>
@@ -168,7 +173,6 @@
 " }
 
 " File type {
-    syntax on " Turn on syntax highlighting
     "filetype plugin indent on
     filetype plugin on
     "set ofu=syntaxcomplete#Complete
@@ -210,6 +214,10 @@
 " }
 
 " GUI {
+    "set background=light
+    color spring            " load a colorscheme
+    syntax on " Turn on syntax highlighting
+
     " Set mouse
     set mouse=a
     "set selection=exclusive
@@ -241,9 +249,23 @@
         "set stl+=\ [%{getcwd()}]          " current dir
         "set stl+=\ [A=\%03.3b/H=\%02.2B] " ASCII / Hexadecimal value of char
         set stl+=%=%-14.(%l,%c%V%)\ %p%%\ of\ \%L  " Right aligned file nav info
+
+        fun! InsertStatuslineColor(mode)
+          if a:mode == 'i'
+            hi statusline guibg=magenta
+          elseif a:mode == 'r'
+            hi statusline guibg=blue
+          else
+            hi statusline guibg=red
+          endif
+        endfun
+
+        au InsertEnter * call InsertStatuslineColor(v:insertmode)
+        au InsertLeave * hi statusline guibg=green
+        " default the statusline to green when entering Vim
+        hi statusline guibg=green
     endif
 
-    "color solarized            " load a colorscheme
     "set cursorline
     " highlight bg color of current line
     "hi cursorline guibg=#333333 
