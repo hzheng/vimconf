@@ -5,15 +5,27 @@
 " Basic {
     "let mapleader = ","   "will slow down search
     let mapleader = "\\"
-    set nocompatible
+    set nocompatible " ignore vi compatibility
 " }
 
 " Format(indentation, tab etc.) {
-    "set the format options, turn of C indentation, and set the comments option to the default.
-    "c/c++ type will override this in ftplugin
-    au FileType * set fo=tcql nocindent comments& 
-    set ai " Turn on automatic indentation.
+    " autowrap comments using textwidth and insert the current comment leader
+    set fo+=c
+    " automatically insert a comment leader after an enter
+    set fo+=r
+    " automatically insert the current comment leader after 'o' or 'O'
+    set fo+=o
+    " allow formatting of comments with "gq"
+    set fo+=q
+    " long lines are not broken in insert mode
+    set fo+=l
+    " Do no auto-wrap text using textwidth (does not apply to comments)
+    set fo-=t
 
+    " turn off C indentation, and set the comments option to the default.
+    "c/c++ type will override this in ftplugin
+    au FileType * set nocindent comments& 
+    set ai " Turn on automatic indentation.
     set sw=4  " Set shift width or the size of an indentation.
     set ts=8 "tab stop(or 4 in python?)
     set sts=4 " soft tab stop
@@ -202,6 +214,7 @@
     set mouse=a
     "set selection=exclusive
     "set selectmode=mouse,key
+    "behave xterm
 
     if has('gui_running')
         set guioptions-=T      " remove the toolbar

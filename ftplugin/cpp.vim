@@ -12,6 +12,6 @@ set si           "smart indent
 
 set fdm=syntax   "fold based on syntax
 
-set fo=croql
+"set fo=croql
 set cindent
 set comments=sr:/*,mb:*,ex:*/,://
