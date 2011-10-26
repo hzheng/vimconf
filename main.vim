@@ -1,11 +1,15 @@
 " VIM configuration file
 
-"=============sets=============
+"=============basic settings=============
+
+"let mapleader = ","   "will slow down search
+let mapleader = "\\"
 
 set nocompatible
 
 " Automatically write files as needed.
 set aw 
+
 
 " Indentation/Tab settings
 set ai " Turn on automatic indentation.
@@ -18,11 +22,16 @@ set et " Insert tabs as spaces
 " at the start of the line.
 set sta
 
+
 " Folding settings
-set foldmethod=indent   "fold based on indent
-set foldnestmax=10      "deepest fold is 10 levels
 set nofoldenable        "dont fold by default
-set foldlevel=1         
+set foldnestmax=4       "deepest fold
+set foldlevel=2         
+"augroup vimrc
+  "au BufReadPre * setlocal foldmethod=indent
+  "au BufWinEnter * if &fdm == 'indent' | setlocal foldmethod=manual | endif
+"augroup END
+
 
 " Search settings
 set hls " Have vim highlight the target of a search.
@@ -30,6 +39,10 @@ set is  " Do incremental searches.
 set ignorecase " Ignore case when search
 set scs " Set smart case
 set nowrapscan " No wrap scan when search
+" Turn search highlighting on and off
+"map  <F8>        :set hls!<bar>set hls?<CR>
+map  <silent> <leader>/ :set hls!<bar>set hls?<CR>
+"nmap <silent> <leader>/ :nohlsearch<CR>
 
 
 "set link break to avoid wraping a word
@@ -80,7 +93,7 @@ set smd
 set suffixes=.bak,~,.o,.class,.info,.swp
 
 " Patterns to put to ignore when completing file names
-set wig=*.bak,~,*.o,*.info,*.swp,*.class
+set wig=*.bak,~,*.o,*.info,*.swp,*.class,*.pyc,.git,.svn
 
 " Report all change
 set report=0
@@ -100,9 +113,6 @@ nmap <Leader>s :setlocal spell! spelllang=en_gb<CR>
 set encoding=utf-8
 " for MacVim
 set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
-
-" variables
-let mapleader = "\\"
 
 "set paste
 
@@ -134,9 +144,6 @@ nmap <F5> :up<cr>
 "map  <F6>       :n<CR>
 "map  <S-F5>     :fir<CR>
 "map  <S-F6>     :la<CR>
-
-" Turn search highlighting on and off
-"map  <F8>        :set hls!<bar>set hls?<CR>
 "imap <F8>        <ESC>:set hls!<bar>set hls?<CR>i
 
 " Delete current buffer
@@ -233,10 +240,10 @@ au FileType c,cpp
     au VimEnter * silent! wincmd p
 
     "map  :NERDTreeToggle
-    nmap <ESC>e :NERDTreeToggle<CR>
+    nmap <ESC>e :NERDTreeToggle<CR>:NERDTreeMirror<CR>
     "nmap <ESC>e :NERDTreeToggle<CR><C-W><C-S><C-W><C-J>:BufExplorer<CR>
 
-    let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr']
+    let NERDTreeIgnore=['\.o', '\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr']
     "set autochdir
     let NERDTreeChDirMode = 2
     nn <leader><leader> :NERDTree .<CR>
@@ -294,11 +301,14 @@ au FileType c,cpp
 " Command-T {
     nmap <ESC>f :CommandT<CR>
     nmap <ESC>b :CommandTBuffer<CR>
+    "let g:CommandTSearchPath = $HOME . '$HOME/Projects'
+    let g:CommandTMatchWindowAtTop = 1
 " }
 
 " SuperTab {
     let g:SuperTabDefaultCompletionType = "context"
     "let g:SuperTabMappingTabLiteral = '<c-tab>' " default
+    "let g:SuperTabCrMapping = 0
 " }
 
 " SnipMate {
@@ -309,7 +319,23 @@ au FileType c,cpp
     let g:snips_github='https://github.com/hzheng'
     let g:github='https://github.com/hzheng'
     "au FileType c,cpp,java,python,ruby,perl,php,objc,javascript,xml,html,xhtml,sh source ~/.vim/extra/snipMate.vim
+    "nn <leader>rs <esc>:exec ReloadAllSnippets()<cr>
 " }
+
+" Tabular {  
+" if exists(":Tabularize")
+    nmap <Leader>a= :Tabularize /=<CR>
+    vmap <Leader>a= :Tabularize /=<CR>
+    nmap <Leader>a: :Tabularize /:<CR>
+    vmap <Leader>a: :Tabularize /:<CR>
+    nmap <Leader>a:: :Tabularize /:\zs<CR>
+    vmap <Leader>a:: :Tabularize /:\zs<CR>
+    nmap <Leader>a, :Tabularize /,<CR>
+    vmap <Leader>a, :Tabularize /,<CR>
+    nmap <Leader>a\ :Tabularize /<bar><CR>
+    vmap <Leader>a\ :Tabularize /<bar><CR>
+" }
+
 
 " Calendar {
     fun! InsertChineseDate()

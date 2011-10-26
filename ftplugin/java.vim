@@ -9,3 +9,9 @@ ia #l         /*------------------------------------------------------*/
 " Define javaEE stuffs
 ia bm <bean:message key="
 
+
+set si           "smart indent
+
+set fdm=syntax   "fold based on syntax
+"set fdm=marker fmr=zz.FOLDSTART,zz.END fdl=2 fdc=2
+

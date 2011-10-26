@@ -6,5 +6,6 @@ ia #m   <Space>*                                                      *
 ia #e   <Space>********************************************************/ 
 ia #l         /*------------------------------------------------------*/ 
 
-" smart indent
-set si
+set si           "smart indent
+
+set fdm=syntax   "fold based on syntax

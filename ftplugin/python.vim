@@ -11,4 +11,6 @@
     set complete+=k~/.vim/pydiction iskeyword+=.,(
 " }
 
-set nosmartindent
+set fdm=indent   "fold based on indent
+
+set nosmartindent "no smart indent
