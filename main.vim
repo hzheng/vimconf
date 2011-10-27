@@ -8,6 +8,21 @@
     let mapleader = "\\"
 " }
 
+" Utility {
+    " Reads a file with the variables resolved and writes into buffer
+    fun! ExpandBuffer(file)
+        setlocal fo-=c fo-=r fo-=o "disable format options temporarily
+        let lines = ""
+        for line in readfile(a:file)
+            if line =~ '^[^#].*\$'
+                let line = expand(line)
+            endif
+            let lines = lines.line."\n"
+        endfor
+        exe "normal!i".lines
+    endfun
+" }
+
 " Format(indentation, tab etc.) {
     " autowrap comments using textwidth and insert the current comment leader
     set fo+=c
@@ -206,7 +221,8 @@
             "exe "normal! i FileTypeInit old:" bufname("%") &filetype 
         else " load template for new file
             "au BufNewFile * silent! 0r ~/.vim/templates/%:e | norm G
-            exe "silent! 0r ~/.vim/templates/".&filetype
+            "exe "silent! 0r ~/.vim/templates/".&filetype
+            call ExpandBuffer(expand('~/.vim/templates/').&filetype)
             exe "normal! G"
         endif
     endfun
@@ -215,7 +231,7 @@
 
 " GUI {
     "set background=light
-    color spring            " load a colorscheme
+    "color spring            " load a colorscheme
     syntax on " Turn on syntax highlighting
 
     " Set mouse
@@ -333,11 +349,11 @@
 
 " FuzzyFinder {
     "nmap <ESC>b :FufBuffer<CR>
-    nmap <leader>b :FufBuffer<CR>
+    "nmap <leader>b :FufBuffer<CR>
     "nmap <ESC>f :FufFile<CR>
-    nmap <leader>f :FufFile<CR>
+    "nmap <leader>f :FufFile<CR>
     nmap <leader>g :FufTaggedFile<CR>
-    nmap <leader>d :FufDir<CR>
+    "nmap <leader>d :FufDir<CR>
     nmap <leader>t :FufTag<CR>
 " }
 
@@ -355,12 +371,12 @@
 " }
 
 " SnipMate {
-    let g:snips_author='Hui Zheng'
-    let g:author='Hui Zheng'
-    let g:snips_email='xyzdll@gmail.com'
-    let g:email='xyzdll@gmail.com'
-    let g:snips_github='https://github.com/hzheng'
-    let g:github='https://github.com/hzheng'
+    let g:snips_author=expand($USER_FULLNAME)
+    let g:author=expand($USER_FULLNAME)
+    let g:snips_email=expand($USER_EMAIL)
+    let g:email=expand($USER_EMAIL)
+    let g:snips_github=expand($USER_GITHUB)
+    let g:github=expand($USER_GITHUB)
     "au FileType c,cpp,java,python,ruby,perl,php,objc,javascript,xml,html,xhtml,sh source ~/.vim/extra/snipMate.vim
     "nn <leader>rs <esc>:exec ReloadAllSnippets()<cr>
 " }
@@ -378,7 +394,6 @@
     nmap <Leader>a\ :Tabularize /<bar><CR>
     vmap <Leader>a\ :Tabularize /<bar><CR>
 " }
-
 
 " Calendar {
     fun! InsertChineseDate()
@@ -400,4 +415,3 @@
     au BufNewFile *.cal read $HOME/.vim/templates/diary | call InsertChineseDate()
     "au BufNewFile,BufRead *.cal set ft=rst
 " }
-

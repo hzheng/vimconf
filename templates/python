@@ -4,13 +4,13 @@
 """.
 """
 
-__author__ = "Hui Zheng"
-__copyright__ = "Copyright "
-__credits__ = ["Hui Zheng"]
-__license__ = "GPL"
-__version__ = "1.0.0"
-__maintainer__ = "Hui Zheng"
-__email__ = "xyzdll@gmail.com"
+__author__ = "$USER_FULLNAME""
+__copyright__ = "$USER_COPYRIGHT"
+__credits__ = ["$USER_FULLNAME"]
+__license__ = "$USER_LICENSE"
+__version__ = "$USER_VERSION"
+__maintainer__ = "$USER_FULLNAME"
+__email__ = "$USER_EMAIL"
 __status__ = "Production"
 
 import sys
