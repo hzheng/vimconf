@@ -11,7 +11,10 @@
 " Utility {
     " Reads a file with the variables resolved and writes into buffer
     fun! ExpandBuffer(file)
-        setlocal fo-=c fo-=r fo-=o "disable format options temporarily
+        "disable format and indent temporarily
+        setl fo-=c fo-=r fo-=o
+        setl noai nocin nosi inde=
+
         let lines = ""
         for line in readfile(a:file)
             if line =~ '^[^#].*\$'
