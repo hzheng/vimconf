@@ -45,6 +45,9 @@
     au FileType * set nocindent comments& 
     set ai " Turn on automatic indentation.
     set sw=4  " Set shift width or the size of an indentation.
+    " disable auto indentation
+    nn <leader>ni :setl noai nocin nosi inde=<CR>
+
     set ts=8 "tab stop(or 4 in python?)
     set sts=4 " soft tab stop
     set et " Insert tabs as spaces
@@ -176,11 +179,11 @@
     "map  <S-F6>     :la<CR>
 
     " Buffer manipulation 
-    " shouldn't conflict with the rarely used 'q' command(for recording)
-    nmap qq       :q<CR>
-    nmap qa       :qa<CR>
-    nmap q!       :q!<CR>
-    nmap qa!      :qa!<CR>
+    " avoid conflicting with 'q' command(for recording)
+    nmap <leader>q   :q<CR>
+    nmap <leader>qq  :q!<CR>
+    nmap <leader>qa  :qa<CR>
+    nmap <leader>qaa :qa!<CR>
 
     imap <F5> <Esc>:up<cr>
     nmap <F5> :up<cr>
@@ -222,7 +225,8 @@
 
         if filereadable(expand("%"))
             "exe "normal! i FileTypeInit old:" bufname("%") &filetype 
-        else " load template for new file
+        elseif &modifiable "new modifiable file
+            " load template
             "au BufNewFile * silent! 0r ~/.vim/templates/%:e | norm G
             "exe "silent! 0r ~/.vim/templates/".&filetype
             call ExpandBuffer(expand('~/.vim/templates/').&filetype)
