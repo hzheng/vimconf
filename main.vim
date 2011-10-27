@@ -104,6 +104,7 @@
     set ta " Set textauto to recognize ^M files
     set report=0  " Report all change
     "set paste
+    "set pt=<leader>p  " paste toggle (sane indentation on pastes)
     
     "most input abbreviations should go to filetype-aware's scripts(under .vim/ftplugin)
 
@@ -132,7 +133,9 @@
 " }
 
 " File {
+    set ar " Automatically read outside change
     set aw " Automatically write files as needed.
+
     set wim=longest,full " Set wildmode
     " Suffixes to put to the end of the list when completing file names
     set suffixes=.bak,~,.o,.class,.info,.swp
@@ -348,6 +351,7 @@
 
     nmap <ESC>t :TagbarToggle<CR>
     let g:tagbar_ctags_bin = '/usr/local/bin/ctags'
+    let g:tagbar_autofocus = 1 " auto focus when open
 " }
 
 " BufExplorer {
