@@ -24,6 +24,10 @@
         endfor
         exe "normal!i".lines
     endfun
+
+    fun! IsProgram()
+        return index(["c","cpp","java","cs","objc","python","ruby","perl","php","javascript"], &filetype) >= 0
+    endfun
 " }
 
 " Format(indentation, tab etc.) {
@@ -180,10 +184,12 @@
 
     " Buffer manipulation 
     " avoid conflicting with 'q' command(for recording)
+    " all the following use single letter not only for quick type, but also
+    " for quick response(same prefix will delay vim)
     nmap <leader>q   :q<CR>
-    nmap <leader>qq  :q!<CR>
-    nmap <leader>qa  :qa<CR>
-    nmap <leader>qaa :qa!<CR>
+    nmap <leader>Q   :q!<CR>
+    nmap <leader>x   :qa<CR>
+    nmap <leader>X   :qa!<CR>
 
     imap <F5> <Esc>:up<cr>
     nmap <F5> :up<cr>
@@ -207,12 +213,9 @@
             au! BufRead,BufNewFile *.pro    set filetype=prolog
     augroup END
 
-    fun! IsProgram()
-        return index(["c","cpp","java","cs","objc","python","ruby","perl","php","javascript"], &filetype) >= 0
-    endfun
-
     " initialization
     fun! FileTypeInit()
+        let filename = expand("%")
         " load extra script
         "au FileType xml source ~/.vim/extra/xml.vim
         "au BufNewFile,BufRead * silent! so ~/.vim/extra/%:e.vim
@@ -223,7 +226,10 @@
         endif
         "exe "silent! so ~/.vim/ftplugin/".&filetype.".vim"
 
-        if filereadable(expand("%"))
+        if !strlen(filename)  " stdin
+            "exe "normal! iempty filename"
+        elseif filereadable(filename)
+            "exe "normal! i filename=(".filename.")"
             "exe "normal! i FileTypeInit old:" bufname("%") &filetype 
         elseif &modifiable "new modifiable file
             " load template

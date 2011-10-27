@@ -7,12 +7,12 @@ set tw=79
 set nu
 
 " auto-complete
-ino ' ''<Left>
+"ino ' ''<Left>
 "or: ino ( ()<ESC>i
-ino " ""<Left>
-ino ( ()<Left>
-ino < <><Left>
-ino { {}<Left>
-ino [ []<Left>
-ino ( ()<Left>
+"ino " ""<Left>
+"ino ( ()<Left>
+"ino < <><Left>
+"ino { {}<Left>
+"ino [ []<Left>
+"ino ( ()<Left>
 
