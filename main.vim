@@ -11,10 +11,20 @@
 " Utility {
     " Reads a file with the variables resolved and writes into buffer
     fun! ExpandBuffer(file)
-        "disable format and indent temporarily
-        setl fo-=c fo-=r fo-=o
-        setl noai nocin nosi inde=
+        if !filereadable(a:file)
+            return
+        endif
 
+        " store current formats
+        let old_fo = &formatoptions
+        let old_inde = &indentexpr
+        let old_ai = &autoindent
+        let old_ci = &cindent
+        let old_si = &smartindent
+        " disable format and indent temporarily
+        setl fo-=c fo-=r fo-=o   
+        setl noai nocin nosi inde=
+        " expand
         let lines = ""
         for line in readfile(a:file)
             if line =~ '^[^#].*\$'
@@ -23,6 +33,18 @@
             let lines = lines.line."\n"
         endfor
         exe "normal!i".lines
+        " restore old formats
+        exe "setl fo=".old_fo
+        exe "setl inde=".old_inde
+        if old_ai
+            set ai
+        endif
+        if old_ci
+            set ci
+        endif
+        if old_si
+            set si
+        endif
     endfun
 
     fun! IsProgram()
@@ -308,6 +330,10 @@
 
 "=============Plugin settings=============
 
+" Pathogen {
+    call pathogen#infect() " load other plugins
+" }
+
 " NerdTree {
     "load NERDTree on startup, but command line alias is prefered
     "au VimEnter * NERDTree
@@ -318,7 +344,7 @@
     nmap <silent> <ESC>e :NERDTreeToggle<CR>:NERDTreeMirror<CR>
     "nmap <ESC>e :NERDTreeToggle<CR><C-W><C-S><C-W><C-J>:BufExplorer<CR>
 
-    let NERDTreeIgnore=['\.o', '\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr']
+    let NERDTreeIgnore=['\.o', '\.class', '\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr']
     "set autochdir
     let NERDTreeChDirMode = 2
     nn <leader><leader> :NERDTree .<CR>

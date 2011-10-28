@@ -1,3 +1,3 @@
 " HTML-specific vimscript
 
-so ~/.vim/ftplugin/xmledit.vim 
+so ~/.vim/bundle/xmledit/ftplugin/xml.vim 
