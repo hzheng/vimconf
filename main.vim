@@ -50,6 +50,38 @@
     fun! IsProgram()
         return index(["c","cpp","java","cs","objc","python","ruby","perl","php","javascript"], &filetype) >= 0
     endfun
+
+    fun! GetUrl()
+        let target = expand('<cfile>')
+        if target == ""
+            return ""
+        endif
+
+        if matchstr(target, '[a-z]*:\/\/[^ ]*') != ""
+            return target
+        endif
+
+        let target = expand(target)
+        if filereadable(target)
+            return target
+        elseif isdirectory(target)
+            return target
+        else
+            return "http://".target
+        endif
+    endfun
+
+    fun! OpenUrl()
+        let url = GetUrl()
+        if url == ""
+            echo "empty target"
+            return
+        endif
+        
+        " mac
+        "echo url
+        exe "!open ".url
+    endfun
 " }
 
 " Format(indentation, tab etc.) {
@@ -132,7 +164,7 @@
 
     " fast input {
         nn  <CR>         i<CR>
-        nn  <Space>      i<Space>
+        "nn  <Space>      i<Space>
         nn  <BS>         i<BS>
     " }
 
@@ -188,10 +220,10 @@
     nmap <ESC>v   <c-w>v
     nmap <ESC>s   <c-w>s
     "nmap <ESC>q   <c-w>q
-    nmap <ESC>j   <c-w>j
-    nmap <ESC>k   <c-w>k
-    nmap <ESC>h   <c-w>h
-    nmap <ESC>l   <c-w>l
+    nmap <leader>j   <c-w>j
+    nmap <leader>k   <c-w>k
+    nmap <leader>h   <c-w>h
+    nmap <leader>l   <c-w>l
     nmap <leader>n <c-w>n
     nmap <leader>o <c-w>o
 
@@ -211,8 +243,8 @@
     " avoid conflicting with 'q' command(for recording)
     " all the following use single letter not only for quick type, but also
     " for quick response(same prefix will delay vim)
-    nmap <leader>q   :q<CR>
-    nmap <leader>Q   :q!<CR>
+    nmap <leader><leader> :q<CR>
+    nmap <leader>q   :q!<CR>
     nmap <leader>x   :qa<CR>
     nmap <leader>X   :qa!<CR>
 
@@ -265,6 +297,10 @@
         endif
     endfun
     au FileType * call FileTypeInit()
+" }
+
+" External {
+    nn <silent> <Leader>b :call OpenUrl()<CR><CR>
 " }
 
 " GUI {
@@ -347,7 +383,7 @@
     let NERDTreeIgnore=['\.o', '\.class', '\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr']
     "set autochdir
     let NERDTreeChDirMode = 2
-    nn <leader><leader> :NERDTree .<CR>
+    nn <leader>. :NERDTree .<CR>
     ca nt NERDTree
     ca bm Bookmark
 " }
@@ -361,8 +397,8 @@
     map <S-Down> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
     
     "nmap <ESC>t :TlistToggle<CR>
-    nmap <leader>l :TlistToggle<CR>
-    nmap <leader>u :TlistUpdate<CR>
+    "nmap <leader>l :TlistToggle<CR>
+    "nmap <leader>u :TlistUpdate<CR>
     let Tlist_Ctags_Cmd = '/usr/local/bin/ctags'
     let Tlist_Use_Right_Window = 1
     let Tlist_Show_One_File = 1 
@@ -395,16 +431,19 @@
     "nmap <leader>b :FufBuffer<CR>
     "nmap <ESC>f :FufFile<CR>
     "nmap <leader>f :FufFile<CR>
-    nmap <leader>g :FufTaggedFile<CR>
+    "nmap <leader>g :FufTaggedFile<CR>
     "nmap <leader>d :FufDir<CR>
-    nmap <leader>t :FufTag<CR>
+    "nmap <leader>t :FufTag<CR>
 " }
 
 " Command-T {
-    nmap <ESC>f :CommandT<CR>
-    nmap <ESC>b :CommandTBuffer<CR>
+    "nmap <ESC>f :CommandT<CR>
+    "nmap <ESC>b :CommandTBuffer<CR>
+    nmap <Space> :CommandTBuffer<CR>
+    nmap <S-Space> :CommandT<CR>
     "let g:CommandTSearchPath = $HOME . '$HOME/Projects'
     let g:CommandTMatchWindowAtTop = 1
+    let g:CommandTMaxFiles = 100000
 " }
 
 " SuperTab {
