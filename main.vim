@@ -102,7 +102,7 @@
     set ai " Turn on automatic indentation.
     set sw=4  " Set shift width or the size of an indentation.
     " disable auto indentation
-    nn <leader>ni :setl noai nocin nosi inde=<CR>
+    nn <Leader>i :setl noai nocin nosi inde=<CR>
 
     set ts=8 "tab stop(or 4 in python?)
     set sts=4 " soft tab stop
@@ -121,28 +121,29 @@
       "au BufReadPre * setlocal foldmethod=indent
       "au BufWinEnter * if &fdm == 'indent' | setlocal foldmethod=manual | endif
     "augroup END
-    nmap <leader>f0 :set foldlevel=0<CR>
-    nmap <leader>f1 :set foldlevel=1<CR>
-    nmap <leader>f2 :set foldlevel=2<CR>
-    nmap <leader>f3 :set foldlevel=3<CR>
-    nmap <leader>f4 :set foldlevel=4<CR>
-    nmap <leader>f5 :set foldlevel=5<CR>
-    nmap <leader>f6 :set foldlevel=6<CR>
-    nmap <leader>f7 :set foldlevel=7<CR>
-    nmap <leader>f8 :set foldlevel=8<CR>
-    nmap <leader>f9 :set foldlevel=9<CR>
+    nmap <Leader>f0 :set foldlevel=0<CR>
+    nmap <Leader>f1 :set foldlevel=1<CR>
+    nmap <Leader>f2 :set foldlevel=2<CR>
+    nmap <Leader>f3 :set foldlevel=3<CR>
+    nmap <Leader>f4 :set foldlevel=4<CR>
+    nmap <Leader>f5 :set foldlevel=5<CR>
+    nmap <Leader>f6 :set foldlevel=6<CR>
+    nmap <Leader>f7 :set foldlevel=7<CR>
+    nmap <Leader>f8 :set foldlevel=8<CR>
+    nmap <Leader>f9 :set foldlevel=9<CR>
 " }
 
 " Search {
     set hls " Have vim highlight the target of a search.
     set is  " Do incremental searches.
     set ignorecase " Ignore case when search
+    nmap <Leader>c :set ignorecase! ignorecase?<CR>
     set scs " Set smart case
     set nowrapscan " No wrap scan when search
     " Turn search highlighting on and off
     "map  <F8>        :set hls!<bar>set hls?<CR>
-    map  <silent> <leader>/ :set hls!<bar>set hls?<CR>
-    "nmap <silent> <leader>/ :nohlsearch<CR>
+    nmap  <silent> <Leader>/ :set hls!<bar>set hls?<CR>
+    "nmap <silent> <Leader>/ :nohlsearch<CR>
     "imap <F8>        <ESC>:set hls!<bar>set hls?<CR>i
 " }
 
@@ -156,7 +157,7 @@
     set ta " Set textauto to recognize ^M files
     set report=0  " Report all change
     "set paste
-    "set pt=<leader>p  " paste toggle (sane indentation on pastes)
+    "set pt=<Leader>p  " paste toggle (sane indentation on pastes)
     
     "most input abbreviations should go to filetype-aware's scripts(under .vim/ftplugin)
 
@@ -170,7 +171,7 @@
         set dict+=/usr/share/dict/words " dictionary
         set thesaurus+=/usr/share/dict/mthesaur.txt " thesaurus
         "imap <Leader>s <C-o>:setlocal spell! spelllang=en_gb<CR>
-        nmap <Leader>s :setlocal spell! spelllang=en_gb<CR>
+        nmap <Leader>S :setlocal spell! spelllang=en_gb<CR>
     " }
 
     " Encoding {
@@ -215,23 +216,23 @@
     " window
     nmap <Tab>    <c-w>w
     "nmap <S-Tab>  <c-w>p
-    nmap <ESC>v   <c-w>v
-    nmap <ESC>s   <c-w>s
+    nmap <Leader>v   <c-w>v
+    nmap <Leader>s   <c-w>s
     "nmap <ESC>q   <c-w>q
-    nmap <leader>j   <c-w>j
-    nmap <leader>k   <c-w>k
-    nmap <leader>h   <c-w>h
-    nmap <leader>l   <c-w>l
-    nmap <leader>n <c-w>n
-    nmap <leader>o <c-w>o
+    nmap <Leader>j   <c-w>j
+    nmap <Leader>k   <c-w>k
+    nmap <Leader>h   <c-w>h
+    nmap <Leader>l   <c-w>l
+    nmap <Leader>N <c-w>n
+    nmap <Leader>o <c-w>o
 
     " Tab
     nmap <S-Tab>  :tabnew<CR>
 
     " Buffer navigation
-    nmap <ESC>d   :bd<CR>
-    nmap <ESC>n   :bn<CR>
-    nmap <ESC>p   :bp<CR>
+    nmap <Leader>d   :bd<CR>
+    nmap <Leader>n   :bn<CR>
+    nmap <Leader>p   :bp<CR>
     "map  <F5>       :prev<CR>
     "map  <F6>       :n<CR>
     "map  <S-F5>     :fir<CR>
@@ -241,10 +242,10 @@
     " avoid conflicting with 'q' command(for recording)
     " all the following use single letter not only for quick type, but also
     " for quick response(same prefix will delay vim)
-    nmap <leader><leader> :q<CR>
-    nmap <leader>q   :q!<CR>
-    nmap <leader>x   :qa<CR>
-    nmap <leader>X   :qa!<CR>
+    nmap <Leader><Leader> :q<CR>
+    nmap <Leader>q   :q!<CR>
+    nmap <Leader>x   :qa<CR>
+    nmap <Leader>X   :qa!<CR>
 
     imap <F5> <Esc>:up<cr>
     nmap <F5> :up<cr>
@@ -379,13 +380,13 @@
     au VimEnter * silent! wincmd p
 
     "map  :NERDTreeToggle
-    nmap <silent> <ESC>e :NERDTreeToggle<CR>:NERDTreeMirror<CR>
+    nmap <silent> <Leader>e :NERDTreeToggle<CR>:NERDTreeMirror<CR>
     "nmap <ESC>e :NERDTreeToggle<CR><C-W><C-S><C-W><C-J>:BufExplorer<CR>
 
     let NERDTreeIgnore=['\.o', '\.class', '\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr']
     "set autochdir
     let NERDTreeChDirMode = 2
-    nn <leader>. :NERDTree .<CR>
+    nn <Leader>. :NERDTree .<CR>
     ca nt NERDTree
     ca bm Bookmark
 " }
@@ -399,8 +400,8 @@
     map <S-Down> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
     
     "nmap <ESC>t :TlistToggle<CR>
-    "nmap <leader>l :TlistToggle<CR>
-    "nmap <leader>u :TlistUpdate<CR>
+    "nmap <Leader>l :TlistToggle<CR>
+    "nmap <Leader>u :TlistUpdate<CR>
     let Tlist_Ctags_Cmd = '/usr/local/bin/ctags'
     let Tlist_Use_Right_Window = 1
     let Tlist_Show_One_File = 1 
@@ -413,14 +414,14 @@
     "nmap <F6> :!/usr/local/bin/ctags -R .<CR>
 
 
-    nmap <ESC>t :TagbarToggle<CR>
+    nmap <Leader>t :TagbarToggle<CR>
     let g:tagbar_ctags_bin = '/usr/local/bin/ctags'
     let g:tagbar_autofocus = 1 " auto focus when open
 " }
 
 " BufExplorer {
-    "built-in <leader>be
-    "nmap <leader>b :BufExplorer<CR>
+    "built-in <Leader>be
+    "nmap <Leader>b :BufExplorer<CR>
     let g:bufExplorerSplitVertical = 1 
     let g:bufExplorerSortBy = 'mru'
     let g:bufExplorerUseCurrentWindow = 1
@@ -430,12 +431,12 @@
 
 " FuzzyFinder {
     "nmap <ESC>b :FufBuffer<CR>
-    "nmap <leader>b :FufBuffer<CR>
+    "nmap <Leader>b :FufBuffer<CR>
     "nmap <ESC>f :FufFile<CR>
-    "nmap <leader>f :FufFile<CR>
-    "nmap <leader>g :FufTaggedFile<CR>
-    "nmap <leader>d :FufDir<CR>
-    "nmap <leader>t :FufTag<CR>
+    "nmap <Leader>f :FufFile<CR>
+    "nmap <Leader>g :FufTaggedFile<CR>
+    "nmap <Leader>d :FufDir<CR>
+    "nmap <Leader>t :FufTag<CR>
 " }
 
 " Command-T {
@@ -462,7 +463,7 @@
     let g:snips_github=expand($USER_GITHUB)
     let g:github=expand($USER_GITHUB)
     "au FileType c,cpp,java,python,ruby,perl,php,objc,javascript,xml,html,xhtml,sh source ~/.vim/extra/snipMate.vim
-    "nn <leader>rs <esc>:exec ReloadAllSnippets()<cr>
+    "nn <Leader>rs <esc>:exec ReloadAllSnippets()<cr>
 " }
 
 " Tabular {  
@@ -492,7 +493,7 @@
     endfun
 
     "nmap <ESC>c :Calendar<CR>
-    nmap <leader>c :Calendar<CR>
+    nmap <Leader>C :Calendar<CR>
     "cmap cal Calendar<SPACE>
     "cmap caL CalendarH<SPACE>
     let calendar_diary = "$DIARY_DIR"
