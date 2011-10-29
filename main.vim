@@ -62,11 +62,9 @@
         endif
 
         let target = expand(target)
-        if filereadable(target)
+        if filereadable(target) || isdirectory(target)
             return target
-        elseif isdirectory(target)
-            return target
-        else
+        else " take it as a http site
             return "http://".target
         endif
     endfun
@@ -286,7 +284,6 @@
         if !strlen(filename)  " stdin
             "exe "normal! iempty filename"
         elseif filereadable(filename)
-            "exe "normal! i filename=(".filename.")"
             "exe "normal! i FileTypeInit old:" bufname("%") &filetype 
         elseif &modifiable "new modifiable file
             " load template
@@ -300,7 +297,8 @@
 " }
 
 " External {
-    nn <silent> <Leader>b :call OpenUrl()<CR><CR>
+    nn <silent> <S-CR> :call OpenUrl()<CR><CR>
+    nn <silent> <2-leftmouse> :call OpenUrl()<CR><CR>
 " }
 
 " GUI {
@@ -314,12 +312,16 @@
     "set selectmode=mouse,key
     "behave xterm
 
+    set term=$TERM " default
     if has('gui_running')
+        " put into .gvimrc?
         set guioptions-=T      " remove the toolbar
+        set fuopt=maxvert,maxhorz  " full screen
+        au GUIEnter * set fullscreen
         set lines=80           " default in my screen: 75
         set tabpagemax=15      " only show 15 tabs
     else
-        set term=builtin_ansi  " Make arrow and other keys work
+        "set term=builtin_ansi  " Make arrow and other keys work
     endif
 
     set sc " Show partially typed commands
@@ -341,13 +343,13 @@
         set stl+=%=%-14.(%l,%c%V%)\ %p%%\ of\ \%L  " Right aligned file nav info
 
         fun! InsertStatuslineColor(mode)
-          if a:mode == 'i'
-            hi statusline guibg=magenta
-          elseif a:mode == 'r'
-            hi statusline guibg=blue
-          else
-            hi statusline guibg=red
-          endif
+            if a:mode == 'i'
+                hi statusline guibg=magenta
+            elseif a:mode == 'r'
+                hi statusline guibg=blue
+            else
+                hi statusline guibg=red
+            endif
         endfun
 
         au InsertEnter * call InsertStatuslineColor(v:insertmode)
