@@ -73,3 +73,31 @@
         exe "!open ".url
     endfun
 " }
+
+" Format {
+    fun! ToggleColorColumn()
+        if !exists("&colorcolumn")
+            return
+        endif
+
+        if &colorcolumn == ""
+            set colorcolumn=+1
+        else
+            set colorcolumn=
+        endif
+    endfun
+
+    fun! ToggleNumber()
+        if exists("&relativenumber")
+            if &relativenumber
+                set number
+            elseif &number
+                set nonumber
+            else
+                set relativenumber
+            endif
+        else
+            set number!
+        endif
+    endfun
+" }

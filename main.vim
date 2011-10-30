@@ -4,8 +4,11 @@
 
 " Basic {
     set nocompatible " ignore vi compatibility
-    "let mapleader = ","   "will slow down search
-    let mapleader = "\\"
+    let mapleader = ","
+    "let mapleader = "\\"
+    "swap comma and backslash for convenience
+    nn , \
+    nn \ ,
     so $HOME/.vim/utils.vim " load basic utilities
 " }
 
@@ -85,13 +88,17 @@
     set report=0  " Report all change
     "set paste
     "set pt=<Leader>p  " paste toggle (sane indentation on pastes)
+
+    set gd " set g as default when substitute
     
     "most input abbreviations should go to filetype-aware's scripts(under .vim/ftplugin)
 
     " fast input {
         nn  <CR>         i<CR>
-        "nn  <Space>      i<Space>
+        nn  <Space>      i<Space>
         nn  <BS>         i<BS>
+        nn <leader>u=     yypVr=
+        nn <leader>u-     yypVr-
     " }
 
     " Spell {
@@ -115,6 +122,7 @@
 " File {
     set ar " Automatically read outside change
     set aw " Automatically write files as needed.
+    "au FocusLost * :wa  " Automatically save when focus is lost
 
     set wim=longest,full " Set wildmode
     " Suffixes to put to the end of the list when completing file names
@@ -236,6 +244,7 @@
 
     " Set mouse
     set mouse=a
+    set ttyfast
     "set selection=exclusive
     "set selectmode=mouse,key
     "behave xterm
@@ -291,6 +300,18 @@
     "hi cursorline guibg=#333333 
     " highlight cursor
     "hi CursorColumn guibg=#333333
+
+    " line {
+        nmap <Leader>CC :call ToggleColorColumn()<cr>
+
+        if exists("&relativenumber")
+            set relativenumber
+        else
+            set number
+        endif
+        nmap <F6> :call ToggleNumber()<cr>
+        imap <F6> <Esc>:call ToggleNumber()<cr>
+    " }
 " }
 
 
@@ -369,8 +390,8 @@
 " Command-T {
     "nmap <ESC>f :CommandT<CR>
     "nmap <ESC>b :CommandTBuffer<CR>
-    nmap <Space> :CommandTBuffer<CR>
     nmap <S-Space> :CommandT<CR>
+    nmap <Leader><Space> :CommandTBuffer<CR>
     nmap <Leader>y :CommandTFlush<CR>
     "let g:CommandTSearchPath = $HOME . '$HOME/Projects'
     let g:CommandTMatchWindowAtTop = 1
