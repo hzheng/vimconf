@@ -10,7 +10,7 @@
     nn , \
     nn \ ,
     call pathogen#infect() " generate plugins path
-    let g:VIMCONF = expand('<sfile>:p')
+    call utils#init(expand('<sfile>:p')) " load utils.vim
     "run shell
     nmap <Leader>r :sh<CR> 
 " }
@@ -133,13 +133,34 @@
     " Patterns to put to ignore when completing file names
     set wig=*.bak,~,*.o,*.info,*.swp,*.class,*.pyc,.git,.svn
 
-    set dir=/tmp " Swap directory
+    " Swap directory(double slash means keep full path)
+    exe "set dir=".g:VIMTMP."swap//"
     set backup " Turn on backup
     set wb " Turn on write backup
-    set bdir=/tmp " Backup directory
+    " Backup directory
+    exe "set bdir=".g:VIMTMP."backup//"
     set bex=~ " Backup extension
 
+    if exists("&undofile")
+        set undofile
+        set undolevels=1000 "maximum number of changes that can be undone
+        set undoreload=10000 "maximum number lines to save for undo on a buffer reload
+        exe "set undodir=".g:VIMTMP."undo"
+    endif
+
+    " Save session
+    set ssop-=options " do not store global and local values in a session
+    "set ssop-=curdir
+    "set ssop+=sesdir
+
+    if has('gui_running') " auto change session only in GUI
+        au VimEnter * nested :call utils#LoadSession()
+        au VimLeave * :call utils#UpdateSession()
+    endif
+    nmap <Leader>m :call utils#CreateSession()<CR>
+
     " Save view records
+    exe "set viewdir=".g:VIMTMP."view/"
     au BufWinLeave * silent! mkview
     au BufWinEnter * silent! loadview
 

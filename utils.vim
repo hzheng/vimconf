@@ -1,8 +1,17 @@
 " Vim helper
 
-let g:VIMFILES = expand('<sfile>:p:h:h')
-let g:FTPLUGIN = g:VIMFILES."/ftplugin/"
-let g:TEMPLATES = g:VIMFILES."/templates/"
+" Environment {
+    fun! utils#init(conf)
+        let g:VIMCONF = a:conf
+    endfun
+
+    " the following can NOT be put into the above function due to sfile
+    let g:VIMFILES = expand('<sfile>:p:h:h')
+    let g:FTPLUGIN = g:VIMFILES."/ftplugin/"
+    let g:TEMPLATES = g:VIMFILES."/templates/"
+    let g:VIMTMP = g:VIMFILES."/tmp/"
+    let g:SESSIONS = g:VIMTMP."session/"
+" }
 
 " File {
     " filetype initialization
@@ -11,7 +20,7 @@ let g:TEMPLATES = g:VIMFILES."/templates/"
         " load extra script
         "au FileType xml source ~/.vim/extra/xml.vim
         "au BufNewFile,BufRead * silent! so ~/.vim/extra/%:e.vim
-        if utils#IsProgram()
+        if IsProgram()
             exe "silent! so ".g:FTPLUGIN."program.vim"
             " set tag file
             exe "set tags=~/tags/".&filetype
@@ -69,8 +78,44 @@ let g:TEMPLATES = g:VIMFILES."/templates/"
         endif
     endfun
 
-    fun! utils#IsProgram()
+    fun! IsProgram()
         return index(["c","cpp","java","cs","objc","python","ruby","perl","php","javascript"], &filetype) >= 0
+    endfun
+
+    fun! GetSessionDir()
+        return g:SESSIONS . getcwd()
+    endfun
+
+    fun! GetSessionFile()
+        return GetSessionDir() . "/session.vim"
+    endfun
+
+    fun! utils#CreateSession()
+        let sessiondir = GetSessionDir()
+        if (filewritable(sessiondir) != 2)
+            exe "silent !mkdir -p " sessiondir
+            redraw!
+        endif
+        exe "mksession! " GetSessionFile()
+    endfun
+
+    fun! utils#UpdateSession()
+        let sessionfile = GetSessionFile()
+        if (filereadable(sessionfile))
+            exe "mksession! " . sessionfile
+            echo "updating session"
+        endif
+    endfun
+
+    fun! utils#LoadSession()
+        if argc() == 0
+            let sessionfile = GetSessionFile()
+            if (filereadable(sessionfile))
+                exe "so" sessionfile
+            else
+                echo "No session loaded."
+            endif
+        endif
     endfun
 
     fun! utils#GetUrl()
