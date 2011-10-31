@@ -9,7 +9,10 @@
     "swap comma and backslash for convenience
     nn , \
     nn \ ,
-    so $HOME/.vim/utils.vim " load basic utilities
+    call pathogen#infect() " generate plugins path
+    let g:VIMCONF = expand('<sfile>:p')
+    "run shell
+    nmap <Leader>r :sh<CR> 
 " }
 
 " Format(indentation, tab etc.) {
@@ -204,37 +207,12 @@
             au! BufRead,BufNewFile *.pro    set filetype=prolog
     augroup END
 
-    " initialization
-    fun! FileTypeInit()
-        let filename = expand("%")
-        " load extra script
-        "au FileType xml source ~/.vim/extra/xml.vim
-        "au BufNewFile,BufRead * silent! so ~/.vim/extra/%:e.vim
-        if IsProgram()
-            exe "silent! so ~/.vim/ftplugin/program.vim"
-            " set tag file
-            exe "set tags=~/tags/".&filetype
-        endif
-        "exe "silent! so ~/.vim/ftplugin/".&filetype.".vim"
-
-        if !strlen(filename)  " stdin
-            "exe "normal! iempty filename"
-        elseif filereadable(filename)
-            "exe "normal! i FileTypeInit old:" bufname("%") &filetype 
-        elseif &modifiable "new modifiable file
-            " load template
-            "au BufNewFile * silent! 0r ~/.vim/templates/%:e | norm G
-            "exe "silent! 0r ~/.vim/templates/".&filetype
-            call ExpandBuffer(expand('~/.vim/templates/').&filetype)
-            exe "normal! G"
-        endif
-    endfun
-    au FileType * call FileTypeInit()
+    au FileType * call utils#FileTypeInit()
 " }
 
 " External {
-    nn <silent> <S-CR> :call OpenUrl()<CR><CR>
-    nn <silent> <2-leftmouse> :call OpenUrl()<CR><CR>
+    nn <silent> <S-CR> :call utils#OpenUrl()<CR><CR>
+    nn <silent> <2-leftmouse> :call utils#OpenUrl()<CR><CR>
 " }
 
 " GUI {
@@ -279,17 +257,7 @@
         "set stl+=\ [A=\%03.3b/H=\%02.2B] " ASCII / Hexadecimal value of char
         set stl+=%=%-14.(%l,%c%V%)\ %p%%\ of\ \%L  " Right aligned file nav info
 
-        fun! InsertStatuslineColor(mode)
-            if a:mode == 'i'
-                hi statusline guibg=magenta
-            elseif a:mode == 'r'
-                hi statusline guibg=blue
-            else
-                hi statusline guibg=red
-            endif
-        endfun
-
-        au InsertEnter * call InsertStatuslineColor(v:insertmode)
+        au InsertEnter * call utils#InsertStatuslineColor(v:insertmode)
         au InsertLeave * hi statusline guibg=green
         " default the statusline to green when entering Vim
         hi statusline guibg=green
@@ -302,24 +270,20 @@
     "hi CursorColumn guibg=#333333
 
     " line {
-        nmap <Leader>CC :call ToggleColorColumn()<cr>
+        nmap <Leader>CC :call utils#ToggleColorColumn()<cr>
 
         if exists("&relativenumber")
             set relativenumber
         else
             set number
         endif
-        nmap <F6> :call ToggleNumber()<cr>
-        imap <F6> <Esc>:call ToggleNumber()<cr>
+        nmap <F6> :call utils#ToggleNumber()<cr>
+        imap <F6> <Esc>:call utils#ToggleNumber()<cr>
     " }
 " }
 
 
 "=============Plugin settings=============
-
-" Pathogen {
-    call pathogen#infect() " load other plugins
-" }
 
 " NerdTree {
     "load NERDTree on startup, but command line alias is prefered
@@ -430,22 +394,13 @@
 " }
 
 " Calendar {
-    fun! InsertChineseDate()
-        exe 'normal! ggdd'
-        let path = split(expand("%"), "/")
-        if len(path) > 3
-            let date = path[len(path) - 3 :]
-            let day = substitute(date[2], ".cal", "日", "g")
-            exe "normal! i       " date[0]."年".date[1]."月".day
-            exe 'normal! o'
-        endif
-    endfun
 
     "nmap <ESC>c :Calendar<CR>
     nmap <Leader>C :Calendar<CR>
     "cmap cal Calendar<SPACE>
     "cmap caL CalendarH<SPACE>
     let calendar_diary = "$DIARY_DIR"
-    au BufNewFile *.cal read $HOME/.vim/templates/diary | call InsertChineseDate()
+    "au BufNewFile *.cal read $HOME/.vim/templates/diary | call InsertChineseDate()
+    au BufNewFile *.cal call utils#CalInit()
     "au BufNewFile,BufRead *.cal set ft=rst
 " }
