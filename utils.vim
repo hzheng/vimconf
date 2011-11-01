@@ -185,6 +185,89 @@
             hi statusline guibg=red
         endif
     endfun
+
+    fun! utils#TabLine()
+        let res = ''
+        let curtab = tabpagenr()
+        let i = 0
+
+        if has('win32')
+            let pat = '.\+\\'
+        else
+            let pat = '.\+/'
+        endif
+
+        for i in range(1, tabpagenr('$'))
+            let res .= ((i == curtab) ? '%#TabLineSel#' : '%#TabLine#')
+            let res .= ' '
+            let res .= substitute(bufname(tabpagebuflist(i)[0]), pat, '', 'g')
+            let res .= ' '
+            let i += 1
+        endfor
+
+        let res .= '%#TabLineFill#'
+        return res
+    endfun
+
+    fun! utils#GuiTabLabel()
+        let label = ''
+        let bufnrlist = tabpagebuflist(v:lnum)
+        " Add '+' if one of the buffers in the tab page is modified
+        for bufnr in bufnrlist
+            if getbufvar(bufnr, "&modified")
+                let label = '+'
+                break
+            endif
+        endfor
+        " Append the tab number
+        let label .= v:lnum.': '
+        " Append the buffer name
+        let name = bufname(bufnrlist[tabpagewinnr(v:lnum) - 1])
+        if name == ''
+            " give a name to no-name documents
+            if &buftype == 'quickfix'
+                let name = '[Quickfix List]'
+            else
+                let name = '[No Name]'
+            endif
+        else
+            " get only the file name
+            let name = fnamemodify(name, ":t")
+        endif
+        let label .= name
+        " Append the number of windows in the tab page
+        let wincount = tabpagewinnr(v:lnum, '$')
+        return label . '  [' . wincount . ']'
+    endfun
+
+    fun! utils#GuiTabToolTip()
+        let tip = ''
+        for bufnr in tabpagebuflist(v:lnum)
+            " separate buffer entries
+            if tip != ''
+                let tip .= " \n "
+            endif
+            " Add name of buffer
+            let name = bufname(bufnr)
+            if name == ''
+                " give a name to no name documents
+                if getbufvar(bufnr, '&buftype') == 'quickfix'
+                    let name = '[Quickfix List]'
+                else
+                    let name = '[No Name]'
+                endif
+            endif
+            let tip .= name
+            " add modified/modifiable flags
+            if getbufvar(bufnr, "&modified")
+                let tip .= ' [+]'
+            endif
+            if getbufvar(bufnr, "&modifiable") == 0
+                let tip .= ' [-]'
+            endif
+        endfor
+        return tip
+    endfun
 " }
 
 " Calendar {

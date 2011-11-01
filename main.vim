@@ -35,7 +35,7 @@
     set ai " Turn on automatic indentation.
     set sw=4  " Set shift width or the size of an indentation.
     " disable auto indentation
-    nn <Leader>i :setl noai nocin nosi inde=<CR>
+    nn <Leader>I :setl noai nocin nosi inde=<CR>
 
     set ts=8 "tab stop(or 4 in python?)
     set sts=4 " soft tab stop
@@ -70,7 +70,8 @@
     set hls " Have vim highlight the target of a search.
     set is  " Do incremental searches.
     set ignorecase " Ignore case when search
-    nmap <Leader>c :set ignorecase! ignorecase?<CR>
+    " Toggle case ignore
+    nmap <Leader>C :set ignorecase! ignorecase?<CR>
     set scs " Set smart case
     set nowrapscan " No wrap scan when search
     " Turn search highlighting on and off
@@ -104,10 +105,15 @@
         nn <leader>u-     yypVr-
     " }
 
+    " block editing {
+        vmap <Tab>   >gv
+        vmap <S-Tab> <gv
+    " }
+
     " Spell {
         set dict+=/usr/share/dict/words " dictionary
         set thesaurus+=/usr/share/dict/mthesaur.txt " thesaurus
-        "imap <Leader>s <C-o>:setlocal spell! spelllang=en_gb<CR>
+        " Toggle spell checking
         nmap <Leader>S :setlocal spell! spelllang=en_gb<CR>
     " }
 
@@ -157,7 +163,7 @@
         au VimEnter * nested :call utils#LoadSession()
         au VimLeave * :call utils#UpdateSession()
     endif
-    nmap <Leader>m :call utils#CreateSession()<CR>
+    nmap <Leader>CS :call utils#CreateSession()<CR>
 
     " Save view records
     exe "set viewdir=".g:VIMTMP."view/"
@@ -174,19 +180,27 @@
 " Window/Tab/Buffer {
     " window
     nmap <Tab>    <c-w>w
-    "nmap <S-Tab>  <c-w>p
+    nmap <Leader>P  <c-w>p
     nmap <Leader>v   <c-w>v
     nmap <Leader>s   <c-w>s
     "nmap <ESC>q   <c-w>q
-    nmap <Leader>j   <c-w>j
-    nmap <Leader>k   <c-w>k
-    nmap <Leader>h   <c-w>h
-    nmap <Leader>l   <c-w>l
-    nmap <Leader>N <c-w>n
-    nmap <Leader>o <c-w>o
+    "nmap <Leader>j   <c-w>j
+    nmap <down>      <c-w>j
+    "nmap <Leader>k   <c-w>k
+    nmap <up>        <c-w>k
+    "nmap <Leader>h   <c-w>h
+    nmap <left>      <c-w>h
+    "nmap <Leader>l   <c-w>l
+    nmap <right>     <c-w>l
+    nmap <Leader>N   <c-w>n
+    nmap <Leader>O   <c-w>o
 
     " Tab
-    nmap <S-Tab>  :tabnew<CR>
+    nmap <S-Tab>    :tabnew<CR>
+    nmap <C-left>   :tabprevious<CR>
+    nmap <C-right>  :tabNext<CR>
+    nmap <C-up>     :tabfirst<CR>
+    nmap <C-down>   :tablast<CR>
 
     " Buffer navigation
     nmap <Leader>d   :bd<CR>
@@ -233,7 +247,7 @@
 
 " External {
     nn <silent> <S-CR> :call utils#OpenUrl()<CR><CR>
-    nn <silent> <2-leftmouse> :call utils#OpenUrl()<CR><CR>
+    nn <silent> <S-leftmouse> :call utils#OpenUrl()<CR><CR>
 " }
 
 " GUI {
@@ -250,14 +264,20 @@
 
     set term=$TERM " default
     if has('gui_running')
-        " put into .gvimrc?
-        set guioptions-=T      " remove the toolbar
-        set fuopt=maxvert,maxhorz  " full screen
-        au GUIEnter * set fullscreen
-        set lines=80           " default in my screen: 75
-        set tabpagemax=15      " only show 15 tabs
+        " mostly are put into .gvimrc
     else
         "set term=builtin_ansi  " Make arrow and other keys work
+        " tab
+        set tabline=%!utils#TabLine()
+        hi TabLineSel ctermfg=red ctermbg=gray cterm=NONE 
+        hi TabLineFill ctermfg=darkgray ctermbg=NONE cterm=underline 
+        hi TabLine ctermfg=darkgray ctermbg=NONE cterm=underline
+        " cursor
+        set cursorline
+        hi CursorLine ctermbg=lightgray cterm=NONE
+        set cursorcolumn
+        hi CursorColumn ctermbg=lightgray
+        " highlight cursor
     endif
 
     set sc " Show partially typed commands
@@ -277,18 +297,7 @@
         "set stl+=\ [%{getcwd()}]          " current dir
         "set stl+=\ [A=\%03.3b/H=\%02.2B] " ASCII / Hexadecimal value of char
         set stl+=%=%-14.(%l,%c%V%)\ %p%%\ of\ \%L  " Right aligned file nav info
-
-        au InsertEnter * call utils#InsertStatuslineColor(v:insertmode)
-        au InsertLeave * hi statusline guibg=green
-        " default the statusline to green when entering Vim
-        hi statusline guibg=green
     endif
-
-    "set cursorline
-    " highlight bg color of current line
-    "hi cursorline guibg=#333333 
-    " highlight cursor
-    "hi CursorColumn guibg=#333333
 
     " line {
         nmap <Leader>CC :call utils#ToggleColorColumn()<cr>
@@ -380,7 +389,7 @@
     nmap <Leader>y :CommandTFlush<CR>
     "let g:CommandTSearchPath = $HOME . '$HOME/Projects'
     let g:CommandTMatchWindowAtTop = 1
-    let g:CommandTMaxFiles = 100000
+    let g:CommandTMaxFiles = 20000
 " }
 
 " SuperTab {
@@ -417,7 +426,7 @@
 " Calendar {
 
     "nmap <ESC>c :Calendar<CR>
-    nmap <Leader>C :Calendar<CR>
+    nmap <Leader>Ca :Calendar<CR>
     "cmap cal Calendar<SPACE>
     "cmap caL CalendarH<SPACE>
     let calendar_diary = "$DIARY_DIR"
