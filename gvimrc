@@ -35,6 +35,7 @@
 
 
 " Cursor {
+    hi Cursor guibg=#ffa500 guifg=bg gui=NONE
     set cursorline
     hi CursorLine guibg=lightblue
     set cursorcolumn

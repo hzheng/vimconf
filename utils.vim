@@ -220,7 +220,7 @@
             endif
         endfor
         " Append the tab number
-        let label .= v:lnum.': '
+        let label .= v:lnum . ': '
         " Append the buffer name
         let name = bufname(bufnrlist[tabpagewinnr(v:lnum) - 1])
         if name == ''

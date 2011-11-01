@@ -253,6 +253,7 @@
 " GUI {
     "set background=light
     "color spring            " load a colorscheme
+    "color moria
     syntax on " Turn on syntax highlighting
 
     " Set mouse
