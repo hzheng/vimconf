@@ -90,7 +90,7 @@
         return GetSessionDir() . "/session.vim"
     endfun
 
-    fun! utils#CreateSession()
+    fun! utils#SaveSession()
         let sessiondir = GetSessionDir()
         if (filewritable(sessiondir) != 2)
             exe "silent !mkdir -p " sessiondir
@@ -215,7 +215,7 @@
         " Add '+' if one of the buffers in the tab page is modified
         for bufnr in bufnrlist
             if getbufvar(bufnr, "&modified")
-                let label = '+'
+                let label .= '+'
                 break
             endif
         endfor
@@ -235,9 +235,12 @@
             let name = fnamemodify(name, ":t")
         endif
         let label .= name
-        " Append the number of windows in the tab page
+        " Append the number of windows in the tab page if more than 1
         let wincount = tabpagewinnr(v:lnum, '$')
-        return label . '  [' . wincount . ']'
+        if wincount > 1
+            let label .= " [" . wincount . "]"
+        endif
+        return label
     endfun
 
     fun! utils#GuiTabToolTip()

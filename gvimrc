@@ -6,7 +6,9 @@
     au GUIEnter * set fullscreen
     set guioptions-=T      " remove the toolbar
     set guioptions-=m      " remove the menu
+    "set guioptions=mcr
     set lines=80           " default in my screen: 75
+    "set background=dark
 " }
 
 " Status line {
@@ -25,6 +27,7 @@
 
     " guitablabel MUST be put into .gvimrc instead of .vimrc
     " since it's configured in MacVim's gvimrc
+    "set guitablabel=%t
     set guitablabel=%{utils#GuiTabLabel()}
  
     " The following take not effect(?)
@@ -37,7 +40,7 @@
 " Cursor {
     hi Cursor guibg=#ffa500 guifg=bg gui=NONE
     set cursorline
-    hi CursorLine guibg=lightblue
+    hi CursorLine guibg=lightgray
     set cursorcolumn
-    hi CursorColumn guibg=lightblue
+    hi CursorColumn guibg=lightgray
 " }

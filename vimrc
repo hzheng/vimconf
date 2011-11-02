@@ -13,6 +13,8 @@
     call utils#init(expand('<sfile>:p')) " load utils.vim
     "run shell
     nmap <Leader>r :sh<CR> 
+
+    set history=100
 " }
 
 " Format(indentation, tab etc.) {
@@ -153,17 +155,23 @@
         set undoreload=10000 "maximum number lines to save for undo on a buffer reload
         exe "set undodir=".g:VIMTMP."undo"
     endif
+" }
 
+" Save state {
     " Save session
     set ssop-=options " do not store global and local values in a session
     "set ssop-=curdir
     "set ssop+=sesdir
+    set ssop-=blank   " do not store empty windows(avoid nerdtree problem)
 
     if has('gui_running') " auto change session only in GUI
         au VimEnter * nested :call utils#LoadSession()
         au VimLeave * :call utils#UpdateSession()
     endif
-    nmap <Leader>CS :call utils#CreateSession()<CR>
+    nmap <Leader>SS :call utils#SaveSession()<CR>
+
+    " Save viminfo
+    exe "set viminfo+=n".g:VIMTMP."viminfo"
 
     " Save view records
     exe "set viewdir=".g:VIMTMP."view/"
