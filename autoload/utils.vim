@@ -47,36 +47,14 @@
             return
         endif
 
-        " store current formats
-        let old_fo = &formatoptions
-        let old_inde = &indentexpr
-        let old_ai = &autoindent
-        let old_ci = &cindent
-        let old_si = &smartindent
-        " disable format and indent temporarily
-        setl fo-=c fo-=r fo-=o   
-        setl noai nocin nosi inde=
-        " expand
-        let lines = ""
-        for line in readfile(a:file)
-            if line =~ '^[^#].*\$'
-                let line = expand(line)
+        exe "read " a:file
+        exe ":1d"
+        for linenum in range(1, line('$'))
+            let line = getline(linenum)
+            if line =~ '\$'
+                call setline(linenum, expand(line))
             endif
-            let lines = lines.line."\n"
         endfor
-        exe "normal!i".lines
-        " restore old formats
-        exe "setl fo=".old_fo
-        exe "setl inde=".old_inde
-        if old_ai
-            set ai
-        endif
-        if old_ci
-            set ci
-        endif
-        if old_si
-            set si
-        endif
     endfun
 
     fun! IsProgram()

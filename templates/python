@@ -4,7 +4,7 @@
 """.
 """
 
-__author__ = "$USER_FULLNAME""
+__author__ = "$USER_FULLNAME"
 __copyright__ = "$USER_COPYRIGHT"
 __credits__ = ["$USER_FULLNAME"]
 __license__ = "$USER_LICENSE"

@@ -137,7 +137,8 @@
 " File {
     set ar " Automatically read outside change
     set aw " Automatically write files as needed.
-    "au FocusLost * :wa  " Automatically save when focus is lost
+    " Automatically save when focus is lost
+    au BufLeave,FocusLost * silent! wa
 
     set wim=longest,full " Set wildmode
     " Suffixes to put to the end of the list when completing file names
