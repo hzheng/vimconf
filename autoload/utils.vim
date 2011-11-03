@@ -7,6 +7,7 @@
 
     " the following can NOT be put into the above function due to sfile
     let g:VIMFILES = expand('<sfile>:p:h:h')
+    let g:BUNDLE = g:VIMFILES."/bundle/"
     let g:FTPLUGIN = g:VIMFILES."/ftplugin/"
     let g:TEMPLATES = g:VIMFILES."/templates/"
     let g:VIMTMP = g:VIMFILES."/tmp/"

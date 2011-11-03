@@ -1,0 +1,48 @@
+[submodule "bundle/pathogen"]
+	path = bundle/pathogen
+	url = https://github.com/tpope/vim-pathogen.git
+[submodule "bundle/calendar"]
+	path = bundle/calendar
+	url = https://github.com/mattn/calendar-vim.git
+[submodule "bundle/command-t"]
+	path = bundle/command-t
+	url = https://github.com/wincent/Command-T.git
+[submodule "bundle/nerdtree"]
+	path = bundle/nerdtree
+	url = https://github.com/vim-scripts/The-NERD-tree.git
+[submodule "bundle/nerdcommenter"]
+	path = bundle/nerdcommenter
+	url = https://github.com/scrooloose/nerdcommenter.git
+[submodule "bundle/snipmate"]
+	path = bundle/snipmate
+	url = https://github.com/msanders/snipmate.vim.git
+[submodule "bundle/matchit"]
+	path = bundle/matchit
+	url = https://github.com/vim-scripts/matchit.zip.git
+[submodule "bundle/xmledit"]
+	path = bundle/xmledit
+	url = https://github.com/sukima/xmledit.git
+[submodule "bundle/supertab"]
+	path = bundle/supertab
+	url = https://github.com/ervandew/supertab.git
+[submodule "bundle/surround"]
+	path = bundle/surround
+	url = https://github.com/tpope/vim-surround.git
+[submodule "bundle/tagbar"]
+	path = bundle/tagbar
+	url = https://github.com/majutsushi/tagbar
+[submodule "bundle/tabular"]
+	path = bundle/tabular
+	url = https://github.com/godlygeek/tabular.git
+[submodule "bundle/pydiction"]
+	path = bundle/pydiction
+	url = https://github.com/vim-scripts/Pydiction.git
+[submodule "bundle/vst"]
+	path = bundle/vst
+	url = https://github.com/vim-scripts/VST.git
+[submodule "bundle/python-syntax"]
+	path = bundle/python-syntax
+	url = https://github.com/vim-scripts/python.vim--Vasiliev.git
+[submodule "bundle/javascript-syntax"]
+	path = bundle/javascript-syntax
+	url = https://github.com/othree/javascript-syntax.vim.git

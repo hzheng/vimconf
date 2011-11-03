@@ -9,8 +9,12 @@
     "swap comma and backslash for convenience
     nn , \
     nn \ ,
-    call pathogen#infect() " generate plugins path
+
     call utils#init(expand('<sfile>:p')) " load utils.vim
+    " manually load pathogen for sake of git submodule
+    runtime bundle/pathogen/autoload/pathogen.vim
+    call pathogen#infect() " generate plugins path
+
     "run shell
     nmap <Leader>r :sh<CR> 
 
@@ -344,7 +348,6 @@
 
 " Tag, TagList, Tagbar {
     "set completeopt=longest,menu
-    ino <S-Space> <C-X><C-O>
     map <S-Left> <C-T>
     map <S-Right> <C-]>
     map <S-Up> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
@@ -401,7 +404,10 @@
     let g:CommandTMaxFiles = 20000
 " }
 
-" SuperTab {
+" AutoCompletion(SuperTab) {
+    " Omni completion
+    ino <S-Space> <C-X><C-O>
+
     let g:SuperTabDefaultCompletionType = "context"
     "let g:SuperTabMappingTabLiteral = '<c-tab>' " default
     "let g:SuperTabCrMapping = 0
