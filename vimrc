@@ -246,14 +246,6 @@
     "set ofu=syntaxcomplete#Complete
     filetype indent on
 
-    augroup filetype
-            au!
-            au! BufRead,BufNewFile *.jsp    set filetype=xml
-            au! BufRead,BufNewFile *.jspf   set filetype=xml
-            au! BufRead,BufNewFile *.tag    set filetype=xml
-            au! BufRead,BufNewFile *.pro    set filetype=prolog
-    augroup END
-
     au FileType * call utils#FileTypeInit()
 " }
 
