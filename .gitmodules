@@ -46,3 +46,6 @@
 [submodule "bundle/javascript-syntax"]
 	path = bundle/javascript-syntax
 	url = https://github.com/othree/javascript-syntax.vim.git
+[submodule "bundle/markdown"]
+	path = bundle/markdown
+	url = https://github.com/tpope/vim-markdown.git
