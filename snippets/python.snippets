@@ -5,36 +5,29 @@ snippet doc
 	"""${1:doc}"""
 
 # New Class
-snippet cl
+snippet C
 	class ${1:ClassName}(${2:object}):
 		"""${3:$1}"""
 		def __init__(self):
 			${4}
 
-snippet cls
-	class ${1:ClassName}(${2:object}):
-		"""${3:$1}"""
-		def __init__(self, ${4:arg}):
-			${5:super($1, self).__init__()}
-			self.$4 = $4
-			${6}
 # New Function/Method
-snippet def
+snippet df
 	def ${1:fname}(${2:`indent('.') ? 'self' : ''`}):
 		${3}
-snippet deff
+snippet dff
 	def ${1:fname}(${2:`indent('.') ? 'self' : ''`}):
 		"""${3:$1}"""
 		${4:pass}
-snippet defa
+snippet dfa
 	def ${1:mname}(self, ${2:arg}):
 		${3:pass}
 
-snippet defc
+snippet dfc
 	@classmethod
 	def ${1:mname}(cls):
 
-snippet defs
+snippet dfs
 	@staticmethod
 	def ${1:mname}():
 
