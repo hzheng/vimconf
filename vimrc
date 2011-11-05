@@ -4,21 +4,18 @@
 
 " Basic {
     set nocompatible " ignore vi compatibility
-    let mapleader = ","
+    set history=100
+    "run shell
+    nmap <Leader>r :sh<CR> 
+
+     let mapleader = ","
     "let mapleader = "\\"
     "swap comma and backslash for convenience
     nn , \
     nn \ ,
 
-    call utils#init(expand('<sfile>:p')) " load utils.vim
-    " manually load pathogen for sake of git submodule
-    runtime bundle/pathogen/autoload/pathogen.vim
-    call pathogen#infect() " generate plugins path
-
-    "run shell
-    nmap <Leader>r :sh<CR> 
-
-    set history=100
+    " load utils.vim to perform some initialization
+    call utils#init(expand('<sfile>:p'))
 " }
 
 " Format(indentation, tab etc.) {
@@ -145,18 +142,18 @@
     set wig=*.bak,~,*.o,*.info,*.swp,*.class,*.pyc,.git,.svn
 
     " Swap directory(double slash means keep full path)
-    exe "set dir=".g:VIMTMP."swap//"
+    exe "set dir=". g:VIMTMP . "/swap//"
     set backup " Turn on backup
     set wb " Turn on write backup
     " Backup directory
-    exe "set bdir=".g:VIMTMP."backup//"
+    exe "set bdir=". g:VIMTMP . "/backup//"
     set bex=~ " Backup extension
 
     if exists("&undofile")
         set undofile
         set undolevels=1000 "maximum number of changes that can be undone
         set undoreload=10000 "maximum number lines to save for undo on a buffer reload
-        exe "set undodir=".g:VIMTMP."undo"
+        exe "set undodir=". g:VIMTMP . "/undo"
     endif
 " }
 
@@ -174,10 +171,10 @@
     nmap <Leader>SS :call utils#SaveSession()<CR>
 
     " Save viminfo
-    exe "set viminfo+=n".g:VIMTMP."viminfo"
+    exe "set viminfo+=n" . g:VIMTMP . "/viminfo"
 
     " Save view records
-    exe "set viewdir=".g:VIMTMP."view/"
+    exe "set viewdir=". g:VIMTMP . "/view"
     au BufWinLeave * silent! mkview
     au BufWinEnter * silent! loadview
 

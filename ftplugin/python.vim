@@ -6,7 +6,7 @@
 "autocmd FileType python set omnifunc=pythoncomplete#Complete
 
 " PyDiction {
-    let g:pydiction_location = g:BUNDLE . 'pydiction/complete-dict'
+    let g:pydiction_location = g:BUNDLE_PATH . '/pydiction/complete-dict'
     let g:pydiction_menu_height = 20
     "set complete+=k~/.vim/bundle/pydiction iskeyword+=.,(
 " }

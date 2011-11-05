@@ -1,28 +1,36 @@
 " Vim helper
 
 " Environment {
+    " the following MUST be put outside the init function due to sfile
+    let g:VIMFILES = expand('<sfile>:p:h:h')
+
     fun! utils#init(conf)
         let g:VIMCONF = a:conf
-    endfun
 
-    " the following can NOT be put into the above function due to sfile
-    let g:VIMFILES = expand('<sfile>:p:h:h')
-    let g:BUNDLE = g:VIMFILES."/bundle/"
-    let g:FTPLUGIN = g:VIMFILES."/ftplugin/"
-    let g:TEMPLATES = g:VIMFILES."/templates/"
-    let g:VIMTMP = g:VIMFILES."/tmp/"
-    let g:SESSIONS = g:VIMTMP."session/"
+        let g:FTPLUGIN = g:VIMFILES . "/ftplugin"
+        let g:TEMPLATES = g:VIMFILES . "/templates"
+        let g:VIMTMP = g:VIMFILES . "/tmp"
+        let g:SESSIONS = g:VIMTMP . "/session"
+
+        let g:BUNDLE_DIR = "bundle"
+        let g:BUNDLE_PATH = g:VIMFILES. "/" . g:BUNDLE_DIR
+        " manually load pathogen for sake of git submodule
+        "runtime bundle/pathogen/autoload/pathogen.vim
+        exe "runtime " . g:BUNDLE_DIR . "/*/*/pathogen.vim"
+        " generate plugins path
+        call pathogen#infect(g:BUNDLE_DIR)
+    endfun
 " }
 
 " File {
     " filetype initialization
     fun! utils#FileTypeInit()
-        let filename = expand("%")
+        let filename = fnameescape(expand("%"))
         " load extra script
         "au FileType xml source ~/.vim/extra/xml.vim
         "au BufNewFile,BufRead * silent! so ~/.vim/extra/%:e.vim
         if IsProgram()
-            exe "silent! so ".g:FTPLUGIN."program.vim"
+            exe "so ". g:FTPLUGIN . "/program.vim"
             " set tag file
             exe "set tags=~/tags/".&filetype
         endif
@@ -36,7 +44,7 @@
             "au BufNewFile * silent! 0r ~/.vim/templates/%:e | norm G
             "exe "silent! 0r ~/.vim/templates/".&filetype
             "call utils#ExpandBuffer(expand('~/.vim/templates/').&filetype)
-            call utils#ExpandBuffer(g:TEMPLATES.&filetype)
+            call utils#ExpandBuffer(fnameescape(g:TEMPLATES . "/" . &filetype))
             exe "normal! G"
         endif
     endfun
@@ -62,7 +70,7 @@
     endfun
 
     fun! GetSessionDir()
-        return g:SESSIONS . getcwd()
+        return fnameescape(g:SESSIONS . getcwd())
     endfun
 
     fun! GetSessionFile()
@@ -254,7 +262,7 @@
 
 " Calendar {
     fun! utils#CalInit()
-        exe "read ".g:TEMPLATES."diary"
+        exe "read ". g:TEMPLATES . "/diary"
         call InsertChineseDate()
     endfun
 

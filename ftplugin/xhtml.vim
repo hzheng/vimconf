@@ -1,3 +1,3 @@
 " XHTML-specific vimscript
 
-exe "so " g:BUNDLE . 'xmledit/ftplugin/xml.vim'
+exe "so " g:BUNDLE_PATH . '/xmledit/ftplugin/xml.vim'
