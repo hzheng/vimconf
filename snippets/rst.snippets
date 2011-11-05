@@ -1,0 +1,139 @@
+# Headings
+snippet part
+	##############################
+	${1:part}
+	##############################
+	${2:part "$1"'s content}
+snippet chap
+	******************************
+	${1:chapter}
+	******************************
+	${2:chapter "$1"'s content}
+snippet sec
+	${1:section}
+	==============================
+	${2:section "$1"'s content}
+snippet ssec
+	${1:subsection}
+	------------------------------
+	${2:subsection "$1"'s content}
+snippet sssec
+	${1:subsubsection}
+	^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+	${2:subsubsection "$1"'s content}
+snippet par
+	${1:paragraph}
+	""""""""""""""""""""""""""""""
+	${2:paragraph "$1"'s content}
+
+# Links
+snippet ln
+	\`${1:title} <${2:http://}>`_
+
+snippet xtgt
+	.. _${1:target name}: ${2:http://}
+
+snippet tgt
+	.. _${1:target name}:
+
+	${2:"$1"'s title}
+
+snippet ref
+	:ref:\`${1:reference-label}`
+
+# Images
+snippet img
+	.. image:: ${1:url}
+	    :${2:align}: ${3:left}
+
+snippet fig
+	.. figure:: ${1:url}
+	    :${2:alt}: ${3:alt}
+
+	    ${4:caption}
+
+# Body elements
+snippet topic
+	.. topic:: ${1:topic title}
+
+	    ${2:topic body}
+
+snippet sb
+	.. sidebar:: ${1:sidebar title}
+	    :subtitle: ${2:subtitle}
+
+	    ${3:sidebar body}
+
+snippet epi
+	.. epigraph::
+
+	    ${1:epigraph phrase}
+
+	    -- ${2:attribution}
+	
+snippet hi
+	.. highlights::
+
+	    ${1:highlights phrase}
+	
+snippet pq
+	.. pull-quote::
+
+	    ${1:pull-quote phrase}
+	
+snippet math
+	.. math::
+
+	    ${1:math formula}
+	
+snippet rub
+	.. rubric:: ${1:rubric text}
+	
+snippet com
+	.. compound::
+
+	    ${1:compound content}
+	
+snippet contain
+	.. container:: ${1:container_class}
+
+	    ${2:container content}
+
+# Tables
+snippet tbl
+	.. table:: ${1:Table title}
+
+	    ${2:===== =====}
+
+snippet csv
+	.. csv-table:: ${1:CSV-table title}
+	    :header: ${2:headers}
+
+	    ${3:record}
+
+snippet list
+	.. list-table:: ${1:List-table title}
+
+	    ${2:* - }
+
+# Document Parts
+snippet content
+	.. contents:: ${1:Table of Contents}
+
+snippet head
+	.. header:: ${1:header text}
+
+snippet foot
+	.. footer:: ${1:footer text}
+
+# Substitution
+snippet replace
+	.. |${1:short text}| replace:: ${2:long text}
+
+snippet unicode
+	.. |${1:name}| unicode:: ${2:unicode}
+
+# Misc
+snippet inc
+	.. include:: ${1:included file}
+

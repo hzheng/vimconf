@@ -107,8 +107,6 @@
         nn  <CR>         i<CR>
         nn  <Space>      i<Space>
         nn  <BS>         i<BS>
-        nn <leader>u=     yypVr=
-        nn <leader>u-     yypVr-
     " }
 
     " block editing {
