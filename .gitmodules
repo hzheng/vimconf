@@ -49,3 +49,6 @@
 [submodule "bundle/markdown"]
 	path = bundle/markdown
 	url = https://github.com/tpope/vim-markdown.git
+[submodule "bundle/snipmate_for_django"]
+	path = bundle/snipmate_for_django
+	url = https://github.com/robhudson/snipmate_for_django.git
