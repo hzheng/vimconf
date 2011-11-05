@@ -16,6 +16,10 @@
 
     " load utils.vim to perform some initialization
     call utils#init(expand('<sfile>:p'))
+
+    if executable("ack") " improve grep if possible
+        set grepprg=ack\ -a
+    endif
 " }
 
 " Format(indentation, tab etc.) {
@@ -234,6 +238,8 @@
     "map  <F4>       :w<CR>
     "map! <F4>       <ESC>:w<CR>
     "map! <S-F4>     <ESC>ZZ
+
+    nmap <Leader>F   :call utils#ToggleQuickfix(0)<CR>
 " }
 
 " File type {

@@ -20,6 +20,8 @@
         " generate plugins path
         call pathogen#infect(g:BUNDLE_DIR)
     endfun
+
+    let g:QUICKFIX_HEIGHT = 20
 " }
 
 " File {
@@ -134,6 +136,25 @@
         "echo url
         exe "!open ".url
     endfun
+" }
+
+" Window {
+    " toggles the quickfix window.
+    fun! utils#ToggleQuickfix(forced)
+        if exists("g:quickfixWin") && a:forced == 0
+            cclose
+        else
+            exe "copen " . g:QUICKFIX_HEIGHT
+        endif
+    endfun
+
+    " track the quickfix window
+    augroup QuickFix
+        au!
+        au BufWinEnter quickfix let g:quickfixWin = bufnr("$")
+        au BufWinLeave * if exists("g:quickfixWin") && expand("<abuf>") == g:quickfixWin | unlet! g:quickfixWin | endif
+    augroup END
+
 " }
 
 " Format {
