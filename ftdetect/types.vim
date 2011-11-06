@@ -1,13 +1,44 @@
 " customize file types
 
-au BufRead,BufNewFile *.txt    set filetype=text
+au BufRead * call s:DetectType()
 
-au BufRead,BufNewFile *.jsp    set filetype=xml
-au BufRead,BufNewFile *.jsp    set filetype=xml
-au BufRead,BufNewFile *.jspf   set filetype=xml
-au BufRead,BufNewFile *.tag    set filetype=xml
+fun! s:DetectType()
+    if &ft == "python"
+        call s:SetDjango()
+    endif
+endfun
 
-"au BufRead,BufNewFile *.php    set filetype=php.html
+" Java {
+    au BufRead,BufNewFile *.jspf   set ft=jsp
+    au BufRead,BufNewFile *.tag    set ft=jsp
+    au BufRead,BufNewFile *.tagf   set ft=jsp
+" }
 
-au BufRead,BufNewFile *.pro    set filetype=prolog
+" Prolog {
+    au BufRead,BufNewFile *.pro    set ft=prolog
+" }
 
+" reST {
+    au BufRead,BufNewFile *.cal    set ft=rst
+" }
+
+" text {
+    au BufRead,BufNewFile *.txt    setf text
+" }
+
+" python {
+    fun! s:SetDjango()
+        let n = line("$")
+        if n > 100
+            let n = 100
+        endif
+        let i = 1
+        while i <= n
+            if getline(i) =~ "django"
+                set ft=python.django
+                break
+            endif
+            let i += 1
+        endwhile
+    endfun
+" }
