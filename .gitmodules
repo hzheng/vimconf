@@ -52,3 +52,6 @@
 [submodule "bundle/snipmate_for_django"]
 	path = bundle/snipmate_for_django
 	url = https://github.com/robhudson/snipmate_for_django.git
+[submodule "bundle/ack"]
+	path = bundle/ack
+	url = https://github.com/mileszs/ack.vim.git

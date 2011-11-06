@@ -16,10 +16,6 @@
 
     " load utils.vim to perform some initialization
     call utils#init(expand('<sfile>:p'))
-
-    if executable("ack") " improve grep if possible
-        set grepprg=ack\ -a
-    endif
 " }
 
 " Format(indentation, tab etc.) {
@@ -420,20 +416,19 @@
 
 " Tabular {  
 " if exists(":Tabularize")
-    nmap <Leader>a= :Tabularize /=<CR>
-    vmap <Leader>a= :Tabularize /=<CR>
-    nmap <Leader>a: :Tabularize /:<CR>
-    vmap <Leader>a: :Tabularize /:<CR>
-    nmap <Leader>a:: :Tabularize /:\zs<CR>
-    vmap <Leader>a:: :Tabularize /:\zs<CR>
-    nmap <Leader>a, :Tabularize /,<CR>
-    vmap <Leader>a, :Tabularize /,<CR>
-    nmap <Leader>a\ :Tabularize /<bar><CR>
-    vmap <Leader>a\ :Tabularize /<bar><CR>
+    nmap <Leader>z=  :Tabularize /=<CR>
+    vmap <Leader>z=  :Tabularize /=<CR>
+    nmap <Leader>z:  :Tabularize /:<CR>
+    vmap <Leader>z:  :Tabularize /:<CR>
+    nmap <Leader>z:: :Tabularize /:\zs<CR>
+    vmap <Leader>z:: :Tabularize /:\zs<CR>
+    nmap <Leader>z,  :Tabularize /,<CR>
+    vmap <Leader>z,  :Tabularize /,<CR>
+    nmap <Leader>z\  :Tabularize /<bar><CR>
+    vmap <Leader>z\  :Tabularize /<bar><CR>
 " }
 
 " Calendar {
-
     "nmap <ESC>c :Calendar<CR>
     nmap <Leader>Ca :Calendar<CR>
     "cmap cal Calendar<SPACE>
@@ -442,4 +437,12 @@
     "au BufNewFile *.cal read $HOME/.vim/templates/diary | call InsertChineseDate()
     au BufNewFile *.cal call utils#CalInit()
     "au BufNewFile,BufRead *.cal set ft=rst
+" }
+
+" Ack {
+    if executable("ack") " improve grep if possible
+        set grepprg=ack\ -a
+
+        nmap <Leader>a :Ack<SPACE>
+    endif
 " }

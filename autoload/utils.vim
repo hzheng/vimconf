@@ -151,7 +151,7 @@
     " track the quickfix window
     augroup QuickFix
         au!
-        au BufWinEnter quickfix let g:quickfixWin = bufnr("$")
+        au BufWinEnter quickfix let g:quickfixWin = bufnr("$") | set number
         au BufWinLeave * if exists("g:quickfixWin") && expand("<abuf>") == g:quickfixWin | unlet! g:quickfixWin | endif
     augroup END
 
