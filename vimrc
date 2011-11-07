@@ -234,8 +234,13 @@
     "map  <F4>       :w<CR>
     "map! <F4>       <ESC>:w<CR>
     "map! <S-F4>     <ESC>ZZ
+" }
 
+" Debug {
     nmap <Leader>F   :call utils#ToggleQuickfix(0)<CR>
+    nmap <Leader>dd  :cc<CR>
+    nmap <Leader>dn  :cn<CR>
+    nmap <Leader>dp  :cp<CR>
 " }
 
 " File type {
