@@ -68,7 +68,7 @@
     endfun
 
     fun! IsProgram()
-        return index(["c","cpp","java","cs","objc","python","ruby","perl","php","javascript"], &filetype) >= 0
+        return &filetype =~ '^\(c\|cpp\|java\|cs\|objc\|python\|ruby\|perl\|php\|javascript\)$'
     endfun
 
     fun! GetSessionDir()

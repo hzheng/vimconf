@@ -1,42 +1,56 @@
 " customize file types
 
-au BufRead * call s:DetectType()
+au BufRead,BufNewFile * call s:DetectType()
 
 fun! s:DetectType()
+    let filename = expand("%")
+
+    " check filetype
     if &ft == "python"
-        call s:SetDjango()
+        if s:MatchPattern("django") || s:MaybeDjango(filename)
+            set ft=python.django
+        endif
+        return
+    endif
+
+    " check extension
+    let extension = expand("%:e")
+    if extension =~ '^\(jspf\|tag\|tagf\)$'
+        "set ft=jsp
+        setf jsp
+    elseif extension == 'pro'
+        set ft=prolog
+    elseif extension == 'cal'
+        set ft=rst
+    elseif extension == 'txt'
+        setf text
     endif
 endfun
 
-" Java {
-    au BufRead,BufNewFile *.jspf   set ft=jsp
-    au BufRead,BufNewFile *.tag    set ft=jsp
-    au BufRead,BufNewFile *.tagf   set ft=jsp
+" Python {
+    fun! s:MaybeDjango(filename)
+        if a:filename =~ '^\(admin\|manage\|settings\|urls\|models\|views\|forms\)\.py$'
+            return 1
+        endif
+
+        let parentdir = expand("%:p:h:t")
+        if parentdir =~ '^\(settings\|urls\|models\|views\|forms\|templatetags\)$'
+            return 1
+        endif
+    endfun
 " }
 
-" Prolog {
-    au BufRead,BufNewFile *.pro    set ft=prolog
-" }
-
-" reST {
-    au BufRead,BufNewFile *.cal    set ft=rst
-" }
-
-" text {
-    au BufRead,BufNewFile *.txt    setf text
-" }
-
-" python {
-    fun! s:SetDjango()
+" utils {
+    fun! s:MatchPattern(pattern)
         let n = line("$")
         if n > 100
             let n = 100
         endif
         let i = 1
         while i <= n
-            if getline(i) =~ "django"
-                set ft=python.django
-                break
+            if getline(i) =~ a:pattern
+                "exe "set ft=" . a:ft
+                return 1
             endif
             let i += 1
         endwhile
