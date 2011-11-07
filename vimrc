@@ -451,3 +451,8 @@
         nmap <Leader>a :Ack<SPACE>
     endif
 " }
+
+" Pep8 {
+    "nmap <Leader>8   :call <SID>Pep8()<CR>
+    let g:pep8_map = '<Leader>8'
+" }

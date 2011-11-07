@@ -18,12 +18,21 @@ fun! s:DetectType()
     if extension =~ '^\(jspf\|tag\|tagf\)$'
         "set ft=jsp
         setf jsp
+        return
     elseif extension == 'pro'
         set ft=prolog
+        return
     elseif extension == 'cal'
         set ft=rst
+        return
     elseif extension == 'txt'
         setf text
+        return
+    endif
+
+    " check filename
+    if filename =~ '^\(TODO\|README\)$'
+        set ft=rst
     endif
 endfun
 
