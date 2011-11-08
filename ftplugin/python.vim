@@ -1,5 +1,11 @@
 " Python-specific vimscript
 
+if exists("_loaded_python_vim")
+    finish
+endif
+
+let _loaded_python_vim = 1
+
 " Define some abbreviations
 "imap im import
 
@@ -28,9 +34,21 @@ set nosmartindent "no smart indent
 " }
 
 " Ropevim {
-    map <leader>j :RopeGotoDefinition<CR>
-    map <leader>R :RopeRename<CR>
+    nmap <leader>j :RopeGotoDefinition<CR>
+    nmap <leader>R :RopeRename<CR>
 
     "let $PYTHONPATH .= ":" . g:BUNDLE_PATH . "/ropevim/ftplugin/python/libs/rope"
     let ropevim_vim_completion = 1
+" }
+
+" Pytest {
+    nmap <Leader>tt :Pytest<SPACE>
+    nmap <Leader>tf :Pytest file<CR>
+    nmap <Leader>tF :Pytest file verbose<CR>
+    nmap <Leader>tc :Pytest class<CR>
+    nmap <Leader>tC :Pytest class verbose<CR>
+    nmap <Leader>tm :Pytest method<CR>
+    nmap <Leader>tM :Pytest method verbose<CR>
+    nmap <Leader>te :Pytest error<CR>
+    nmap <Leader>ts :Pytest session<CR>
 " }

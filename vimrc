@@ -367,7 +367,7 @@
     "nmap <F6> :!/usr/local/bin/ctags -R .<CR>
 
 
-    nmap <Leader>t :TagbarToggle<CR>
+    nmap <Leader>T :TagbarToggle<CR>
     let g:tagbar_ctags_bin = '/usr/local/bin/ctags'
     let g:tagbar_autofocus = 1 " auto focus when open
 " }

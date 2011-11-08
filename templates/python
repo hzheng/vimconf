@@ -13,4 +13,3 @@ __maintainer__ = "$USER_FULLNAME"
 __email__ = "$USER_EMAIL"
 __status__ = "Production"
 
-import sys
