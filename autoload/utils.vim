@@ -41,8 +41,8 @@
             "exe "normal! iempty filename"
         elseif filereadable(filename)
             "exe "normal! i FileTypeInit old:" bufname("%") &filetype 
-        elseif &modifiable "new modifiable file
-            " load template
+        elseif &modifiable && &buftype == ""
+            " load template for new modifiable normal file
             "au BufNewFile * silent! 0r ~/.vim/templates/%:e | norm G
             "exe "silent! 0r ~/.vim/templates/".&filetype
             "call utils#ExpandBuffer(expand('~/.vim/templates/').&filetype)
@@ -57,8 +57,7 @@
             return
         endif
 
-        exe "read " a:file
-        exe ":1d"
+        exe "0r " a:file
         for linenum in range(1, line('$'))
             let line = getline(linenum)
             if line =~ '\$'
