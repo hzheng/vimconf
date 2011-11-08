@@ -5,10 +5,8 @@
 " Basic {
     set nocompatible " ignore vi compatibility
     set history=100
-    "run shell
-    nmap <Leader>r :sh<CR> 
 
-     let mapleader = ","
+    let mapleader = ","
     "let mapleader = "\\"
     "swap comma and backslash for convenience
     nn , \
@@ -16,6 +14,9 @@
 
     " load utils.vim to perform some initialization
     call utils#init(expand('<sfile>:p'))
+
+    "run shell
+    nmap <Leader>r :sh<CR> 
 " }
 
 " Format(indentation, tab etc.) {
@@ -101,7 +102,7 @@
     "most input abbreviations should go to filetype-aware's scripts(under .vim/ftplugin)
 
     " fast input {
-        nn  <CR>         i<CR>
+        "nn  <CR>         i<CR>
         nn  <Space>      i<Space>
         nn  <BS>         i<BS>
     " }
@@ -204,16 +205,18 @@
     nmap <Leader>O   <c-w>o
 
     " Tab
-    nmap <S-Tab>    :tabnew<CR>
-    nmap <C-left>   :tabprevious<CR>
-    nmap <C-right>  :tabNext<CR>
-    nmap <C-up>     :tabfirst<CR>
-    nmap <C-down>   :tablast<CR>
+    "nmap <S-Tab>    :tabnew<CR>
+    nmap <C-M-left>   :tabprevious<CR>
+    nmap <C-M-right>  :tabNext<CR>
+    nmap <C-M-up>     :tabfirst<CR>
+    nmap <C-M-down>   :tablast<CR>
 
     " Buffer navigation
-    nmap <Leader>d   :bd<CR>
-    nmap <Leader>n   :bn<CR>
-    nmap <Leader>p   :bp<CR>
+    nmap <C-BS>    :bd<CR>
+    nmap <C-left>   :bp<CR>
+    nmap <C-right>  :bn<CR>
+    nmap <C-up>     :bf<CR>
+    nmap <C-down>   :bl<CR>
     "map  <F5>       :prev<CR>
     "map  <F6>       :n<CR>
     "map  <S-F5>     :fir<CR>
@@ -343,6 +346,7 @@
 
 " Tag, TagList, Tagbar {
     "set completeopt=longest,menu
+    set completeopt=menuone,longest,preview
     map <S-Left> <C-T>
     map <S-Right> <C-]>
     map <S-Up> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
@@ -450,6 +454,14 @@
 
         nmap <Leader>a :Ack<SPACE>
     endif
+" }
+
+" Gundo {
+    nmap <leader>u :GundoToggle<CR>
+" }
+
+" Autoclose {
+    nmap <Leader>A <Plug>ToggleAutoCloseMappings
 " }
 
 " Pep8 {

@@ -64,3 +64,15 @@
 [submodule "bundle/pydoc"]
 	path = bundle/pydoc
 	url = https://github.com/fs111/pydoc.vim.git
+[submodule "bundle/autoclose"]
+	path = bundle/autoclose
+	url = https://github.com/andrewle/vim-autoclose.git
+[submodule "bundle/color_sampler_pack"]
+	path = bundle/color_sampler_pack
+	url = https://github.com/vim-scripts/Color-Sampler-Pack.git
+[submodule "bundle/gundo"]
+	path = bundle/gundo
+	url = https://github.com/sjl/gundo.vim.git
+[submodule "bundle/ropevim"]
+	path = bundle/ropevim
+	url = https://github.com/sontek/rope-vim.git

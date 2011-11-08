@@ -22,3 +22,15 @@ set nosmartindent "no smart indent
     nmap <Leader>k <Leader>pk<CR>
     "nmap <Leader>K <Leader>pK<CR>
 " }
+
+" Pyflakes {
+    "let g:pyflakes_use_quickfix = 0
+" }
+
+" Ropevim {
+    map <leader>j :RopeGotoDefinition<CR>
+    map <leader>R :RopeRename<CR>
+
+    "let $PYTHONPATH .= ":" . g:BUNDLE_PATH . "/ropevim/ftplugin/python/libs/rope"
+    let ropevim_vim_completion = 1
+" }

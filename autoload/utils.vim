@@ -13,7 +13,7 @@
         let g:SESSIONS = g:VIMTMP . "/session"
 
         let g:BUNDLE_DIR = "bundle"
-        let g:BUNDLE_PATH = g:VIMFILES. "/" . g:BUNDLE_DIR
+        let g:BUNDLE_PATH = g:VIMFILES . "/" . g:BUNDLE_DIR
         " manually load pathogen for sake of git submodule
         "runtime bundle/pathogen/autoload/pathogen.vim
         exe "runtime " . g:BUNDLE_DIR . "/*/*/pathogen.vim"
