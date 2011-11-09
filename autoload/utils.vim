@@ -4,24 +4,68 @@
     " the following MUST be put outside the init function due to sfile
     let g:VIMFILES = expand('<sfile>:p:h:h')
 
+    " TODO: support configuration file
     fun! utils#init(conf)
         let g:VIMCONF = a:conf
-
         let g:FTPLUGIN = g:VIMFILES . "/ftplugin"
         let g:TEMPLATES = g:VIMFILES . "/templates"
         let g:VIMTMP = g:VIMFILES . "/tmp"
         let g:SESSIONS = g:VIMTMP . "/session"
 
+        let g:QUICKFIX_HEIGHT = 20
+        let g:CTAGS = '/usr/local/bin/ctags'
+        let g:TAG_DIR = '~/tags'
+
+        call s:loadPlugins()
+    endfun
+        
+    " NOTE: after adding a new plugin, remember to manually execute :Helptags<CR>
+    " TODO: support configuration file to customize plugins
+    fun! s:loadPlugins()
         let g:BUNDLE_DIR = "bundle"
         let g:BUNDLE_PATH = g:VIMFILES . "/" . g:BUNDLE_DIR
-        " manually load pathogen for sake of git submodule
-        "runtime bundle/pathogen/autoload/pathogen.vim
-        exe "runtime " . g:BUNDLE_DIR . "/*/*/pathogen.vim"
+        " manually(instead auto) load pathogen for sake of git submodule
+        exe "runtime " . g:BUNDLE_DIR . "/pathogen/autoload/pathogen.vim"
+
+        let g:pathogen_disabled = []
+
+        if !has("python")
+            " disable plugin that needs python 
+            call utils#disablePlugins('pyflakes', 'ropevim', 'gundo')
+        endif
+        if has("ruby")
+            call utils#disablePlugins('fuzzyfinder', 'l9') " command-t is enough
+        else
+            " disable plugin that needs ruby 
+            call utils#disablePlugins('command-t')
+        endif
+        if !executable("ack")
+            call utils#disablePlugins('ack')
+        endif
+        call utils#disablePlugins('pep8') " will be loaded in ftplugin/python.vim
+
         " generate plugins path
         call pathogen#infect(g:BUNDLE_DIR)
     endfun
 
-    let g:QUICKFIX_HEIGHT = 20
+    fun! utils#enabledPlugin(plugin)
+        return globpath(g:BUNDLE_PATH, a:plugin) != '' && index(g:pathogen_disabled, a:plugin) < 0
+    endfun
+    
+    fun! utils#disablePlugins(...)
+        for plugin in a:000
+            call add(g:pathogen_disabled, plugin)
+        endfor
+    endfun
+
+    " load plugin by brute-force
+    fun! utils#loadPlugin(plugin)
+        " TODO: need improve this
+        let pluginSrc = globpath(g:BUNDLE_PATH . '/'. a:plugin, '*/*.vim')
+        for src in split(pluginSrc, '\n')
+            exe "so " . src 
+        endfor
+    endfun
 " }
 
 " File {
@@ -34,7 +78,7 @@
         if IsProgram()
             exe "so ". g:FTPLUGIN . "/program.vim"
             " set tag file
-            exe "set tags=~/tags/".&filetype
+            exe "set tags=" . g:TAG_DIR . "/" . &filetype
         endif
 
         if !strlen(filename)  " stdin
@@ -45,9 +89,8 @@
             " load template for new modifiable normal file
             "au BufNewFile * silent! 0r ~/.vim/templates/%:e | norm G
             "exe "silent! 0r ~/.vim/templates/".&filetype
-            "call utils#ExpandBuffer(expand('~/.vim/templates/').&filetype)
             call utils#ExpandBuffer(fnameescape(g:TEMPLATES . "/" . &filetype))
-            exe "normal! G"
+            normal! G
         endif
     endfun
 

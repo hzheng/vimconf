@@ -105,6 +105,9 @@
         "nn  <CR>         i<CR>
         nn  <Space>      i<Space>
         nn  <BS>         i<BS>
+
+        " Omni completion
+        ino <S-Space> <C-X><C-O>
     " }
 
     " block editing {
@@ -207,16 +210,24 @@
     " Tab
     "nmap <S-Tab>    :tabnew<CR>
     nmap <C-M-left>   :tabprevious<CR>
+    imap <C-M-left>   <ESC>:tabprevious<CR>
     nmap <C-M-right>  :tabNext<CR>
+    imap <C-M-right>  <ESC>:tabNext<CR>
     nmap <C-M-up>     :tabfirst<CR>
+    imap <C-M-up>     <ESC>:tabfirst<CR>
     nmap <C-M-down>   :tablast<CR>
+    imap <C-M-down>   <ESC>:tablast<CR>
 
     " Buffer navigation
-    nmap <C-BS>    :bd<CR>
+    nmap <C-BS>     :bd<CR>
     nmap <C-left>   :bp<CR>
+    imap <C-left>   <ESC>:bp<CR>
     nmap <C-right>  :bn<CR>
+    imap <C-right>  <ESC>:bn<CR>
     nmap <C-up>     :bf<CR>
+    imap <C-up>     <ESC>:bf<CR>
     nmap <C-down>   :bl<CR>
+    imap <C-down>   <ESC>:bl<CR>
     "map  <F5>       :prev<CR>
     "map  <F6>       :n<CR>
     "map  <S-F5>     :fir<CR>
@@ -239,8 +250,18 @@
     "map! <S-F4>     <ESC>ZZ
 " }
 
+" Tag {
+    "set completeopt=longest,menu
+    set completeopt=menuone,longest,preview
+    map <S-Left> <C-T>
+    map <S-Right> <C-]>
+    map <S-Up> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+    map <S-Down> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+" }
+
 " Debug {
     nmap <Leader>F   :call utils#ToggleQuickfix(0)<CR>
+    nmap <Leader>dl  :cl<CR>
     nmap <Leader>dd  :cc<CR>
     nmap <Leader>dn  :cn<CR>
     nmap <Leader>dp  :cp<CR>
@@ -303,7 +324,7 @@
 
         set stl=%<%f\    " Filename
         set stl+=%w%h%m%r " Options
-        "set stl+=%{fugitive#statusline()} "  Git Hotness
+        set stl+=%{fugitive#statusline()} "  Git status
         set stl+=\ [%{&ff}/%Y]            " filetype
         "set stl+=\ [%{getcwd()}]          " current dir
         "set stl+=\ [A=\%03.3b/H=\%02.2B] " ASCII / Hexadecimal value of char
@@ -326,14 +347,14 @@
 
 "=============Plugin settings=============
 
-" NerdTree {
+if utils#enabledPlugin('nerdtree')
     "load NERDTree on startup, but command line alias is prefered
     "au VimEnter * NERDTree
     "highlight main window
     au VimEnter * silent! wincmd p
 
     "map  :NERDTreeToggle
-    nmap <silent> <Leader>e :NERDTreeToggle<CR>:NERDTreeMirror<CR>
+    nmap <silent> <Leader>E :NERDTreeToggle<CR>:NERDTreeMirror<CR>
     "nmap <ESC>e :NERDTreeToggle<CR><C-W><C-S><C-W><C-J>:BufExplorer<CR>
 
     let NERDTreeIgnore=['\.o', '\.class', '\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr']
@@ -342,20 +363,13 @@
     nn <Leader>. :NERDTree .<CR>
     ca nt NERDTree
     ca bm Bookmark
-" }
-
-" Tag, TagList, Tagbar {
-    "set completeopt=longest,menu
-    set completeopt=menuone,longest,preview
-    map <S-Left> <C-T>
-    map <S-Right> <C-]>
-    map <S-Up> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
-    map <S-Down> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
-    
+endif
+ 
+if utils#enabledPlugin('taglist')
     "nmap <ESC>t :TlistToggle<CR>
     "nmap <Leader>l :TlistToggle<CR>
     "nmap <Leader>u :TlistUpdate<CR>
-    let Tlist_Ctags_Cmd = '/usr/local/bin/ctags'
+    let Tlist_Ctags_Cmd = g:CTAGS
     let Tlist_Use_Right_Window = 1
     let Tlist_Show_One_File = 1 
     let Tlist_File_Fold_Auto_Close = 1
@@ -365,14 +379,15 @@
     "let Tlist_Auto_Open = 1
     "nmap <F6> :!/usr/local/bin/ctags -R --fields=+iaS --extra=+q .<CR>
     "nmap <F6> :!/usr/local/bin/ctags -R .<CR>
+endif
 
-
+if utils#enabledPlugin('tagbar')
     nmap <Leader>T :TagbarToggle<CR>
-    let g:tagbar_ctags_bin = '/usr/local/bin/ctags'
+    let g:tagbar_ctags_bin = g:CTAGS
     let g:tagbar_autofocus = 1 " auto focus when open
-" }
+endif
 
-" BufExplorer {
+if utils#enabledPlugin('bufexplorer')
     "built-in <Leader>be
     "nmap <Leader>b :BufExplorer<CR>
     let g:bufExplorerSplitVertical = 1 
@@ -380,39 +395,32 @@
     let g:bufExplorerUseCurrentWindow = 1
     let g:bufExplorerShowRelativePath = 1
     let g:bufExplorerDefaultHelp = 0
-" }
+endif
 
-" FuzzyFinder {
-    "nmap <ESC>b :FufBuffer<CR>
-    "nmap <Leader>b :FufBuffer<CR>
-    "nmap <ESC>f :FufFile<CR>
-    "nmap <Leader>f :FufFile<CR>
+if utils#enabledPlugin('fuzzyfinder')
+    nmap <Leader><Space> :FufBuffer<CR>
+    nmap <Leader>e :FufFile<CR>
     "nmap <Leader>g :FufTaggedFile<CR>
     "nmap <Leader>d :FufDir<CR>
     "nmap <Leader>t :FufTag<CR>
-" }
+endif
 
-" Command-T {
-    "nmap <ESC>f :CommandT<CR>
-    "nmap <ESC>b :CommandTBuffer<CR>
-    nmap <S-Space> :CommandT<CR>
+if utils#enabledPlugin('command-t')
     nmap <Leader><Space> :CommandTBuffer<CR>
+    nmap <Leader>e :CommandT<CR>
     nmap <Leader>y :CommandTFlush<CR>
     "let g:CommandTSearchPath = $HOME . '$HOME/Projects'
     let g:CommandTMatchWindowAtTop = 1
     let g:CommandTMaxFiles = 20000
-" }
+endif
 
-" AutoCompletion(SuperTab) {
-    " Omni completion
-    ino <S-Space> <C-X><C-O>
-
+if utils#enabledPlugin('supertab')
     let g:SuperTabDefaultCompletionType = "context"
     "let g:SuperTabMappingTabLiteral = '<c-tab>' " default
     "let g:SuperTabCrMapping = 0
-" }
+endif
 
-" SnipMate {
+if utils#enabledPlugin('snipmate')
     let g:snips_author=expand($USER_FULLNAME)
     let g:author=expand($USER_FULLNAME)
     let g:snips_email=expand($USER_EMAIL)
@@ -421,10 +429,9 @@
     let g:github=expand($USER_GITHUB)
     "au FileType c,cpp,java,python,ruby,perl,php,objc,javascript,xml,html,xhtml,sh source ~/.vim/extra/snipMate.vim
     "nn <Leader>rs <esc>:exec ReloadAllSnippets()<cr>
-" }
+endif
 
-" Tabular {  
-" if exists(":Tabularize")
+if utils#enabledPlugin('tabular')
     nmap <Leader>z=  :Tabularize /=<CR>
     vmap <Leader>z=  :Tabularize /=<CR>
     nmap <Leader>z:  :Tabularize /:<CR>
@@ -435,9 +442,9 @@
     vmap <Leader>z,  :Tabularize /,<CR>
     nmap <Leader>z\  :Tabularize /<bar><CR>
     vmap <Leader>z\  :Tabularize /<bar><CR>
-" }
+endif
 
-" Calendar {
+if utils#enabledPlugin('calendar')
     "nmap <ESC>c :Calendar<CR>
     nmap <Leader>Ca :Calendar<CR>
     "cmap cal Calendar<SPACE>
@@ -446,25 +453,33 @@
     "au BufNewFile *.cal read $HOME/.vim/templates/diary | call InsertChineseDate()
     au BufNewFile *.cal call utils#CalInit()
     "au BufNewFile,BufRead *.cal set ft=rst
-" }
+endif
 
-" Ack {
-    if executable("ack") " improve grep if possible
-        set grepprg=ack\ -a
+if utils#enabledPlugin('ack')
+    " improve grep if possible
+    set grepprg=ack\ -a
 
-        nmap <Leader>a :Ack<SPACE>
-    endif
-" }
+    nmap <Leader>a :Ack<SPACE>
+endif
 
-" Gundo {
+if utils#enabledPlugin('gundo')
     nmap <leader>u :GundoToggle<CR>
-" }
+endif
 
-" Autoclose {
+if utils#enabledPlugin('autoclose')
     nmap <Leader>A <Plug>ToggleAutoCloseMappings
-" }
+endif
 
-" Pep8 {
-    "nmap <Leader>8   :call <SID>Pep8()<CR>
-    let g:pep8_map = '<Leader>8'
-" }
+if utils#enabledPlugin('fugitive')
+    nmap <leader>gb :Gbrowse<CR>
+    vmap <leader>gb :Gbrowse<CR>
+    nmap <leader>ge :Gedit<Space>
+    nmap <leader>ga :Gblame<CR>
+endif
+
+if utils#enabledPlugin('tasklist')
+    nmap <leader>tl <Plug>TaskList
+endif
+
+" NOTE: Filetype-specific plugin settings should be put into ftplugin/<filetype>.vim when possible
+
