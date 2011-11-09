@@ -29,9 +29,12 @@
 
         let g:pathogen_disabled = []
 
+        " disable python-specific plugins, which will be loaded in ftplugin/python.vim
+        call utils#disablePlugins('pydiction', 'pydoc', 'pyflakes', 'ropevim', 'pytest', 'pep8')
+
         if !has("python")
             " disable plugin that needs python 
-            call utils#disablePlugins('pyflakes', 'ropevim', 'gundo')
+            call utils#disablePlugins('gundo')
         endif
         if has("ruby")
             call utils#disablePlugins('fuzzyfinder', 'l9') " command-t is enough
@@ -42,7 +45,6 @@
         if !executable("ack")
             call utils#disablePlugins('ack')
         endif
-        call utils#disablePlugins('pep8') " will be loaded in ftplugin/python.vim
 
         " generate plugins path
         call pathogen#infect(g:BUNDLE_DIR)
@@ -61,7 +63,7 @@
     " load plugin by brute-force
     fun! utils#loadPlugin(plugin)
         " TODO: need improve this
-        let pluginSrc = globpath(g:BUNDLE_PATH . '/'. a:plugin, '*/*.vim')
+        let pluginSrc = globpath(g:BUNDLE_PATH . '/'. a:plugin, '**/*.vim')
         for src in split(pluginSrc, '\n')
             exe "so " . src 
         endfor

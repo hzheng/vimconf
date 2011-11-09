@@ -9,7 +9,7 @@ let _loaded_python_vim = 1
 " Define some abbreviations
 "imap im import
 
-"autocmd FileType python set omnifunc=pythoncomplete#Complete
+set omnifunc=pythoncomplete#Complete
 
 set fdm=indent   "fold based on indent
 
@@ -17,33 +17,41 @@ set nosmartindent "no smart indent
 
 "=============Plugin settings=============
 
-if utils#enabledPlugin('pydiction')
+if !utils#enabledPlugin('pydiction')
     let g:pydiction_location = g:BUNDLE_PATH . '/pydiction/complete-dict'
     let g:pydiction_menu_height = 20
     "set complete+=k~/.vim/bundle/pydiction iskeyword+=.,(
+   
+    call utils#loadPlugin('pydiction')
 endif
 
-if utils#enabledPlugin('pydoc')
+if !utils#enabledPlugin('pydoc')
     "nn <Leader>py :call <SID>ShowPyDoc('<C-R><C-W>', 1)<CR>
     nmap <Leader>w <Leader>pw<CR>
     "nmap <Leader>W <Leader>pW<CR>
     nmap <Leader>k <Leader>pk<CR>
     "nmap <Leader>K <Leader>pK<CR>
+    
+    call utils#loadPlugin('pydoc')
 endif
 
-if utils#enabledPlugin('pyflakes')
+if !utils#enabledPlugin('pyflakes') && has("python")
     "let g:pyflakes_use_quickfix = 0
+ 
+    call utils#loadPlugin('pyflakes')
 endif
 
-if utils#enabledPlugin('ropevim')
+if !utils#enabledPlugin('ropevim') && has("python")
     nmap <leader>j :RopeGotoDefinition<CR>
     nmap <leader>R :RopeRename<CR>
 
     "let $PYTHONPATH .= ":" . g:BUNDLE_PATH . "/ropevim/ftplugin/python/libs/rope"
     let ropevim_vim_completion = 1
+ 
+    call utils#loadPlugin('ropevim')
 endif
 
-if utils#enabledPlugin('pytest')
+if !utils#enabledPlugin('pytest')
     nmap <Leader>tt :Pytest<SPACE>
     nmap <Leader>tf :Pytest file<CR>
     nmap <Leader>tF :Pytest file verbose<CR>
@@ -55,9 +63,12 @@ if utils#enabledPlugin('pytest')
     nmap <Leader>ts :Pytest session<CR>
     nmap <Leader>tn <Esc>:Pytest next<CR>
     nmap <Leader>tp <Esc>:Pytest previous<CR>
+ 
+    call utils#loadPlugin('pytest')
 endif
 
 if !utils#enabledPlugin('pep8')
     let g:pep8_map = '<Leader>8'
+
     call utils#loadPlugin('pep8')
 endif
