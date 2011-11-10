@@ -94,11 +94,13 @@
     set nojoinspaces " Don't add two spaces after ., ?, !
     set ta " Set textauto to recognize ^M files
     set report=0  " Report all change
+
     "set paste
+    set pastetoggle=<F2>
     "set pt=<Leader>p  " paste toggle (sane indentation on pastes)
 
     set gd " set g as default when substitute
-    
+
     "most input abbreviations should go to filetype-aware's scripts(under .vim/ftplugin)
 
     " fast input {
@@ -128,9 +130,11 @@
         set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
     " }
 
-    "set list
-    set listchars=tab:>.,trail:.,extends:#,nbsp:. " Highlight problematic whitespace
-    
+    " Whitespace {
+        " Highlight problematic whitespace
+        set list
+        set listchars=tab:>.,trail:.,extends:#,nbsp:.
+    " }
 " }
 
 " File {
@@ -138,6 +142,8 @@
     set aw " Automatically write files as needed.
     " Automatically save when focus is lost
     au BufLeave,FocusLost * silent! wa
+    " hide buffer instead of closing
+    set hidden
 
     set wim=longest,full " Set wildmode
     " Suffixes to put to the end of the list when completing file names
@@ -364,28 +370,6 @@ if utils#enabledPlugin('nerdtree')
     ca nt NERDTree
     ca bm Bookmark
 endif
- 
-if utils#enabledPlugin('taglist')
-    "nmap <ESC>t :TlistToggle<CR>
-    "nmap <Leader>l :TlistToggle<CR>
-    "nmap <Leader>u :TlistUpdate<CR>
-    let Tlist_Ctags_Cmd = g:CTAGS
-    let Tlist_Use_Right_Window = 1
-    let Tlist_Show_One_File = 1 
-    let Tlist_File_Fold_Auto_Close = 1
-    let Tlist_Show_Menu = 1
-    "let Tlist_Sort_Type=1
-    "let Tlist_WinWidth = 50
-    "let Tlist_Auto_Open = 1
-    "nmap <F6> :!/usr/local/bin/ctags -R --fields=+iaS --extra=+q .<CR>
-    "nmap <F6> :!/usr/local/bin/ctags -R .<CR>
-endif
-
-if utils#enabledPlugin('tagbar')
-    nmap <Leader>T :TagbarToggle<CR>
-    let g:tagbar_ctags_bin = g:CTAGS
-    let g:tagbar_autofocus = 1 " auto focus when open
-endif
 
 if utils#enabledPlugin('bufexplorer')
     "built-in <Leader>be
@@ -466,10 +450,6 @@ if utils#enabledPlugin('gundo')
     nmap <leader>u :GundoToggle<CR>
 endif
 
-if utils#enabledPlugin('autoclose')
-    nmap <Leader>A <Plug>ToggleAutoCloseMappings
-endif
-
 if utils#enabledPlugin('fugitive')
     nmap <leader>gb :Gbrowse<CR>
     vmap <leader>gb :Gbrowse<CR>
@@ -479,7 +459,9 @@ endif
 
 if utils#enabledPlugin('tasklist')
     nmap <leader>tl <Plug>TaskList
+    let g:tlTokenList = ["FIXME", "TODO", "XXX", "HACK"]
 endif
 
-" NOTE: Filetype-specific plugin settings should be put into ftplugin/<filetype>.vim when possible
+" NOTE: For program-specific or filetype-specific plugin settings,
+" we manage to put them into program.vim or <filetype>.vim under ftplugin
 

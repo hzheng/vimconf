@@ -1,5 +1,11 @@
 " customize file types
 
+if exists("_loaded_types_vim")
+    finish
+endif
+
+let _loaded_types_vim = 1
+
 au BufRead,BufNewFile * call s:DetectType()
 
 fun! s:DetectType()

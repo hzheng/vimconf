@@ -1,5 +1,11 @@
 " RST-specific vimscript
 
+if exists("_loaded_rst_vim")
+    finish
+endif
+
+let _loaded_rst_vim = 1
+
 " VST {
     nmap <leader>rf :Vst foldr<CR>
     au BufReadPre * :Vst foldr

@@ -29,12 +29,16 @@
 
         let g:pathogen_disabled = []
 
-        " disable python-specific plugins, which will be loaded in ftplugin/python.vim
-        call utils#disablePlugins('pydiction', 'pydoc', 'pyflakes', 'ropevim', 'pytest', 'pep8')
+        " temporarily disable some program- or filetype- specific plugins, 
+        " which will be loaded in program.vim or <filetype>.vim under ftplugin
+        " program-specific plugins
+        call utils#disablePlugins('nerdcommenter', 'taglist', 'tagbar', 'autoclose')
+        " python-specific plugins
+        call utils#disablePlugins('pydiction', 'pep8')
 
         if !has("python")
             " disable plugin that needs python 
-            call utils#disablePlugins('gundo')
+            call utils#disablePlugins('pyflakes', 'ropevim', 'gundo')
         endif
         if has("ruby")
             call utils#disablePlugins('fuzzyfinder', 'l9') " command-t is enough
@@ -60,13 +64,39 @@
         endfor
     endfun
 
-    " load plugin by brute-force
+    " load disabled plugin manually
     fun! utils#loadPlugin(plugin)
-        " TODO: need improve this
-        let pluginSrc = globpath(g:BUNDLE_PATH . '/'. a:plugin, '**/*.vim')
+        let index = 0
+        let found = 0
+        while index < len(g:pathogen_disabled)
+            if g:pathogen_disabled[index] == a:plugin
+                call remove(g:pathogen_disabled, index)
+                let found = 1
+                break
+            endif
+            let index = index + 1
+        endwhile
+ 
+        if !found | return 0 | endif
+
+        let dir = g:BUNDLE_PATH . "/" . a:plugin
+        if !isdirectory(dir) | return 0 | endif
+
+        " TODO: not foolproof, probably need improvement
+        exe 'set rtp^=' . fnameescape(dir)
+        let afterDir = dir . '/after'
+        if isdirectory(afterDir)
+            exe 'set rtp+=' . fnameescape(afterDir)
+        endif
+        let pluginSrc = globpath(dir, '**/*.vim')
         for src in split(pluginSrc, '\n')
-            exe "so " . src 
+            if src =~ "/autoload/.*\.vim$"
+                " skip vim scripts under autoload directory
+            else
+                exe "so " . src 
+            endif
         endfor
+        return 1
     endfun
 " }
 
@@ -75,9 +105,7 @@
     fun! utils#FileTypeInit()
         let filename = fnameescape(expand("%"))
         " load extra script
-        "au FileType xml source ~/.vim/extra/xml.vim
-        "au BufNewFile,BufRead * silent! so ~/.vim/extra/%:e.vim
-        if IsProgram()
+        if s:isProgram()
             exe "so ". g:FTPLUGIN . "/program.vim"
             " set tag file
             exe "set tags=" . g:TAG_DIR . "/" . &filetype
@@ -111,8 +139,10 @@
         endfor
     endfun
 
-    fun! IsProgram()
-        return &filetype =~ '^\(c\|cpp\|java\|cs\|objc\|python\|ruby\|perl\|php\|javascript\)$'
+    fun! s:isProgram()
+        " TODO: need improvement
+        "return &filetype =~ '^\(c\|cpp\|java\|cs\|objc\|python\|ruby\|perl\|php\|javascript\|vim\|sh\|lisp\|prolog\)$'
+        return &filetype !~ '^\(text\|pdf\|zip\|tar\)$'
     endfun
 
     fun! GetSessionDir()
