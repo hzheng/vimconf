@@ -9,6 +9,28 @@ let _loaded_program_vim = 1
 " Set the width of text
 set tw=79
 
+" Tag {
+    "set completeopt=longest,menu
+    set completeopt=menuone,longest,preview
+    map <S-Left> <C-T>
+    map <S-Right> <C-]>
+    map <S-Up> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+    map <S-Down> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+
+    let g:CTAGS = '/usr/local/bin/ctags'
+    let g:TAG_DIR = '~/tags'
+    exe "set tags+=" . g:TAG_DIR . "/" . &filetype
+    exe "map <C-F12> :!" . g:CTAGS . " -R -o tags .<CR><CR>"
+" }
+
+" Debug {
+    nmap <Leader>F   :call utils#ToggleQuickfix(0)<CR>
+    nmap <Leader>dl  :cl<CR>
+    nmap <Leader>dd  :cc<CR>
+    nmap <Leader>dn  :cn<CR>
+    nmap <Leader>dp  :cp<CR>
+" }
+
 if !utils#enabledPlugin('taglist')
     "nmap <ESC>t :TlistToggle<CR>
     "nmap <Leader>l :TlistToggle<CR>

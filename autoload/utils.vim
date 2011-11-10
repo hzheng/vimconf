@@ -13,8 +13,6 @@
         let g:SESSIONS = g:VIMTMP . "/session"
 
         let g:QUICKFIX_HEIGHT = 20
-        let g:CTAGS = '/usr/local/bin/ctags'
-        let g:TAG_DIR = '~/tags'
 
         call s:loadPlugins()
     endfun
@@ -107,8 +105,6 @@
         " load extra script
         if s:isProgram()
             exe "so ". g:FTPLUGIN . "/program.vim"
-            " set tag file
-            exe "set tags=" . g:TAG_DIR . "/" . &filetype
         endif
 
         if !strlen(filename)  " stdin

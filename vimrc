@@ -132,7 +132,7 @@
 
     " Whitespace {
         " Highlight problematic whitespace
-        set list
+        "set list
         set listchars=tab:>.,trail:.,extends:#,nbsp:.
     " }
 " }
@@ -254,23 +254,6 @@
     "map  <F4>       :w<CR>
     "map! <F4>       <ESC>:w<CR>
     "map! <S-F4>     <ESC>ZZ
-" }
-
-" Tag {
-    "set completeopt=longest,menu
-    set completeopt=menuone,longest,preview
-    map <S-Left> <C-T>
-    map <S-Right> <C-]>
-    map <S-Up> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
-    map <S-Down> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
-" }
-
-" Debug {
-    nmap <Leader>F   :call utils#ToggleQuickfix(0)<CR>
-    nmap <Leader>dl  :cl<CR>
-    nmap <Leader>dd  :cc<CR>
-    nmap <Leader>dn  :cn<CR>
-    nmap <Leader>dp  :cp<CR>
 " }
 
 " File type {
