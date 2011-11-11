@@ -16,7 +16,9 @@
 
         call s:loadPlugins()
     endfun
+" }
         
+" Plugin {
     " NOTE: after adding a new plugin, remember to manually execute :Helptags<CR>
     " TODO: support configuration file to customize plugins
     fun! s:loadPlugins()

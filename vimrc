@@ -123,7 +123,8 @@
         set dict+=/usr/share/dict/words " dictionary
         set thesaurus+=/usr/share/dict/mthesaur.txt " thesaurus
         " Toggle spell checking
-        nmap <Leader>S :setlocal spell! spelllang=en_gb<CR>
+        nmap <C-F11> :setlocal spell! spelllang=en_gb<CR>
+        imap <C-F11> <ESC>:setlocal spell! spelllang=en_gb<CR>
     " }
 
     " Encoding {
@@ -201,16 +202,14 @@
     " window
     nmap <Tab>    <c-w>w
     nmap <Leader>P  <c-w>p
-    nmap <Leader>v   <c-w>v
-    nmap <Leader>s   <c-w>s
+    "nmap <Leader>v   <c-w>v
+    nmap <Leader>V   :vs<SPACE>
+    "nmap <Leader>s   <c-w>s
+    nmap <Leader>S   :sp<SPACE>
     "nmap <ESC>q   <c-w>q
-    "nmap <Leader>j   <c-w>j
     nmap <down>      <c-w>j
-    "nmap <Leader>k   <c-w>k
     nmap <up>        <c-w>k
-    "nmap <Leader>h   <c-w>h
     nmap <left>      <c-w>h
-    "nmap <Leader>l   <c-w>l
     nmap <right>     <c-w>l
     nmap <Leader>N   <c-w>n
     nmap <Leader>O   <c-w>o
@@ -306,7 +305,6 @@
 
         set stl=%<%f\    " Filename
         set stl+=%w%h%m%r " Options
-        set stl+=%{fugitive#statusline()} "  Git status
         set stl+=\ [%{&ff}/%Y]            " filetype
         "set stl+=\ [%{getcwd()}]          " current dir
         "set stl+=\ [A=\%03.3b/H=\%02.2B] " ASCII / Hexadecimal value of char
@@ -427,10 +425,31 @@ if utils#enabledPlugin('gundo')
 endif
 
 if utils#enabledPlugin('fugitive')
-    nmap <leader>gb :Gbrowse<CR>
-    vmap <leader>gb :Gbrowse<CR>
-    nmap <leader>ge :Gedit<Space>
-    nmap <leader>ga :Gblame<CR>
+    nmap <Leader>gv :Gbrowse<CR>
+    vmap <Leader>gv :Gbrowse<CR>
+    nmap <Leader>ge :Gedit<Space>
+    nmap <Leader>gb :Gblame<CR>
+    " show status
+    set stl+=%{fugitive#statusline()} 
+endif
+
+if utils#enabledPlugin('vcscommand')
+    nmap <Leader>va <Plug>VCSAdd
+    nmap <Leader>vb <Plug>VCSAnnotate
+    nmap <Leader>vB <Plug>VCSAnnotate!
+    nmap <Leader>vc <Plug>VCSCommit
+    nmap <Leader>vd <Plug>VCSDiff
+    nmap <Leader>vD <Plug>VCSDelete
+    nmap <Leader>vg <Plug>VCSGotoOriginal
+    nmap <Leader>vG <Plug>VCSGotoOriginal!
+    nmap <Leader>vi <Plug>VCSInfo
+    nmap <Leader>vl <Plug>VCSLog
+    nmap <Leader>vL <Plug>VCSLock
+    nmap <Leader>vr <Plug>CSReview
+    nmap <Leader>vs <Plug>VCSStatus
+    nmap <Leader>vu <Plug>VCSUpdate
+    nmap <Leader>vU <Plug>VCSUnlock
+    nmap <Leader>vv <Plug>VCSVimDiff
 endif
 
 if utils#enabledPlugin('tasklist')
