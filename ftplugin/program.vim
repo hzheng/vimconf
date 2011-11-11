@@ -6,8 +6,15 @@ endif
 
 let _loaded_program_vim = 1
 
-" Set the width of text
-set tw=79
+" Format {
+    " Set the width of text
+    set tw=79
+" }
+
+" Edit {
+    " default omni-complete function
+    set ofu=syntaxcomplete#Complete
+" }
 
 " Tag {
     "set completeopt=longest,menu
@@ -31,6 +38,8 @@ set tw=79
     nmap <Leader>dp  :cp<CR>
 " }
 
+"=============Plugin settings=============
+
 if !utils#enabledPlugin('taglist')
     "nmap <ESC>t :TlistToggle<CR>
     "nmap <Leader>l :TlistToggle<CR>
@@ -43,8 +52,6 @@ if !utils#enabledPlugin('taglist')
     "let Tlist_Sort_Type=1
     "let Tlist_WinWidth = 50
     "let Tlist_Auto_Open = 1
-    "nmap <F6> :!/usr/local/bin/ctags -R --fields=+iaS --extra=+q .<CR>
-    "nmap <F6> :!/usr/local/bin/ctags -R .<CR>
 
     " don't load since tagbar is preferred
     "call utils#loadPlugin('taglist')

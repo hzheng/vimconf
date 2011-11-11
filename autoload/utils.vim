@@ -33,6 +33,8 @@
         call utils#disablePlugins('nerdcommenter', 'taglist', 'tagbar', 'autoclose')
         " python-specific plugins
         call utils#disablePlugins('pydiction', 'pep8')
+        " rst-specific plugins
+        call utils#disablePlugins('vst')
 
         if !has("python")
             " disable plugin that needs python 
@@ -99,48 +101,6 @@
 " }
 
 " File {
-    " filetype initialization
-    fun! utils#FileTypeInit()
-        let filename = fnameescape(expand("%"))
-        " load extra script
-        if s:isProgram()
-            exe "so ". g:FTPLUGIN . "/program.vim"
-        endif
-
-        if !strlen(filename)  " stdin
-            "exe "normal! iempty filename"
-        elseif filereadable(filename)
-            "exe "normal! i FileTypeInit old:" bufname("%") &filetype 
-        elseif &modifiable && &buftype == ""
-            " load template for new modifiable normal file
-            "au BufNewFile * silent! 0r ~/.vim/templates/%:e | norm G
-            "exe "silent! 0r ~/.vim/templates/".&filetype
-            call utils#ExpandBuffer(fnameescape(g:TEMPLATES . "/" . &filetype))
-            normal! G
-        endif
-    endfun
-
-    " Reads a file with the variables resolved and writes into buffer
-    fun! utils#ExpandBuffer(file)
-        if !filereadable(a:file)
-            return
-        endif
-
-        exe "0r " a:file
-        for linenum in range(1, line('$'))
-            let line = getline(linenum)
-            if line =~ '\$'
-                call setline(linenum, expand(line))
-            endif
-        endfor
-    endfun
-
-    fun! s:isProgram()
-        " TODO: need improvement
-        "return &filetype =~ '^\(c\|cpp\|java\|cs\|objc\|python\|ruby\|perl\|php\|javascript\|vim\|sh\|lisp\|prolog\)$'
-        return &filetype !~ '^\(text\|pdf\|zip\|tar\)$'
-    endfun
-
     fun! GetSessionDir()
         return fnameescape(g:SESSIONS . getcwd())
     endfun

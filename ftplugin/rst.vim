@@ -6,11 +6,6 @@ endif
 
 let _loaded_rst_vim = 1
 
-" VST {
-    nmap <leader>rf :Vst foldr<CR>
-    au BufReadPre * :Vst foldr
-" }
-
 " Fast input {
     " recommended underline title adornments
     nn <leader>u#     yypVr#yykP2j
@@ -35,3 +30,13 @@ let _loaded_rst_vim = 1
     ab date .. \|date\| date::
     ab time .. \|time\| date:: %H:%M
 " }
+
+"=============Plugin settings=============
+
+if !utils#enabledPlugin('vst')
+    nmap <leader>fr :Vst foldr<CR>
+    au BufReadPre * :Vst foldr
+
+    " manually load
+    call utils#loadPlugin('vst')
+endif

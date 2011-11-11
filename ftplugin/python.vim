@@ -6,11 +6,12 @@ endif
 
 let _loaded_python_vim = 1
 
-set omnifunc=pythoncomplete#Complete
+" Edit {
+    set ofu=pythoncomplete#Complete
 
-set fdm=indent   "fold based on indent
-
-set nosmartindent "no smart indent
+    set fdm=indent   "fold based on indent
+    set nosmartindent "no smart indent
+" }
 
 "=============Plugin settings=============
 

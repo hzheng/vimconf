@@ -1,4 +1,4 @@
-" customize file types
+" Processes after file type detection
 
 if exists("_loaded_types_vim")
     finish
@@ -6,9 +6,29 @@ endif
 
 let _loaded_types_vim = 1
 
-au BufRead,BufNewFile * call s:DetectType()
+au FileType * call s:initType()
 
-fun! s:DetectType()
+au BufRead,BufNewFile * call s:reviewType()
+
+fun! s:initType()
+    let filename = fnameescape(expand("%"))
+    " load extra script
+    if s:isProgram()
+        exe "so ". g:FTPLUGIN . "/program.vim"
+    endif
+
+    if !strlen(filename)  " stdin
+        "echomsg 'stdin'
+    elseif filereadable(filename) " existing file
+        "echomsg 'readable: ' . filename
+    elseif &modifiable && &buftype == ""
+        " load template for new modifiable normal file
+        call s:expandBuffer(fnameescape(g:TEMPLATES . "/" . &filetype))
+        norm! G
+    endif
+endfun
+
+fun! s:reviewType()
     let filename = expand("%")
 
     " check filetype
@@ -42,7 +62,7 @@ fun! s:DetectType()
     endif
 endfun
 
-" Python {
+" utils {
     fun! s:MaybeDjango(filename)
         if a:filename =~ '^\(admin\|manage\|settings\|urls\|models\|views\|forms\)\.py$'
             return 1
@@ -53,9 +73,7 @@ endfun
             return 1
         endif
     endfun
-" }
 
-" utils {
     fun! s:MatchPattern(pattern)
         let n = line("$")
         if n > 100
@@ -69,5 +87,26 @@ endfun
             endif
             let i += 1
         endwhile
+    endfun
+
+    fun! s:isProgram()
+        " TODO: need improvement
+        "return &filetype =~ '^\(c\|cpp\|java\|cs\|objc\|python\|ruby\|perl\|php\|javascript\|vim\|sh\|lisp\|prolog\)$'
+        return &filetype !~ '^\(text\|pdf\|zip\|tar\)$'
+    endfun
+
+    " Reads a file with the variables resolved and writes into buffer
+    fun! s:expandBuffer(file)
+        if !filereadable(a:file)
+            return
+        endif
+
+        exe "silent! 0r " a:file
+        for linenum in range(1, line('$'))
+            let line = getline(linenum)
+            if line =~ '\$'
+                call setline(linenum, expand(line))
+            endif
+        endfor
     endfun
 " }

@@ -48,6 +48,8 @@
     " 'shiftwidth', A <BS> will delete a 'shiftwidth' worth of space
     " at the start of the line.
     set sta
+
+    filetype plugin indent on
 " }
 
 " Fold {
@@ -256,15 +258,6 @@
     "map! <S-F4>     <ESC>ZZ
 " }
 
-" File type {
-    "filetype plugin indent on
-    filetype plugin on
-    "set ofu=syntaxcomplete#Complete
-    filetype indent on
-
-    au FileType * call utils#FileTypeInit()
-" }
-
 " External {
     nn <silent> <S-CR> :call utils#OpenUrl()<CR><CR>
     nn <silent> <S-leftmouse> :call utils#OpenUrl()<CR><CR>
@@ -377,7 +370,7 @@ if utils#enabledPlugin('command-t')
     nmap <Leader>e :CommandT<CR>
     nmap <Leader>y :CommandTFlush<CR>
     "let g:CommandTSearchPath = $HOME . '$HOME/Projects'
-    let g:CommandTMatchWindowAtTop = 1
+    let g:CommandTMatchWindowAtTop = 0
     let g:CommandTMaxFiles = 20000
 endif
 
