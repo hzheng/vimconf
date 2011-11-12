@@ -48,18 +48,18 @@ if utils#enabledPlugin('pytest') > 0
     nmap <buffer> <Leader>tp <Esc>:Pytest previous<CR>
 endif
 
-if utils#enabledPlugin('pydiction') == 0
+if utils#enabledPlugin('pydiction') >= 0
     let g:pydiction_location = g:BUNDLE_PATH . '/pydiction/complete-dict'
     let g:pydiction_menu_height = 20
     "set complete+=k~/.vim/bundle/pydiction iskeyword+=.,(
 
-    " manually load
-    call utils#loadPlugin('pydiction')
+    " manually load(always reload)
+    call utils#loadPlugin('pydiction', 1)
 endif
 
-if utils#enabledPlugin('pep8') == 0
+if utils#enabledPlugin('pep8') >= 0
     let g:pep8_map = '<buffer> <Leader>8'
 
-    " manually load
-    call utils#loadPlugin('pep8')
+    " manually load(always reload)
+    call utils#loadPlugin('pep8', 1)
 endif

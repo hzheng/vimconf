@@ -33,7 +33,7 @@ let b:_loaded_rst_vim = 1
 
 "=============Plugin settings=============
 
-if utils#enabledPlugin('vst') == 0
+if utils#enabledPlugin('vst') >= 0
     nmap <buffer> <Leader>fr :Vst foldr<CR>
     au BufReadPre * :Vst foldr
 

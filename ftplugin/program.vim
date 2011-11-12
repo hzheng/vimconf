@@ -40,7 +40,7 @@ let b:_loaded_program_vim = 1
 
 "=============Plugin settings=============
 
-if utils#enabledPlugin('taglist') == 0
+if utils#enabledPlugin('taglist') >= 0
     "nmap <ESC>t :TlistToggle<CR>
     "nmap <Leader>l :TlistToggle<CR>
     "nmap <Leader>u :TlistUpdate<CR>
@@ -57,7 +57,7 @@ if utils#enabledPlugin('taglist') == 0
     call utils#loadPlugin('taglist')
 endif
 
-if utils#enabledPlugin('tagbar') == 0
+if utils#enabledPlugin('tagbar') >= 0
     nmap <buffer> <Leader>T :TagbarToggle<CR>
     let g:tagbar_ctags_bin = g:CTAGS
     let g:tagbar_autofocus = 1 " auto focus when open
@@ -66,13 +66,13 @@ if utils#enabledPlugin('tagbar') == 0
     call utils#loadPlugin('tagbar')
 endif
 
-if utils#enabledPlugin('nerdcommenter') == 0
+if utils#enabledPlugin('nerdcommenter') >= 0
     " manually load
     call utils#loadPlugin('nerdcommenter')
     " FIXME: DON'T work if user change filetype after opening a non-program file
 endif
 
-if utils#enabledPlugin('autoclose') == 0
+if utils#enabledPlugin('autoclose') >= 0
     nmap <buffer> <Leader>A <Plug>ToggleAutoCloseMappings
 
     " manually load

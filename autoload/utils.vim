@@ -54,6 +54,7 @@
 
         " generate plugins path
         call pathogen#infect(g:BUNDLE_DIR)
+        let s:delayedPlugins = {}
     endfun
 
     " Return plugin enabled status
@@ -61,7 +62,7 @@
     "  0 means temporarily disabled(will be loaded later)
     "  1 means enabled
     fun! utils#enabledPlugin(plugin)
-        if globpath(g:BUNDLE_PATH, a:plugin) == ''
+        if !isdirectory(g:BUNDLE_PATH . "/" . a:plugin)
             return -1 " TODO: add disabled by configuration
         elseif index(g:pathogen_disabled, a:plugin) >= 0
             return 0
@@ -77,38 +78,45 @@
     endfun
 
     " load temporarily disabled plugin manually
-    fun! utils#loadPlugin(plugin)
-        let index = 0
-        let found = 0
-        while index < len(g:pathogen_disabled)
-            if g:pathogen_disabled[index] == a:plugin
-                "call remove(g:pathogen_disabled, index) "DON'T remove
-                let found = 1
-                break
-            endif
-            let index = index + 1
-        endwhile
- 
-        if !found | return 0 | endif
+    " if the second argument is nonzero, reload even if it's loaded before
+    " (this seems necessary at least for those scripts that define some 
+    " buffer-scope mappings)
+    fun! utils#loadPlugin(plugin, ...)
+        if utils#enabledPlugin(a:plugin) != 0
+            echomsg "WARNING: try to load an undelayed plugin: " . a:plugin
+            return -1
+        endif
 
-        let dir = g:BUNDLE_PATH . "/" . a:plugin
-        if !isdirectory(dir) | return 0 | endif
+        if !has_key(s:delayedPlugins, a:plugin)
+            let s:delayedPlugins[a:plugin] = 1
+        else " loaded before
+            if a:0 == 0 || a:1 == 0
+                "echomsg "INFO: skipped an already-loaded plugin: " a:plugin
+                return 0
+            else
+                "echomsg "INFO: reload an already-loaded plugin: " a:plugin
+            endif
+        endif
 
         " TODO: not foolproof, probably need improvement
+        let dir = g:BUNDLE_PATH . "/" . a:plugin
         exe 'set rtp^=' . fnameescape(dir)
+        call s:doLoadPlugin(dir)
+
         let afterDir = dir . '/after'
         if isdirectory(afterDir)
             exe 'set rtp+=' . fnameescape(afterDir)
+            call s:doLoadPlugin(afterDir)
         endif
-        let pluginSrc = globpath(dir, '**/*.vim')
-        for src in split(pluginSrc, '\n')
-            if src =~ "/autoload/.*\.vim$"
-                " skip vim scripts under autoload directory
-            else
-                exe "so " . src 
-            endif
-        endfor
         return 1
+    endfun
+
+    fun! s:doLoadPlugin(dir)
+        let pluginSrc = globpath(a:dir, 'plugin/**/*.vim')
+        for src in split(pluginSrc, '\n')
+            "echomsg 'running ' . src
+            exe "so " . src 
+        endfor
     endfun
 " }
 

@@ -434,8 +434,8 @@ if utils#enabledPlugin('fugitive') > 0
     nmap <Leader>gl :Glog<CR>
     nmap <Leader>gr :Gread<CR>
     nmap <Leader>gw :Gwrite<CR>
-    nmap <Leader>gv :GBrowse<CR>
-    vmap <Leader>gv :GBrowse<CR>
+    nmap <Leader>gr :GBrowse<CR>
+    vmap <Leader>gr :GBrowse<CR>
     " show status
     set stl+=%{fugitive#statusline()} 
 endif
