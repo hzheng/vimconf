@@ -1,10 +1,10 @@
 " Processes after file type detection
 
-if exists("_loaded_types_vim")
+if exists("b:_loaded_types_vim")
     finish
 endif
 
-let _loaded_types_vim = 1
+let b:_loaded_types_vim = 1
 
 au FileType * call s:initType()
 

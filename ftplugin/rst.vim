@@ -1,30 +1,30 @@
 " RST-specific vimscript
 
-if exists("_loaded_rst_vim")
+if exists("b:_loaded_rst_vim")
     finish
 endif
 
-let _loaded_rst_vim = 1
+let b:_loaded_rst_vim = 1
 
 " Fast input {
     " recommended underline title adornments
-    nn <leader>u#     yypVr#yykP2j
-    nn <leader>u3     yypVr#
-    nn <leader>u*     yypVr*yykP2j
-    nn <leader>u8     yypVr*
+    nn <buffer> <Leader>u#     yypVr#yykP2j
+    nn <buffer> <Leader>u3     yypVr#
+    nn <buffer> <Leader>u*     yypVr*yykP2j
+    nn <buffer> <Leader>u8     yypVr*
 
-    nn <leader>u=     yypVr=
-    nn <leader>u-     yypVr-
-    nn <leader>u^     yypVr^
-    nn <leader>u"     yypVr"
+    nn <buffer> <Leader>u=     yypVr=
+    nn <buffer> <Leader>u-     yypVr-
+    nn <buffer> <Leader>u^     yypVr^
+    nn <buffer> <Leader>u"     yypVr"
 
-    nn <leader>u+     yypVr+
-    nn <leader>u_     yypVr_
-    nn <leader>u~     yypVr~
-    nn <leader>u'     yypVr'
-    nn <leader>u`     yypVr`
-    nn <leader>u.     yypVr.
-    nn <leader>u:     yypVr:
+    nn <buffer> <Leader>u+     yypVr+
+    nn <buffer> <Leader>u_     yypVr_
+    nn <buffer> <Leader>u~     yypVr~
+    nn <buffer> <Leader>u'     yypVr'
+    nn <buffer> <Leader>u`     yypVr`
+    nn <buffer> <Leader>u.     yypVr.
+    nn <buffer> <Leader>u:     yypVr:
 
     " time
     ab date .. \|date\| date::
@@ -33,8 +33,8 @@ let _loaded_rst_vim = 1
 
 "=============Plugin settings=============
 
-if !utils#enabledPlugin('vst')
-    nmap <leader>fr :Vst foldr<CR>
+if utils#enabledPlugin('vst') == 0
+    nmap <buffer> <Leader>fr :Vst foldr<CR>
     au BufReadPre * :Vst foldr
 
     " manually load

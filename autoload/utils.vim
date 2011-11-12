@@ -56,8 +56,18 @@
         call pathogen#infect(g:BUNDLE_DIR)
     endfun
 
+    " Return plugin enabled status
+    " -1 means nonexistent or permanently disabled
+    "  0 means temporarily disabled(will be loaded later)
+    "  1 means enabled
     fun! utils#enabledPlugin(plugin)
-        return globpath(g:BUNDLE_PATH, a:plugin) != '' && index(g:pathogen_disabled, a:plugin) < 0
+        if globpath(g:BUNDLE_PATH, a:plugin) == ''
+            return -1 " TODO: add disabled by configuration
+        elseif index(g:pathogen_disabled, a:plugin) >= 0
+            return 0
+        else
+            return 1
+        endif
     endfun
     
     fun! utils#disablePlugins(...)
@@ -66,13 +76,13 @@
         endfor
     endfun
 
-    " load disabled plugin manually
+    " load temporarily disabled plugin manually
     fun! utils#loadPlugin(plugin)
         let index = 0
         let found = 0
         while index < len(g:pathogen_disabled)
             if g:pathogen_disabled[index] == a:plugin
-                call remove(g:pathogen_disabled, index)
+                "call remove(g:pathogen_disabled, index) "DON'T remove
                 let found = 1
                 break
             endif

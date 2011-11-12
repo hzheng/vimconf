@@ -327,7 +327,7 @@
 
 "=============Plugin settings=============
 
-if utils#enabledPlugin('nerdtree')
+if utils#enabledPlugin('nerdtree') > 0
     "load NERDTree on startup, but command line alias is prefered
     "au VimEnter * NERDTree
     "highlight main window
@@ -345,7 +345,7 @@ if utils#enabledPlugin('nerdtree')
     ca bm Bookmark
 endif
 
-if utils#enabledPlugin('bufexplorer')
+if utils#enabledPlugin('bufexplorer') > 0
     "built-in <Leader>be
     "nmap <Leader>b :BufExplorer<CR>
     let g:bufExplorerSplitVertical = 1 
@@ -355,7 +355,7 @@ if utils#enabledPlugin('bufexplorer')
     let g:bufExplorerDefaultHelp = 0
 endif
 
-if utils#enabledPlugin('fuzzyfinder')
+if utils#enabledPlugin('fuzzyfinder') > 0
     nmap <Leader><Space> :FufBuffer<CR>
     nmap <Leader>e :FufFile<CR>
     "nmap <Leader>g :FufTaggedFile<CR>
@@ -363,7 +363,7 @@ if utils#enabledPlugin('fuzzyfinder')
     "nmap <Leader>t :FufTag<CR>
 endif
 
-if utils#enabledPlugin('command-t')
+if utils#enabledPlugin('command-t') > 0
     nmap <Leader><Space> :CommandTBuffer<CR>
     nmap <Leader>e :CommandT<CR>
     nmap <Leader>y :CommandTFlush<CR>
@@ -372,13 +372,13 @@ if utils#enabledPlugin('command-t')
     let g:CommandTMaxFiles = 20000
 endif
 
-if utils#enabledPlugin('supertab')
+if utils#enabledPlugin('supertab') > 0
     let g:SuperTabDefaultCompletionType = "context"
     "let g:SuperTabMappingTabLiteral = '<c-tab>' " default
     "let g:SuperTabCrMapping = 0
 endif
 
-if utils#enabledPlugin('snipmate')
+if utils#enabledPlugin('snipmate') > 0
     let g:snips_author=expand($USER_FULLNAME)
     let g:author=expand($USER_FULLNAME)
     let g:snips_email=expand($USER_EMAIL)
@@ -389,7 +389,7 @@ if utils#enabledPlugin('snipmate')
     "nn <Leader>rs <esc>:exec ReloadAllSnippets()<cr>
 endif
 
-if utils#enabledPlugin('tabular')
+if utils#enabledPlugin('tabular') > 0
     nmap <Leader>z=  :Tabularize /=<CR>
     vmap <Leader>z=  :Tabularize /=<CR>
     nmap <Leader>z:  :Tabularize /:<CR>
@@ -402,7 +402,7 @@ if utils#enabledPlugin('tabular')
     vmap <Leader>z\  :Tabularize /<bar><CR>
 endif
 
-if utils#enabledPlugin('calendar')
+if utils#enabledPlugin('calendar') > 0
     "nmap <ESC>c :Calendar<CR>
     nmap <Leader>Ca :Calendar<CR>
     "cmap cal Calendar<SPACE>
@@ -413,27 +413,34 @@ if utils#enabledPlugin('calendar')
     "au BufNewFile,BufRead *.cal set ft=rst
 endif
 
-if utils#enabledPlugin('ack')
+if utils#enabledPlugin('ack') > 0
     " improve grep if possible
     set grepprg=ack\ -a
 
     nmap <Leader>a :Ack<SPACE>
 endif
 
-if utils#enabledPlugin('gundo')
+if utils#enabledPlugin('gundo') > 0
     nmap <leader>u :GundoToggle<CR>
 endif
 
-if utils#enabledPlugin('fugitive')
-    nmap <Leader>gv :Gbrowse<CR>
-    vmap <Leader>gv :Gbrowse<CR>
+if utils#enabledPlugin('fugitive') > 0
     nmap <Leader>ge :Gedit<Space>
     nmap <Leader>gb :Gblame<CR>
+    nmap <Leader>gs :Gstatus<CR>
+    nmap <Leader>gc :Gcommit<CR>
+    nmap <Leader>gv :Gdiff<CR>
+    nmap <Leader>gV :Gsdiff<CR>
+    nmap <Leader>gl :Glog<CR>
+    nmap <Leader>gr :Gread<CR>
+    nmap <Leader>gw :Gwrite<CR>
+    nmap <Leader>gv :GBrowse<CR>
+    vmap <Leader>gv :GBrowse<CR>
     " show status
     set stl+=%{fugitive#statusline()} 
 endif
 
-if utils#enabledPlugin('vcscommand')
+if utils#enabledPlugin('vcscommand') > 0
     nmap <Leader>va <Plug>VCSAdd
     nmap <Leader>vb <Plug>VCSAnnotate
     nmap <Leader>vB <Plug>VCSAnnotate!
@@ -452,7 +459,7 @@ if utils#enabledPlugin('vcscommand')
     nmap <Leader>vv <Plug>VCSVimDiff
 endif
 
-if utils#enabledPlugin('tasklist')
+if utils#enabledPlugin('tasklist') > 0
     nmap <leader>tl <Plug>TaskList
     let g:tlTokenList = ["FIXME", "TODO", "XXX", "HACK"]
 endif

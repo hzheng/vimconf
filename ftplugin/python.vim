@@ -1,10 +1,10 @@
 " Python-specific vimscript
 
-if exists("_loaded_python_vim")
+if exists("b:_loaded_python_vim")
     finish
 endif
 
-let _loaded_python_vim = 1
+let b:_loaded_python_vim = 1
 
 " Edit {
     set ofu=pythoncomplete#Complete
@@ -15,19 +15,18 @@ let _loaded_python_vim = 1
 
 "=============Plugin settings=============
 
-if utils#enabledPlugin('pydoc')
-    "nn <Leader>py :call <SID>ShowPyDoc('<C-R><C-W>', 1)<CR>
-    nmap <Leader>w <Leader>pw<CR>
-    "nmap <Leader>W <Leader>pW<CR>
-    nmap <Leader>k <Leader>pk<CR>
-    "nmap <Leader>K <Leader>pK<CR>
+if utils#enabledPlugin('pydoc') > 0
+    nmap <buffer> <Leader>w <Leader>pw<CR>
+    "nmap <buffer> <Leader>W <Leader>pW<CR>
+    nmap <buffer> <Leader>k <Leader>pk<CR>
+    "nmap <buffer> <Leader>K <Leader>pK<CR>
 endif
 
-if utils#enabledPlugin('pyflakes')
+if utils#enabledPlugin('pyflakes') > 0
     "let g:pyflakes_use_quickfix = 0
 endif
 
-if utils#enabledPlugin('ropevim')
+if utils#enabledPlugin('ropevim') > 0
     nmap <leader>j :RopeGotoDefinition<CR>
     nmap <leader>R :RopeRename<CR>
 
@@ -35,21 +34,21 @@ if utils#enabledPlugin('ropevim')
     let ropevim_vim_completion = 1
 endif
 
-if utils#enabledPlugin('pytest')
-    nmap <Leader>tt :Pytest<SPACE>
-    nmap <Leader>tf :Pytest file<CR>
-    nmap <Leader>tF :Pytest file verbose<CR>
-    nmap <Leader>tc :Pytest class<CR>
-    nmap <Leader>tC :Pytest class verbose<CR>
-    nmap <Leader>tm :Pytest method<CR>
-    nmap <Leader>tM :Pytest method verbose<CR>
-    nmap <Leader>te :Pytest error<CR>
-    nmap <Leader>ts :Pytest session<CR>
-    nmap <Leader>tn <Esc>:Pytest next<CR>
-    nmap <Leader>tp <Esc>:Pytest previous<CR>
+if utils#enabledPlugin('pytest') > 0
+    nmap <buffer> <Leader>tt :Pytest<SPACE>
+    nmap <buffer> <Leader>tf :Pytest file<CR>
+    nmap <buffer> <Leader>tF :Pytest file verbose<CR>
+    nmap <buffer> <Leader>tc :Pytest class<CR>
+    nmap <buffer> <Leader>tC :Pytest class verbose<CR>
+    nmap <buffer> <Leader>tm :Pytest method<CR>
+    nmap <buffer> <Leader>tM :Pytest method verbose<CR>
+    nmap <buffer> <Leader>te :Pytest error<CR>
+    nmap <buffer> <Leader>ts :Pytest session<CR>
+    nmap <buffer> <Leader>tn <Esc>:Pytest next<CR>
+    nmap <buffer> <Leader>tp <Esc>:Pytest previous<CR>
 endif
 
-if !utils#enabledPlugin('pydiction')
+if utils#enabledPlugin('pydiction') == 0
     let g:pydiction_location = g:BUNDLE_PATH . '/pydiction/complete-dict'
     let g:pydiction_menu_height = 20
     "set complete+=k~/.vim/bundle/pydiction iskeyword+=.,(
@@ -58,8 +57,8 @@ if !utils#enabledPlugin('pydiction')
     call utils#loadPlugin('pydiction')
 endif
 
-if !utils#enabledPlugin('pep8')
-    let g:pep8_map = '<Leader>8'
+if utils#enabledPlugin('pep8') == 0
+    let g:pep8_map = '<buffer> <Leader>8'
 
     " manually load
     call utils#loadPlugin('pep8')

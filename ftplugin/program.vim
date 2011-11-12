@@ -1,10 +1,10 @@
 " Programming files' common vimscript
 
-if exists("_loaded_program_vim")
+if exists("b:_loaded_program_vim")
     finish
 endif
 
-let _loaded_program_vim = 1
+let b:_loaded_program_vim = 1
 
 " Format {
     " Set the width of text
@@ -19,28 +19,28 @@ let _loaded_program_vim = 1
 " Tag {
     "set completeopt=longest,menu
     set completeopt=menuone,longest,preview
-    map <S-Left> <C-T>
-    map <S-Right> <C-]>
-    map <S-Up> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
-    map <S-Down> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+    map <buffer> <S-Left> <C-T>
+    map <buffer> <S-Right> <C-]>
+    map <buffer> <S-Up> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+    map <buffer> <S-Down> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
     let g:CTAGS = '/usr/local/bin/ctags'
     let g:TAG_DIR = '~/tags'
     exe "set tags+=" . g:TAG_DIR . "/" . &filetype
-    exe "map <C-F12> :!" . g:CTAGS . " -R -o tags .<CR><CR>"
+    exe "map <buffer> <C-F12> :!" . g:CTAGS . " -R -o tags .<CR><CR>"
 " }
 
 " Debug {
-    nmap <Leader>F   :call utils#ToggleQuickfix(0)<CR>
-    nmap <Leader>dl  :cl<CR>
-    nmap <Leader>dd  :cc<CR>
-    nmap <Leader>dn  :cn<CR>
-    nmap <Leader>dp  :cp<CR>
+    nmap <buffer> <Leader>F   :call utils#ToggleQuickfix(0)<CR>
+    nmap <buffer> <Leader>dl  :cl<CR>
+    nmap <buffer> <Leader>dd  :cc<CR>
+    nmap <buffer> <Leader>dn  :cn<CR>
+    nmap <buffer> <Leader>dp  :cp<CR>
 " }
 
 "=============Plugin settings=============
 
-if !utils#enabledPlugin('taglist')
+if utils#enabledPlugin('taglist') == 0
     "nmap <ESC>t :TlistToggle<CR>
     "nmap <Leader>l :TlistToggle<CR>
     "nmap <Leader>u :TlistUpdate<CR>
@@ -53,12 +53,12 @@ if !utils#enabledPlugin('taglist')
     "let Tlist_WinWidth = 50
     "let Tlist_Auto_Open = 1
 
-    " don't load since tagbar is preferred
-    "call utils#loadPlugin('taglist')
+    " manually load
+    call utils#loadPlugin('taglist')
 endif
 
-if !utils#enabledPlugin('tagbar')
-    nmap <Leader>T :TagbarToggle<CR>
+if utils#enabledPlugin('tagbar') == 0
+    nmap <buffer> <Leader>T :TagbarToggle<CR>
     let g:tagbar_ctags_bin = g:CTAGS
     let g:tagbar_autofocus = 1 " auto focus when open
 
@@ -66,14 +66,14 @@ if !utils#enabledPlugin('tagbar')
     call utils#loadPlugin('tagbar')
 endif
 
-if !utils#enabledPlugin('nerdcommenter')
+if utils#enabledPlugin('nerdcommenter') == 0
     " manually load
     call utils#loadPlugin('nerdcommenter')
     " FIXME: DON'T work if user change filetype after opening a non-program file
 endif
 
-if !utils#enabledPlugin('autoclose')
-    nmap <Leader>A <Plug>ToggleAutoCloseMappings
+if utils#enabledPlugin('autoclose') == 0
+    nmap <buffer> <Leader>A <Plug>ToggleAutoCloseMappings
 
     " manually load
     call utils#loadPlugin('autoclose')
