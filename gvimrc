@@ -2,8 +2,13 @@
 
 
 " Screen {
-    set fuopt=maxvert,maxhorz  " full screen
-    au GUIEnter * set fullscreen
+    if has('fullscreen')
+        set fuopt=maxvert,maxhorz  " full screen
+        au GUIEnter * set fullscreen
+        " toggle fullscreen mode
+        nmap <F1> :set fullscreen!<CR>
+    endif
+
     set guioptions-=T      " remove the toolbar
     set guioptions-=m      " remove the menu
     "set guioptions=mcr
@@ -31,7 +36,7 @@
     "set guitablabel=%t
     set guitablabel=%{utils#GuiTabLabel()}
  
-    " The following take not effect(?)
+    " The following take no effect in fullscreen mode(?)
     hi TabLineSel guifg=green guibg=darkgray gui=bold
     hi TabLineFill guifg=darkgray guibg=NONE gui=NONE 
     hi TabLine guifg=darkgray guibg=red gui=NONE

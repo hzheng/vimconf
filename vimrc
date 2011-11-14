@@ -6,8 +6,8 @@
     set nocompatible " ignore vi compatibility
     set history=100
 
+    "override the default leader '\'
     let mapleader = ","
-    "let mapleader = "\\"
     "swap comma and backslash for convenience
     nn , \
     nn \ ,
@@ -76,7 +76,7 @@
     set hls " Have vim highlight the target of a search.
     set is  " Do incremental searches.
     set ignorecase " Ignore case when search
-    " Toggle case ignore
+    " toggle case ignore
     nmap <Leader>C :set ignorecase! ignorecase?<CR>
     set scs " Set smart case
     set nowrapscan " No wrap scan when search
@@ -119,7 +119,8 @@
     " Spell {
         set dict+=/usr/share/dict/words " dictionary
         set thesaurus+=/usr/share/dict/mthesaur.txt " thesaurus
-        " Toggle spell checking
+        exe 'set spellfile=' . g:VIMFILES . '/spell/en.utf-8.add'
+        " toggle spell checking
         nmap <Leader>sc :setlocal spell! spelllang=en_gb<CR>
     " }
 
@@ -267,7 +268,6 @@
 " GUI {
     "set background=light
     "color spring            " load a colorscheme
-    "color moria
     syntax on " Turn on syntax highlighting
 
     " Set mouse
@@ -387,7 +387,6 @@ if utils#enabledPlugin('snipmate') > 0
     let g:email=expand($USER_EMAIL)
     let g:snips_github=expand($USER_GITHUB)
     let g:github=expand($USER_GITHUB)
-    "au FileType c,cpp,java,python,ruby,perl,php,objc,javascript,xml,html,xhtml,sh source ~/.vim/extra/snipMate.vim
     "nn <Leader>rs <esc>:exec ReloadAllSnippets()<cr>
 endif
 
