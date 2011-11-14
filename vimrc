@@ -80,11 +80,8 @@
     nmap <Leader>C :set ignorecase! ignorecase?<CR>
     set scs " Set smart case
     set nowrapscan " No wrap scan when search
-    " Turn search highlighting on and off
-    "map  <F8>        :set hls!<bar>set hls?<CR>
+    " toggle search highlighting
     nmap  <silent> <Leader>/ :set hls!<bar>set hls?<CR>
-    "nmap <silent> <Leader>/ :nohlsearch<CR>
-    "imap <F8>        <ESC>:set hls!<bar>set hls?<CR>i
 " }
 
 " Edit {
@@ -123,8 +120,7 @@
         set dict+=/usr/share/dict/words " dictionary
         set thesaurus+=/usr/share/dict/mthesaur.txt " thesaurus
         " Toggle spell checking
-        nmap <C-F11> :setlocal spell! spelllang=en_gb<CR>
-        imap <C-F11> <ESC>:setlocal spell! spelllang=en_gb<CR>
+        nmap <Leader>sc :setlocal spell! spelllang=en_gb<CR>
     " }
 
     " Encoding {
@@ -141,9 +137,11 @@
 " }
 
 " File {
-    set ar " Automatically read outside change
-    set aw " Automatically write files as needed.
-    " Automatically save when focus is lost
+    " automatically read outside change
+    set ar
+    " automatically write files as needed.
+    set aw
+    " automatically save when focus is lost
     au BufLeave,FocusLost * silent! wa
     " hide buffer instead of closing
     set hidden
@@ -181,7 +179,7 @@
         au VimEnter * nested :call utils#LoadSession()
         au VimLeave * :call utils#UpdateSession()
     endif
-    nmap <Leader>SS :call utils#SaveSession()<CR>
+    nmap <Leader>ss :call utils#SaveSession()<CR>
 
     " Save viminfo
     exe "set viminfo+=n" . g:VIMTMP . "/viminfo"
@@ -255,6 +253,10 @@
     "map  <F4>       :w<CR>
     "map! <F4>       <ESC>:w<CR>
     "map! <S-F4>     <ESC>ZZ
+
+    " display messages 
+    nmap <F11> :messages<CR>
+    imap <F11> <ESC>:messages<CR>
 " }
 
 " External {
@@ -429,8 +431,8 @@ if utils#enabledPlugin('fugitive') > 0
     nmap <Leader>gb :Gblame<CR>
     nmap <Leader>gs :Gstatus<CR>
     nmap <Leader>gc :Gcommit<CR>
-    nmap <Leader>gv :Gdiff<CR>
-    nmap <Leader>gV :Gsdiff<CR>
+    nmap <Leader>gd :Gdiff<CR>
+    nmap <Leader>gD :Gsdiff<CR>
     nmap <Leader>gl :Glog<CR>
     nmap <Leader>gr :Gread<CR>
     nmap <Leader>gw :Gwrite<CR>

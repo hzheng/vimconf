@@ -13,6 +13,10 @@ let b:_loaded_python_vim = 1
     set nosmartindent "no smart indent
 " }
 
+" Debug {
+    set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
+" }
+
 "=============Plugin settings=============
 
 if utils#enabledPlugin('pydoc') > 0
@@ -23,7 +27,8 @@ if utils#enabledPlugin('pydoc') > 0
 endif
 
 if utils#enabledPlugin('pyflakes') > 0
-    "let g:pyflakes_use_quickfix = 0
+    " don't use quickfix window to avoid confliction with compilation error
+    let g:pyflakes_use_quickfix = 0
 endif
 
 if utils#enabledPlugin('ropevim') > 0

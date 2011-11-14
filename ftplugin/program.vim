@@ -27,15 +27,24 @@ let b:_loaded_program_vim = 1
     let g:CTAGS = '/usr/local/bin/ctags'
     let g:TAG_DIR = '~/tags'
     exe "set tags+=" . g:TAG_DIR . "/" . &filetype
-    exe "map <buffer> <C-F12> :!" . g:CTAGS . " -R -o tags .<CR><CR>"
+    exe "map <buffer> <F12> :!" . g:CTAGS . " -R -o tags .<CR><CR>"
 " }
 
-" Debug {
-    nmap <buffer> <Leader>F   :call utils#ToggleQuickfix(0)<CR>
-    nmap <buffer> <Leader>dl  :cl<CR>
-    nmap <buffer> <Leader>dd  :cc<CR>
-    nmap <buffer> <Leader>dn  :cn<CR>
-    nmap <buffer> <Leader>dp  :cp<CR>
+" Compile/Debug {
+    nmap <buffer> <F10> :call utils#make()<CR>
+    imap <buffer> <F10> <ESC>:call utils#make()<CR>
+
+    " toggle all errors
+    nmap <buffer> <C-F9> :call utils#ToggleQuickfix(0)<CR>
+    imap <buffer> <C-F9> <ESC>:call utils#ToggleQuickfix(0)<CR>
+    " redisplay the last error
+    nmap <buffer> <S-F9>     :cc<CR>
+    " list all VALID errors
+    nmap <buffer> <F9>       :cl<CR>
+    " show previous error
+    nmap <buffer> <F7>       :cp<CR>
+    " show next error
+    nmap <buffer> <F8>       :cn<CR>
 " }
 
 "=============Plugin settings=============

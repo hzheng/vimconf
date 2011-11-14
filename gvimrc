@@ -13,9 +13,10 @@
 
 " Status line {
     au InsertEnter * call utils#InsertStatuslineColor(v:insertmode)
-    au InsertLeave * hi statusline guibg=green
-    " default the statusline to green when entering Vim
-    hi statusline guibg=green
+    au InsertLeave * hi statusline guibg=blue
+    " set the statusline's default color when entering Vim
+    hi statusline guibg=blue
+    hi statuslineNC guibg=gray
 " }
 
 " Tab {
@@ -43,4 +44,6 @@
     hi CursorLine guibg=lightgray
     set cursorcolumn
     hi CursorColumn guibg=lightgray
+
+    set mousehide " hide mouse when typing
 " }

@@ -237,7 +237,7 @@
         if a:mode == 'i'
             hi statusline guibg=magenta
         elseif a:mode == 'r'
-            hi statusline guibg=blue
+            hi statusline guibg=green
         else
             hi statusline guibg=red
         endif
@@ -342,8 +342,55 @@
         if len(path) > 3
             let date = path[len(path) - 3 :]
             let day = substitute(date[2], ".cal", "日", "g")
-            exe "normal! i       " date[0]."年".date[1]."月".day
-            exe 'normal! o'
+            exe "norm! i       " date[0]."年".date[1]."月".day
+            exe 'norm! o'
         endif
+    endfun
+" }
+
+" Compile/Debug {
+    fun! utils#make(...)
+        if a:0 
+            let makeArgs = a:1
+        else
+            let makeArgs = ''
+        endif
+
+        silent! w " save first
+        exe "make " . makeArgs
+        redraw!
+        call s:showError()
+    endfun
+
+    fun! s:showError()
+        let errMsg = ''
+        for error in getqflist()
+            if error['valid']
+                let errMsg = error['text']
+                break " only show the first error
+            endif
+        endfor
+        if errMsg == ''
+            call s:showBar('') 
+        else
+            let errMsg = substitute(errMsg, '^ *', '', 'g') " strip leading spaces
+            ""silent cc!
+            "exec ":sbuffer " . error['bufnr']
+            call s:showBar(errMsg) 
+        endif
+    endfun
+
+    fun! s:showBar(msg)
+        let msg = a:msg
+        if msg == ''
+            let msg = 'OK'
+            hi GreenBar term=reverse ctermfg=white ctermbg=green guifg=white guibg=green
+            echohl GreenBar
+        else
+            hi RedBar   term=reverse ctermfg=white ctermbg=red guifg=white guibg=red
+            echohl RedBar
+        endif
+        echon msg repeat(' ', &columns - strlen(msg) - 1)
+        echohl None
     endfun
 " }
