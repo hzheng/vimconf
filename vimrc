@@ -60,16 +60,16 @@
       "au BufReadPre * setlocal foldmethod=indent
       "au BufWinEnter * if &fdm == 'indent' | setlocal foldmethod=manual | endif
     "augroup END
-    nmap <Leader>f0 :set foldlevel=0<CR>
-    nmap <Leader>f1 :set foldlevel=1<CR>
-    nmap <Leader>f2 :set foldlevel=2<CR>
-    nmap <Leader>f3 :set foldlevel=3<CR>
-    nmap <Leader>f4 :set foldlevel=4<CR>
-    nmap <Leader>f5 :set foldlevel=5<CR>
-    nmap <Leader>f6 :set foldlevel=6<CR>
-    nmap <Leader>f7 :set foldlevel=7<CR>
-    nmap <Leader>f8 :set foldlevel=8<CR>
-    nmap <Leader>f9 :set foldlevel=9<CR>
+    nmap <Leader>f0 :setl foldlevel=0<CR>
+    nmap <Leader>f1 :setl foldlevel=1<CR>
+    nmap <Leader>f2 :setl foldlevel=2<CR>
+    nmap <Leader>f3 :setl foldlevel=3<CR>
+    nmap <Leader>f4 :setl foldlevel=4<CR>
+    nmap <Leader>f5 :setl foldlevel=5<CR>
+    nmap <Leader>f6 :setl foldlevel=6<CR>
+    nmap <Leader>f7 :setl foldlevel=7<CR>
+    nmap <Leader>f8 :setl foldlevel=8<CR>
+    nmap <Leader>f9 :setl foldlevel=9<CR>
 " }
 
 " Search {
@@ -121,7 +121,7 @@
         set thesaurus+=/usr/share/dict/mthesaur.txt " thesaurus
         exe 'set spellfile=' . g:VIMFILES . '/spell/en.utf-8.add'
         " toggle spell checking
-        nmap <Leader>sc :setlocal spell! spelllang=en_gb<CR>
+        nmap <Leader>sc :setl spell! spelllang=en_gb<CR>
     " }
 
     " Encoding {
@@ -316,10 +316,10 @@
     " line {
         nmap <Leader>CC :call utils#ToggleColorColumn()<cr>
 
-        if exists("&relativenumber")
-            set relativenumber
+        if exists("&relativenumber") && &modifiable
+            setl relativenumber
         else
-            set number
+            setl number
         endif
         nmap <F6> :call utils#ToggleNumber()<cr>
         imap <F6> <Esc>:call utils#ToggleNumber()<cr>

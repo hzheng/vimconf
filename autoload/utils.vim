@@ -201,7 +201,7 @@
     " track the quickfix window
     augroup QuickFix
         au!
-        au BufWinEnter quickfix let g:quickfixWin = bufnr("$") | set number
+        au BufWinEnter quickfix let g:quickfixWin = bufnr("$")
         au BufWinLeave * if exists("g:quickfixWin") && expand("<abuf>") == g:quickfixWin | unlet! g:quickfixWin | endif
     augroup END
 " }
@@ -213,23 +213,23 @@
         endif
 
         if &colorcolumn == ""
-            set colorcolumn=+1
+            setl colorcolumn=+1
         else
-            set colorcolumn=
+            setl colorcolumn=
         endif
     endfun
 
     fun! utils#ToggleNumber()
         if exists("&relativenumber")
             if &relativenumber
-                set number
+                setl number
             elseif &number
-                set nonumber
+                setl nonumber
             else
-                set relativenumber
+                setl relativenumber
             endif
         else
-            set number!
+            setl number!
         endif
     endfun
 
