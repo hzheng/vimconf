@@ -1,10 +1,11 @@
 " Processes after file type detection
 
-if exists("b:_loaded_types_vim")
+if exists('b:_loaded_types') || &cp || version < 700
     finish
 endif
 
-let b:_loaded_types_vim = 1
+let b:_loaded_types = 1
+
 
 au FileType * call s:initType()
 
@@ -92,7 +93,7 @@ endfun
     fun! s:isProgram()
         " TODO: need improvement
         "return &filetype =~ '^\(c\|cpp\|java\|cs\|objc\|python\|ruby\|perl\|php\|javascript\|vim\|sh\|lisp\|prolog\)$'
-        return &filetype !~ '^\(text\|pdf\|zip\|tar\)$'
+        return &filetype !~ '^\(diff\|text\|pdf\|zip\|tar\)$'
     endfun
 
     " Reads a file with the variables resolved and writes into buffer

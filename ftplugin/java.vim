@@ -1,10 +1,11 @@
 " Java-specific vimscript
 
-if exists("b:_loaded_java_vim")
+if exists('b:_loaded_java') || &cp || version < 700
     finish
 endif
 
-let b:_loaded_java_vim = 1
+let b:_loaded_java = 1
+
 
 " Format {
     set si           "smart indent

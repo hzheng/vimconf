@@ -1,10 +1,10 @@
 " Python-specific vimscript
 
-if exists("b:_loaded_python_vim")
+if exists('b:_loaded_python') || &cp || version < 700
     finish
 endif
 
-let b:_loaded_python_vim = 1
+let b:_loaded_python = 1
 
 " Edit {
     set ofu=pythoncomplete#Complete

@@ -1,10 +1,10 @@
 " Programming files' common vimscript
 
-if exists("b:_loaded_program_vim")
+if exists('b:_loaded_program') || &cp || version < 700
     finish
 endif
 
-let b:_loaded_program_vim = 1
+let b:_loaded_program = 1
 
 " Format {
     " Set the width of text

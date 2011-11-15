@@ -1,10 +1,11 @@
 " C/C++-specific vimscript
 
-if exists("b:_loaded_cpp_vim")
+if exists('b:_loaded_cpp') || &cp || version < 700
     finish
 endif
 
-let b:_loaded_cpp_vim = 1
+let b:_loaded_cpp = 1
+
 
 " Format {
     set si           "smart indent

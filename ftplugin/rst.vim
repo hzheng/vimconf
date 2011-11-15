@@ -1,10 +1,11 @@
 " RST-specific vimscript
 
-if exists("b:_loaded_rst_vim")
+if exists('b:_loaded_rst') || &cp || version < 700
     finish
 endif
 
-let b:_loaded_rst_vim = 1
+let b:_loaded_rst = 1
+
 
 " Fast input {
     " recommended underline title adornments

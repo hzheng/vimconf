@@ -1,10 +1,11 @@
 " XML-specific vimscript
 
-if exists("b:_loaded_xml_extra_vim")
+if exists('b:_loaded_xml_extra') || &cp || version < 700
     finish
 endif
 
-let b:_loaded_xml_extra_vim = 1
+let b:_loaded_xml_extra = 1
+
 
 " entities
 "imap <leader>> &gt;

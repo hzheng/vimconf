@@ -1,9 +1,10 @@
 " Django-specific vimscript
 
-if exists("b:_loaded_django_vim")
+if exists('b:_loaded_django') || &cp || version < 700
     finish
 endif
 
-let b:_loaded_django_vim = 1
+let b:_loaded_django = 1
+
 
 nmap <buffer> <F10> :set makeprg=python\ manage.py\ test\| call utils#make()<CR>
