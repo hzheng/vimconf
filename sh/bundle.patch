@@ -1,0 +1,77 @@
+diff -cr bundle/calendar/plugin/calendar.vim bundle.patched/calendar/plugin/calendar.vim
+*** bundle/calendar/plugin/calendar.vim	2011-11-15 15:47:27.000000000 +0800
+--- bundle.patched/calendar/plugin/calendar.vim	2011-11-15 14:07:49.000000000 +0800
+***************
+*** 1219,1225 ****
+    let vbufnr = bufnr('__Calendar')
+  
+    " load the file
+!   exe "sp " . sfile
+    setlocal ft=calendar
+    let dir = getbufvar(vbufnr, "CalendarDir")
+    let vyear = getbufvar(vbufnr, "CalendarYear")
+--- 1219,1228 ----
+    let vbufnr = bufnr('__Calendar')
+  
+    " load the file
+!   "exe "sp " . sfile
+!   exe "wincmd l"
+!   exe "edit " . sfile
+! 
+    setlocal ft=calendar
+    let dir = getbufvar(vbufnr, "CalendarDir")
+    let vyear = getbufvar(vbufnr, "CalendarYear")
+diff -cr bundle/pydiction/plugin/python_pydiction.vim bundle.patched/pydiction/plugin/python_pydiction.vim
+*** bundle/pydiction/plugin/python_pydiction.vim	2011-11-15 15:47:29.000000000 +0800
+--- bundle.patched/pydiction/plugin/python_pydiction.vim	2011-11-15 14:07:49.000000000 +0800
+***************
+*** 59,71 ****
+  
+  
+  " Make the Tab key do python code completion:
+! inoremap <silent> <buffer> <Tab> 
+           \<C-R>=<SID>SetVals()<CR>
+           \<C-R>=<SID>TabComplete('down')<CR>
+           \<C-R>=<SID>RestoreVals()<CR>
+  
+  " Make Shift+Tab do python code completion in the reverse direction:
+! inoremap <silent> <buffer> <S-Tab> 
+           \<C-R>=<SID>SetVals()<CR>
+           \<C-R>=<SID>TabComplete('up')<CR>
+           \<C-R>=<SID>RestoreVals()<CR>
+--- 59,73 ----
+  
+  
+  " Make the Tab key do python code completion:
+! "inoremap <silent> <buffer> <Tab> 
+! inoremap <silent> <buffer> <S-CR> 
+           \<C-R>=<SID>SetVals()<CR>
+           \<C-R>=<SID>TabComplete('down')<CR>
+           \<C-R>=<SID>RestoreVals()<CR>
+  
+  " Make Shift+Tab do python code completion in the reverse direction:
+! "inoremap <silent> <buffer> <S-Tab> 
+! inoremap <silent> <buffer> <C-CR> 
+           \<C-R>=<SID>SetVals()<CR>
+           \<C-R>=<SID>TabComplete('up')<CR>
+           \<C-R>=<SID>RestoreVals()<CR>
+diff -cr bundle/pytest/ftplugin/python/pytest.vim bundle.patched/pytest/ftplugin/python/pytest.vim
+*** bundle/pytest/ftplugin/python/pytest.vim	2011-11-15 15:51:52.000000000 +0800
+--- bundle.patched/pytest/ftplugin/python/pytest.vim	2011-11-15 15:34:35.000000000 +0800
+***************
+*** 9,15 ****
+  if exists("g:loaded_pytest") || &cp
+    finish
+  endif
+! 
+  
+  " Global variables for registering next/previous error
+  let g:pytest_session_errors    = {}
+--- 9,15 ----
+  if exists("g:loaded_pytest") || &cp
+    finish
+  endif
+! let g:loaded_pytest = 1
+  
+  " Global variables for registering next/previous error
+  let g:pytest_session_errors    = {}
