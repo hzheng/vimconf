@@ -12,7 +12,10 @@ echo "******installing command-t..."
 (cd bundle/command-t/ruby/command-t && ruby extconf.rb && make) || echo "command-t installation failed"
 
 echo "******installing pyflakes..."
-(cd bundle/pyflakes/ftplugin/python/pyflakes && python setup.py install) || echo "pyflakes installation failed"
+(cd bundle/pyflakes/ftplugin/python/pyflakes && sudo python setup.py install) || echo "pyflakes installation failed"
 
-echo "******patching submodules"
-patch -p0 -i $DIR/bundle.patch
+read -p "Patch submodules(if you have done this before, press 'n' to skip)?(y/n) " -n 1
+echo
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+    patch -p0 -i $DIR/bundle.patch
+fi

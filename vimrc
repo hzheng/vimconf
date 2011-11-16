@@ -121,7 +121,7 @@
         set thesaurus+=/usr/share/dict/mthesaur.txt " thesaurus
         exe 'set spellfile=' . g:VIMFILES . '/spell/en.utf-8.add'
         " toggle spell checking
-        nmap <Leader>sc :setl spell! spelllang=en_gb<CR>
+        nmap <F3> :setl spell! spelllang=en_gb<CR>
     " }
 
     " Encoding {
@@ -422,7 +422,7 @@ if utils#enabledPlugin('ack') > 0
 endif
 
 if utils#enabledPlugin('gundo') > 0
-    nmap <leader>u :GundoToggle<CR>
+    nmap <leader>U :GundoToggle<CR>
 endif
 
 if utils#enabledPlugin('fugitive') > 0
