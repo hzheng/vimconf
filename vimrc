@@ -7,7 +7,7 @@
     set history=100
 
     "override the default leader '\'
-    let mapleader = ","
+    let mapleader = ','
     "swap comma and backslash for convenience
     nn , \
     nn \ ,
@@ -19,35 +19,37 @@
     nmap <Leader>r :sh<CR> 
 " }
 
-" Format(indentation, tab etc.) {
+" Format {
     " autowrap comments using textwidth and insert the current comment leader
-    set fo+=c
+    set formatoptions+=c
     " automatically insert a comment leader after an enter
-    set fo+=r
+    set formatoptions+=r
     " automatically insert the current comment leader after 'o' or 'O'
-    set fo+=o
-    " allow formatting of comments with "gq"
-    set fo+=q
+    set formatoptions+=o
+    " allow formatting of comments with 'gq'
+    set formatoptions+=q
     " long lines are not broken in insert mode
-    set fo+=l
+    set formatoptions+=l
     " Do no auto-wrap text using textwidth (does not apply to comments)
-    set fo-=t
+    set formatoptions-=t
+" }
 
+" indentation/tab {
     " turn off C indentation, and set the comments option to the default.
     "c/c++ type will override this in ftplugin
     au FileType * set nocindent comments& 
-    set ai " Turn on automatic indentation.
-    set sw=4  " Set shift width or the size of an indentation.
+    set autoindent
+    set shiftwidth=4  " set shift width or the size of an indentation.
     " disable auto indentation
     nn <Leader>I :setl noai nocin nosi inde=<CR>
 
-    set ts=8 "tab stop(or 4 in python?)
-    set sts=4 " soft tab stop
-    set et " Insert tabs as spaces
-    " Set smart tab: in front of a line inserts blanks according to
-    " 'shiftwidth', A <BS> will delete a 'shiftwidth' worth of space
-    " at the start of the line.
-    set sta
+    set tabstop=4
+    set softtabstop=4
+    " insert tabs as spaces
+    set expandtab
+    " in front of a line inserts blanks according to 'shiftwidth', a <BS>
+    " will delete a 'shiftwidth' worth of space at the start of the line.
+    set smarttab
 
     filetype plugin indent on
 " }
@@ -73,12 +75,12 @@
 " }
 
 " Search {
-    set hls " Have vim highlight the target of a search.
-    set is  " Do incremental searches.
+    set hlsearch " highlight the target of a search.
+    set incsearch  " incremental search
     set ignorecase " Ignore case when search
     " toggle case ignore
     nmap <Leader>C :set ignorecase! ignorecase?<CR>
-    set scs " Set smart case
+    set smartcase
     set nowrapscan " No wrap scan when search
     " toggle search highlighting
     nmap  <silent> <Leader>/ :set hls!<bar>set hls?<CR>
@@ -92,30 +94,30 @@
 " Tag {
     map <S-Left> <C-T>
     map <S-Right> <C-]>
-    map <S-Up> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
-    map <S-Down> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+    map <S-Up> :tab split<CR>:exec('tag '.expand('<cword>'))<CR>
+    map <S-Down> :vsp <CR>:exec('tag '.expand('<cword>'))<CR>
 
     let g:CTAGS = '/usr/local/bin/ctags'
     let g:TAG_DIR = '~/tags'
-    exe "set tags+=" . g:TAG_DIR . "/" . &filetype
-    exe "map <F12> :!" . g:CTAGS . " -R -o tags .<CR><CR>"
+    exe 'set tags+=' . g:TAG_DIR . '/' . &filetype
+    exe 'map <F12> :!' . g:CTAGS . ' -R -o tags .<CR><CR>'
 " }
 
 " Edit {
-    set smd " Show mode
-    set lbr "set link break to avoid wrapping a word
-    set sm " Show parentheses matching
-    set bs=2 " Allow backspace to delete newlines and beyond the start of the insertion point
-    set ww=b,s,h,l,<,>,[,] " Allow the cursor to wrap on anything
-    set nojoinspaces " Don't add two spaces after ., ?, !
-    set ta " Set textauto to recognize ^M files
-    set report=0  " Report all change
+    set showmode
+    set linebreak " avoid wrapping a word
+    set showmatch " show parentheses matching
+    " allow BS to delete newlines and beyond the start of the insertion point
+    set backspace=2 
+    set whichwrap=b,s,h,l,<,>,[,] " allow the cursor to wrap on anything
+    set nojoinspaces " don't add two spaces after ., ?, !
+    set report=0  " report all line change
 
     "set paste
     set pastetoggle=<F2>
     "set pt=<Leader>p  " paste toggle (sane indentation on pastes)
 
-    set gd " set g as default when substitute
+    set gdefault " set g as default when substitute
 
     "most input abbreviations should go to filetype-aware's scripts(under .vim/ftplugin)
 
@@ -131,8 +133,7 @@
         "set completeopt=longest,menu
         set completeopt=menuone,longest,preview
 
-        " default omni-complete function
-        set ofu=syntaxcomplete#Complete
+        set omnifunc=syntaxcomplete#Complete
         " Omni completion
         ino <S-Space> <C-X><C-O>
     " }
@@ -143,8 +144,8 @@
     " }
 
     " Spell {
-        set dict+=/usr/share/dict/words " dictionary
-        set thesaurus+=/usr/share/dict/mthesaur.txt " thesaurus
+        set dictionary+=/usr/share/dict/words
+        set thesaurus+=/usr/share/dict/mthesaur.txt
         exe 'set spellfile=' . g:VIMFILES . '/spell/en.utf-8.add'
         " toggle spell checking
         nmap <F3> :setl spell! spelllang=en_gb<CR>
@@ -165,42 +166,45 @@
 
 " File {
     " automatically read outside change
-    set ar
+    set autoread
     " automatically write files as needed.
-    set aw
+    set autowrite
     " automatically save when focus is lost
     au BufLeave,FocusLost * silent! wa
     " hide buffer instead of closing
     set hidden
 
-    set wim=longest,full " Set wildmode
-    " Suffixes to put to the end of the list when completing file names
+    set wildmode=longest,full
+    " suffixes to put to the end of the list when completing file names
     set suffixes=.bak,~,.o,.class,.info,.swp
-    " Patterns to put to ignore when completing file names
-    set wig=*.bak,~,*.o,*.info,*.swp,*.class,*.pyc,.git,.svn
+    " patterns to put to ignore when completing file names
+    set wildignore=*.bak,~,*.o,*.info,*.swp,*.class,*.pyc,.git,.svn
 
-    " Swap directory(double slash means keep full path)
-    exe "set dir=". g:VIMTMP . "/swap//"
-    set backup " Turn on backup
-    set wb " Turn on write backup
-    " Backup directory
-    exe "set bdir=". g:VIMTMP . "/backup//"
-    set bex=~ " Backup extension
+    " swap directory(double slash means keep full path)
+    exe 'set dir='. g:VIMTMP . '/swap//'
+    set backup " turn on backup
+    set writebackup " turn on write backup
+    " backup directory
+    exe 'set backupdir='. g:VIMTMP . '/backup//'
+    set backupext=~
 
-    if exists("&undofile")
+    if exists('&undofile')
         set undofile
-        set undolevels=1000 "maximum number of changes that can be undone
-        set undoreload=10000 "maximum number lines to save for undo on a buffer reload
-        exe "set undodir=". g:VIMTMP . "/undo"
+        " set max number of changes that can be undone
+        set undolevels=1000 
+        " set max number lines to save for undo on a buffer reload
+        set undoreload=10000
+        exe 'set undodir='. g:VIMTMP . '/undo'
     endif
 " }
 
 " Save state {
-    " Save session
-    set ssop-=options " do not store global and local values in a session
-    "set ssop-=curdir
-    "set ssop+=sesdir
-    set ssop-=blank   " do not store empty windows(avoid nerdtree problem)
+    " do not store global and local values in a session
+    set sessionoptions-=options
+    "set sessionoptions-=curdir
+    "set sessionoptions+=sesdir
+    " do not store empty windows(avoid nerdtree problem)
+    set sessionoptions-=blank
 
     if has('gui_running') " auto change session only in GUI
         au VimEnter * nested :call utils#LoadSession()
@@ -209,15 +213,15 @@
     nmap <Leader>ss :call utils#SaveSession()<CR>
 
     " Save viminfo
-    exe "set viminfo+=n" . g:VIMTMP . "/viminfo"
+    exe 'set viminfo+=n' . g:VIMTMP . '/viminfo'
 
     " Save view records
-    exe "set viewdir=". g:VIMTMP . "/view"
+    exe 'set viewdir='. g:VIMTMP . '/view'
     au BufWinLeave * silent! mkview
     au BufWinEnter * silent! loadview
 
     " make 'crontab -e' work
-    if $VIM_CRONTAB == "true"
+    if $VIM_CRONTAB == 'true'
         set nobackup
         set nowritebackup
     endif
@@ -321,28 +325,29 @@
         " highlight cursor
     endif
 
-    set sc " Show partially typed commands
+    set showcmd " show partially typed commands
 
-    set ru " Show the ruler
+    set ruler " show the ruler
     " Set ruler format: length, column, percentage, total lines,
     " chop position, middle position, file name, modification and read-only flag.
-    set ruf=%40(%4l,%2v(%p%%\ of\ \%L)%<%=%8.20t%m%R%)              
+    set rulerformat=%40(%4l,%2v(%p%%\ of\ \%L)%<%=%8.20t%m%R%)              
 
     if has('statusline')
-        set ls=2   " last status(always show status)
+        set laststatus=2   " always show status
 
-        set stl=%<%f\    " Filename
-        set stl+=%w%h%m%r " Options
-        set stl+=\ [%{&ff}/%Y]            " filetype
-        "set stl+=\ [%{getcwd()}]          " current dir
-        "set stl+=\ [A=\%03.3b/H=\%02.2B] " ASCII / Hexadecimal value of char
-        set stl+=%=%-14.(%l,%c%V%)\ %p%%\ of\ \%L  " Right aligned file nav info
+        set statusline=%<%f\    " filename
+        set statusline+=%w%h%m%r " options
+        set statusline+=\ [%{&ff}/%Y] " filetype
+        "set statusline+=\ [%{getcwd()}]     " current dir
+        "set statusline+=\ [A=\%03.3b/H=\%02.2B] " ASCII/Hex value of char
+        " show right aligned file nav info
+        set statusline+=%=%-14.(%l,%c%V%)\ %p%%\ of\ \%L
     endif
 
     " line {
         nmap <Leader>CC :call utils#ToggleColorColumn()<cr>
 
-        if exists("&relativenumber") && &modifiable
+        if exists('&relativenumber') && &modifiable
             setl relativenumber
         else
             setl number
@@ -401,7 +406,7 @@ if utils#enabledPlugin('command-t') > 0
 endif
 
 if utils#enabledPlugin('supertab') > 0
-    let g:SuperTabDefaultCompletionType = "context"
+    let g:SuperTabDefaultCompletionType = 'context'
     "let g:SuperTabMappingTabLiteral = '<c-tab>' " default
     "let g:SuperTabCrMapping = 0
 endif
@@ -434,7 +439,7 @@ if utils#enabledPlugin('calendar') > 0
     nmap <Leader>Ca :Calendar<CR>
     "cmap cal Calendar<SPACE>
     "cmap caL CalendarH<SPACE>
-    let calendar_diary = "$DIARY_DIR"
+    let calendar_diary = '$DIARY_DIR'
     "au BufNewFile *.cal read $HOME/.vim/templates/diary | call InsertChineseDate()
     au BufNewFile *.cal call utils#CalInit()
     "au BufNewFile,BufRead *.cal set ft=rst
@@ -464,7 +469,7 @@ if utils#enabledPlugin('fugitive') > 0
     nmap <Leader>gr :GBrowse<CR>
     vmap <Leader>gr :GBrowse<CR>
     " show status
-    set stl+=%{fugitive#statusline()} 
+    " set statusline+=%{fugitive#statusline()} 
 endif
 
 if utils#enabledPlugin('vcscommand') > 0
@@ -488,7 +493,7 @@ endif
 
 if utils#enabledPlugin('tasklist') > 0
     nmap <leader>tl <Plug>TaskList
-    let g:tlTokenList = ["FIXME", "TODO", "XXX", "HACK"]
+    let g:tlTokenList = ['FIXME', 'TODO', 'XXX', 'HACK']
 endif
 
 " NOTE: For program-specific or filetype-specific plugin settings,
