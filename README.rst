@@ -1,7 +1,7 @@
 vimconf
 =======
 
-A Vim configuration.
+A Vim configuration which supports plugin loading as per file type.
 
 Installation
 ------------
@@ -33,7 +33,7 @@ Troubleshooting
 
       *Solution*:
       
-        some submodules may require you to set up SSH for GitHub, for more
+        Some submodules may require you to set up SSH for GitHub, for more
         information, please refer to
         `github help <http://help.github.com/mac-set-up-git/>`_.
 

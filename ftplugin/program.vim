@@ -11,25 +11,6 @@ let b:_loaded_program = 1
     set tw=79
 " }
 
-" Edit {
-    " default omni-complete function
-    set ofu=syntaxcomplete#Complete
-" }
-
-" Tag {
-    "set completeopt=longest,menu
-    set completeopt=menuone,longest,preview
-    map <buffer> <S-Left> <C-T>
-    map <buffer> <S-Right> <C-]>
-    map <buffer> <S-Up> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
-    map <buffer> <S-Down> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
-
-    let g:CTAGS = '/usr/local/bin/ctags'
-    let g:TAG_DIR = '~/tags'
-    exe "set tags+=" . g:TAG_DIR . "/" . &filetype
-    exe "map <buffer> <F12> :!" . g:CTAGS . " -R -o tags .<CR><CR>"
-" }
-
 " Compile/Debug {
     nmap <buffer> <F10> :call utils#make()<CR>
     imap <buffer> <F10> <ESC>:call utils#make()<CR>

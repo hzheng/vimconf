@@ -84,6 +84,23 @@
     nmap  <silent> <Leader>/ :set hls!<bar>set hls?<CR>
 " }
 
+" Jump {
+    " go to older jump position(constrast with Tab or C-I)
+    nmap <S-Tab>    <C-O>
+" }
+
+" Tag {
+    map <S-Left> <C-T>
+    map <S-Right> <C-]>
+    map <S-Up> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+    map <S-Down> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+
+    let g:CTAGS = '/usr/local/bin/ctags'
+    let g:TAG_DIR = '~/tags'
+    exe "set tags+=" . g:TAG_DIR . "/" . &filetype
+    exe "map <F12> :!" . g:CTAGS . " -R -o tags .<CR><CR>"
+" }
+
 " Edit {
     set smd " Show mode
     set lbr "set link break to avoid wrapping a word
@@ -106,7 +123,16 @@
         "nn  <CR>         i<CR>
         nn  <Space>      i<Space>
         nn  <BS>         i<BS>
+    " }
 
+    " auto complete {
+        "set complete=.,w,b,u,t,i,k,s
+        set complete=.,w,b,u,t,i
+        "set completeopt=longest,menu
+        set completeopt=menuone,longest,preview
+
+        " default omni-complete function
+        set ofu=syntaxcomplete#Complete
         " Omni completion
         ino <S-Space> <C-X><C-O>
     " }
@@ -131,8 +157,8 @@
     " }
 
     " Whitespace {
-        " Highlight problematic whitespace
-        "set list
+        " toggle highlighting problematic whitespace
+        nmap <F4> :setl list! list?<CR>
         set listchars=tab:>.,trail:.,extends:#,nbsp:.
     " }
 " }
@@ -199,19 +225,19 @@
 
 " Window/Tab/Buffer {
     " window
-    nmap <Tab>    <c-w>w
-    nmap <Leader>P  <c-w>p
-    "nmap <Leader>v   <c-w>v
-    nmap <Leader>V   :vs<SPACE>
-    "nmap <Leader>s   <c-w>s
-    nmap <Leader>S   :sp<SPACE>
+    "nmap <Tab>    <c-w>w
+    "nmap <Leader>P  <c-w>p
+    nmap <Leader>V   <c-w>v
+    "nmap <Leader>V   :vs<SPACE>
+    nmap <Leader>S   <c-w>s
+    "nmap <Leader>S   :sp<SPACE>
     "nmap <ESC>q   <c-w>q
     nmap <down>      <c-w>j
     nmap <up>        <c-w>k
     nmap <left>      <c-w>h
     nmap <right>     <c-w>l
-    nmap <Leader>N   <c-w>n
-    nmap <Leader>O   <c-w>o
+    "nmap <Leader>N   <c-w>n
+    "nmap <Leader>O   <c-w>o
 
     " Tab
     "nmap <S-Tab>    :tabnew<CR>

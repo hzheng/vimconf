@@ -12,12 +12,22 @@ au FileType * call s:initType()
 au BufRead,BufNewFile * call s:reviewType()
 
 fun! s:initType()
-    let filename = fnameescape(expand("%"))
-    " load extra script
-    if s:isProgram()
+    " preprocess
+    if &filetype =~ '^\(pdf\|zip\|tar\)$'
+        "echomsg 'binary file'
+        return
+    elseif &filetype =~ '^\(text\)$'
+        "echomsg 'plain text file'
+        return
+    elseif &filetype =~ '^\(diff\|help\|rst\|markdown\)$'
+        "echomsg 'structured text file'
+        return
+    else " 
+        "echomsg 'assumed as source code of a program'
         exe "so ". g:FTPLUGIN . "/program.vim"
     endif
 
+    let filename = fnameescape(expand("%"))
     if !strlen(filename)  " stdin
         "echomsg 'stdin'
     elseif filereadable(filename) " existing file
@@ -90,12 +100,6 @@ endfun
         endwhile
     endfun
 
-    fun! s:isProgram()
-        " TODO: need improvement
-        "return &filetype =~ '^\(c\|cpp\|java\|cs\|objc\|python\|ruby\|perl\|php\|javascript\|vim\|sh\|lisp\|prolog\)$'
-        return &filetype !~ '^\(diff\|text\|pdf\|zip\|tar\)$'
-    endfun
-
     " Reads a file with the variables resolved and writes into buffer
     fun! s:expandBuffer(file)
         if !filereadable(a:file)
@@ -111,3 +115,4 @@ endfun
         endfor
     endfun
 " }
+        "echomsg 'assumed as source code of a program'
