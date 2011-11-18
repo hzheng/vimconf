@@ -11,6 +11,40 @@ let b:_loaded_program = 1
     set tw=79
 " }
 
+" Tag {
+    let g:CTAGS = '/usr/local/bin/ctags'
+
+    " jump to the selected tag
+    map <S-Left> <C-T>
+    " jump back(pop)
+    map <S-Right> <C-]>
+    " jump to the selected tag in a preview window
+    nmap <S-Down> :exec('ptag '.expand('<cword>'))<CR>
+    " jump to the selected tag in a new tab
+    map <S-Up> :tab split<CR>:exec('tag '.expand('<cword>'))<CR>
+    " jump to the selected tag in a new horizontally split window
+    map <C-S-Left> :sp <CR>:exec('tag '.expand('<cword>'))<CR>
+    " jump to the selected tag in a new vertically split window
+    map <C-S-Right> :vsp <CR>:exec('tag '.expand('<cword>'))<CR>
+
+    " create a tag file in the current directory
+    exe 'map <buffer> <C-F12> :!' . g:CTAGS . ' -R -o tags .<CR><CR>'
+    " list the tags matching the selected in a preview window(if not, use 'g]')
+    nmap <F12> :exec('ptselect '.expand('<cword>'))<CR>
+    " list the tags matching the selected in a split window(if not, use 'g]')
+    nmap <S-F12> :exec('stselect '.expand('<cword>'))<CR>
+    " list tags for the last tag name
+    nmap <C-S-F12>  :tselect<CR>
+
+    " set tag files(TODO: configurable)
+    let g:TAG_DIR = '~/tags/' . &filetype
+    for tagFile in split(globpath(g:TAG_DIR, '*'), '\n')
+        if !isdirectory(tagFile)
+            exe 'set tags+=' . tagFile
+        endif
+    endfor
+" }
+
 " Compile/Debug {
     nmap <buffer> <F10> :call utils#make()<CR>
     imap <buffer> <F10> <ESC>:call utils#make()<CR>

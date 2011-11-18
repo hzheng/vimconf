@@ -91,18 +91,6 @@
     nmap <S-Tab>    <C-O>
 " }
 
-" Tag {
-    map <S-Left> <C-T>
-    map <S-Right> <C-]>
-    map <S-Up> :tab split<CR>:exec('tag '.expand('<cword>'))<CR>
-    map <S-Down> :vsp <CR>:exec('tag '.expand('<cword>'))<CR>
-
-    let g:CTAGS = '/usr/local/bin/ctags'
-    let g:TAG_DIR = '~/tags'
-    exe 'set tags+=' . g:TAG_DIR . '/' . &filetype
-    exe 'map <F12> :!' . g:CTAGS . ' -R -o tags .<CR><CR>'
-" }
-
 " Edit {
     set showmode
     set linebreak " avoid wrapping a word
@@ -319,7 +307,7 @@
 
     set ruler " show the ruler
     " Set ruler format: length, column, percentage, total lines,
-    " chop position, middle position, file name, modification and read-only flag.
+    " chop position, middle position, filename, modification and read-only flag
     set rulerformat=%40(%4l,%2v(%p%%\ of\ \%L)%<%=%8.20t%m%R%)              
 
     if has('statusline')
