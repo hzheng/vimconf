@@ -15,24 +15,24 @@ let b:_loaded_program = 1
     let g:CTAGS = '/usr/local/bin/ctags'
 
     " jump to the selected tag
-    map <S-Left> <C-T>
+    nmap <S-Right> <C-]>
     " jump back(pop)
-    map <S-Right> <C-]>
+    nmap <S-Left> <C-T>
     " jump to the selected tag in a preview window
-    nmap <S-Down> :exec('ptag '.expand('<cword>'))<CR>
+    nmap <S-Down> :exe('ptag '.expand('<cword>'))<CR>
     " jump to the selected tag in a new tab
-    map <S-Up> :tab split<CR>:exec('tag '.expand('<cword>'))<CR>
+    nmap <S-Up> :tab split<CR>:exe('tag '.expand('<cword>'))<CR>
     " jump to the selected tag in a new horizontally split window
-    map <C-S-Left> :sp <CR>:exec('tag '.expand('<cword>'))<CR>
+    nmap <C-S-Left> :sp <CR>:exe('tag '.expand('<cword>'))<CR>
     " jump to the selected tag in a new vertically split window
-    map <C-S-Right> :vsp <CR>:exec('tag '.expand('<cword>'))<CR>
+    nmap <C-S-Right> :vsp <CR>:exe('tag '.expand('<cword>'))<CR>
 
     " create a tag file in the current directory
-    exe 'map <buffer> <C-F12> :!' . g:CTAGS . ' -R -o tags .<CR><CR>'
+    exe 'nmap <buffer> <C-F12> :!' . g:CTAGS . ' -R -o tags .<CR><CR>'
     " list the tags matching the selected in a preview window(if not, use 'g]')
-    nmap <F12> :exec('ptselect '.expand('<cword>'))<CR>
+    nmap <F12> :exe('ptselect '.expand('<cword>'))<CR>
     " list the tags matching the selected in a split window(if not, use 'g]')
-    nmap <S-F12> :exec('stselect '.expand('<cword>'))<CR>
+    nmap <S-F12> :exe('stselect '.expand('<cword>'))<CR>
     " list tags for the last tag name
     nmap <C-S-F12>  :tselect<CR>
 

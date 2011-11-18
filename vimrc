@@ -276,9 +276,8 @@
 " GUI {
     "set background=light
     "color spring            " load a colorscheme
-    syntax on " Turn on syntax highlighting
+    syntax on " turn on syntax highlighting
 
-    " Set mouse
     set mouse=a
     set ttyfast
     "set selection=exclusive
@@ -289,7 +288,7 @@
     if has('gui_running')
         " mostly are put into .gvimrc
     else
-        "set term=builtin_ansi  " Make arrow and other keys work
+        "set term=builtin_ansi  " make arrow and other keys work
         " tab
         set tabline=%!utils#TabLine()
         hi TabLineSel ctermfg=red ctermbg=gray cterm=NONE 
@@ -306,7 +305,7 @@
     set showcmd " show partially typed commands
 
     set ruler " show the ruler
-    " Set ruler format: length, column, percentage, total lines,
+    " set ruler format: length, column, percentage, total lines,
     " chop position, middle position, filename, modification and read-only flag
     set rulerformat=%40(%4l,%2v(%p%%\ of\ \%L)%<%=%8.20t%m%R%)              
 
