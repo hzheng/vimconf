@@ -30,7 +30,7 @@
     set formatoptions+=q
     " long lines are not broken in insert mode
     set formatoptions+=l
-    " Do no auto-wrap text using textwidth (does not apply to comments)
+    " do no auto-wrap text using textwidth (does not apply to comments)
     set formatoptions-=t
 " }
 
@@ -58,10 +58,7 @@
     set nofoldenable        "dont fold by default
     set foldnestmax=4       "deepest fold
     set foldlevel=2         "not work?
-    "augroup vimrc
-      "au BufReadPre * setlocal foldmethod=indent
-      "au BufWinEnter * if &fdm == 'indent' | setlocal foldmethod=manual | endif
-    "augroup END
+
     nmap <Leader>f0 :setl foldlevel=0<CR>
     nmap <Leader>f1 :setl foldlevel=1<CR>
     nmap <Leader>f2 :setl foldlevel=2<CR>
@@ -86,7 +83,13 @@
     nmap  <silent> <Leader>/ :set hls!<bar>set hls?<CR>
 " }
 
-" Jump {
+" Move/Jump {
+    " facilitate screen move
+    nmap <Space>    <C-F>
+    nmap <S-Space>  <C-B>
+    nmap <BS>       <C-U>
+    nmap <CR>       <C-D>
+
     " go to older jump position(constrast with Tab or C-I)
     nmap <S-Tab>    <C-O>
 " }
@@ -190,10 +193,10 @@
     endif
     nmap <Leader>ss :call utils#SaveSession()<CR>
 
-    " Save viminfo
+    " save viminfo
     exe 'set viminfo+=n' . g:VIMTMP . '/viminfo'
 
-    " Save view records
+    " save view records
     exe 'set viewdir='. g:VIMTMP . '/view'
     au BufWinLeave * silent! mkview
     au BufWinEnter * silent! loadview
