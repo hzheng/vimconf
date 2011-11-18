@@ -59,7 +59,8 @@ endif
 if utils#enabledPlugin('nerdcommenter') >= 0
     " manually load
     call utils#loadPlugin('nerdcommenter')
-    " FIXME: DON'T work if user change filetype after opening a non-program file
+    " FIXME:
+    " DON'T work if the user changes filetype after opening a non-program file
 endif
 
 if utils#enabledPlugin('autoclose') >= 0

@@ -113,19 +113,9 @@
     set nojoinspaces " don't add two spaces after ., ?, !
     set report=0  " report all line change
 
-    "set paste
-    set pastetoggle=<F2>
-    "set pt=<Leader>p  " paste toggle (sane indentation on pastes)
+    set pastetoggle=<F2> " paste toggle (sane indentation on pastes)
 
     set gdefault " set g as default when substitute
-
-    "most input abbreviations should go to filetype-aware's scripts(under .vim/ftplugin)
-
-    " fast input {
-        "nn  <CR>         i<CR>
-        nn  <Space>      i<Space>
-        nn  <BS>         i<BS>
-    " }
 
     " auto complete {
         "set complete=.,w,b,u,t,i,k,s
@@ -370,7 +360,9 @@ if utils#enabledPlugin('nerdtree') > 0
     nmap <silent> <Leader>E :NERDTreeToggle<CR>:NERDTreeMirror<CR>
     "nmap <ESC>e :NERDTreeToggle<CR><C-W><C-S><C-W><C-J>:BufExplorer<CR>
 
-    let NERDTreeIgnore=['\.o', '\.class', '\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr']
+    let NERDTreeIgnore = ['\.o', '\.class', '\.pyc',
+                        \ '\~$', '\.swo$', '\.swp$',
+                        \ '\.git', '\.hg', '\.svn']
     "set autochdir
     let NERDTreeChDirMode = 2
     nn <Leader>. :NERDTree .<CR>
@@ -412,12 +404,12 @@ if utils#enabledPlugin('supertab') > 0
 endif
 
 if utils#enabledPlugin('snipmate') > 0
-    let g:snips_author=expand($USER_FULLNAME)
-    let g:author=expand($USER_FULLNAME)
-    let g:snips_email=expand($USER_EMAIL)
-    let g:email=expand($USER_EMAIL)
-    let g:snips_github=expand($USER_GITHUB)
-    let g:github=expand($USER_GITHUB)
+    let g:snips_author = expand($USER_FULLNAME)
+    let g:author = expand($USER_FULLNAME)
+    let g:snips_email = expand($USER_EMAIL)
+    let g:email = expand($USER_EMAIL)
+    let g:snips_github = expand($USER_GITHUB)
+    let g:github = expand($USER_GITHUB)
     "nn <Leader>rs <esc>:exec ReloadAllSnippets()<cr>
 endif
 
@@ -440,9 +432,7 @@ if utils#enabledPlugin('calendar') > 0
     "cmap cal Calendar<SPACE>
     "cmap caL CalendarH<SPACE>
     let calendar_diary = '$DIARY_DIR'
-    "au BufNewFile *.cal read $HOME/.vim/templates/diary | call InsertChineseDate()
     au BufNewFile *.cal call utils#CalInit()
-    "au BufNewFile,BufRead *.cal set ft=rst
 endif
 
 if utils#enabledPlugin('ack') > 0
@@ -498,4 +488,3 @@ endif
 
 " NOTE: For program-specific or filetype-specific plugin settings,
 " we manage to put them into program.vim or <filetype>.vim under ftplugin
-

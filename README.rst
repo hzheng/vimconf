@@ -56,3 +56,11 @@ Troubleshooting
       *Solution*:
         
         install ruby-dev
+
+Reference
+---------
+
+- `The ultimate vim config <https://github.com/spf13/spf13-vim>`_
+
+- `Turning Vim into a modern Python IDE <http://sontek.net/turning-vim-into-a-modern-python-ide>`_
+
