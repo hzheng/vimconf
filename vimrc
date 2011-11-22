@@ -269,6 +269,9 @@
     " display messages 
     nmap <F11> :messages<CR>
     imap <F11> <ESC>:messages<CR>
+
+    " show the full path of the current buffer
+    nmap <C-F2> :echo expand('%:p')<CR>
 " }
 
 " External {
@@ -277,8 +280,6 @@
 " }
 
 " GUI {
-    "set background=light
-    "color spring            " load a colorscheme
     syntax on " turn on syntax highlighting
 
     set mouse=a
@@ -290,7 +291,9 @@
     set term=$TERM " default
     if has('gui_running')
         " mostly are put into .gvimrc
+        color hui
     else
+        color spring
         "set term=builtin_ansi  " make arrow and other keys work
         " tab
         set tabline=%!utils#TabLine()

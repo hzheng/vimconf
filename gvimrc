@@ -12,6 +12,9 @@
     set guioptions-=T      " remove the toolbar
     set guioptions-=m      " remove the menu
     "set guioptions=mcr
+
+    set guifont=Consolas:h13
+
     set lines=80           " default in my screen: 75
     "set background=dark
 " }
@@ -19,9 +22,6 @@
 " Status line {
     au InsertEnter * call utils#InsertStatuslineColor(v:insertmode)
     au InsertLeave * hi statusline guibg=blue
-    " set the statusline's default color when entering Vim
-    hi statusline guibg=blue
-    hi statuslineNC guibg=gray
 " }
 
 " Tab {
@@ -44,11 +44,8 @@
 
 
 " Cursor {
-    hi Cursor guibg=#ffa500 guifg=bg gui=NONE
     set cursorline
-    hi CursorLine guibg=lightgray
     set cursorcolumn
-    hi CursorColumn guibg=lightgray
 
     set mousehide " hide mouse when typing
 " }
