@@ -7,4 +7,4 @@ endif
 let b:_loaded_django = 1
 
 
-nmap <buffer> <F10> :set makeprg=python\ manage.py\ test\| call utils#make()<CR>
+nmap <buffer> <F10> :setl makeprg=python\ manage.py\ test\| call utils#make()<CR>

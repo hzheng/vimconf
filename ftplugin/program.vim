@@ -102,4 +102,6 @@ if utils#enabledPlugin('autoclose') >= 0
 
     " manually load
     call utils#loadPlugin('autoclose')
+    " FIXME:
+    " confliction with non-English input(ESC mapping)
 endif

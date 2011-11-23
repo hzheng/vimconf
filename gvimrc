@@ -1,5 +1,10 @@
 " GVIM-specific configuration file
 
+" Input {
+    set noimdisable
+    "inoremap <ESC> <ESC>:set iminsert=0<CR>
+    set imactivatekey=C-space
+" }
 
 " Screen {
     if has('fullscreen')

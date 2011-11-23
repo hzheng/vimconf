@@ -4,19 +4,22 @@
 
 " Basic {
     set nocompatible " ignore vi compatibility
+
+    set visualbell   " no beep
+
     set history=100
 
     "override the default leader '\'
     let mapleader = ','
-    "swap comma and backslash for convenience
+    "swap comma and backslash to avoid delay caused by the above setting
     nn , \
     nn \ ,
 
     " load utils.vim to perform some initialization
     call utils#init(expand('<sfile>:p'))
 
-    "run shell
-    nmap <Leader>r :sh<CR> 
+    " run shell
+    nmap <Leader>R :sh<CR> 
 " }
 
 " Format {
