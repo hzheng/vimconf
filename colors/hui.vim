@@ -27,7 +27,7 @@ hi Normal           ctermfg=253             ctermbg=235
 " Comment Group
 " -------------
 " any comment
-hi Comment          guifg=#606060                                   gui=none
+hi Comment          guifg=#888888                                   gui=none
 hi Comment          ctermfg=240                                     cterm=none
 
 
@@ -192,7 +192,7 @@ hi SpellLocal                               ctermbg=14              cterm=underc
 " Cursor
 " ------
 " character under the cursor
-hi Cursor           guifg=bg                guibg=#ffa500
+hi Cursor           guifg=bg                guibg=#8b8bff
 hi Cursor           ctermfg=bg              ctermbg=153
 " like cursor, but used when in IME mode
 hi CursorIM         guifg=bg                guibg=#96cdcd
@@ -318,13 +318,13 @@ hi StatusLineNC     ctermfg=244             ctermbg=237             cterm=none
 " Tab Lines
 " ---------
 " tab pages line, not active tab page label
-hi TabLine          guifg=#b6bf98           guibg=#363946           gui=none
+hi TabLine          guifg=cyan              guibg=#817679           gui=none
 hi TabLine          ctermfg=244             ctermbg=236             cterm=none
 " tab pages line, where there are no labels
-hi TabLineFill      guifg=#cfcfaf           guibg=#363946           gui=none
+hi TabLineFill      guifg=darkgray          guibg=NONE
 hi TabLineFill      ctermfg=187             ctermbg=236             cterm=none
 " tab pages line, active tab page label
-hi TabLineSel       guifg=#efefef           guibg=#414658           gui=bold
+hi TabLineSel       guifg=#cc33cc           guibg=bg                gui=bold
 hi TabLineSel       ctermfg=254             ctermbg=236             cterm=bold
 
 

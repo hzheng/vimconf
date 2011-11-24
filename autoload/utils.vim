@@ -248,42 +248,39 @@
     endfun
 
     fun! utils#TabLine()
-        let res = ''
+        let label = ''
         let curtab = tabpagenr()
         let i = 0
 
-        if has('win32')
-            let pat = '.\+\\'
-        else
-            let pat = '.\+/'
-        endif
-
         for i in range(1, tabpagenr('$'))
-            let res .= ((i == curtab) ? '%#TabLineSel#' : '%#TabLine#')
-            let res .= ' '
-            let res .= substitute(bufname(tabpagebuflist(i)[0]), pat, '', 'g')
-            let res .= ' '
+            let label .= ((i == curtab) ? '%#TabLineSel#' : '%#TabLine#')
+            let label .= s:composeTabLabel(i)
+            let label .= ' '
             let i += 1
         endfor
 
-        let res .= '%#TabLineFill#'
-        return res
+        let label .= '%#TabLineFill#'
+        return label
     endfun
 
     fun! utils#GuiTabLabel()
+        return s:composeTabLabel(v:lnum)
+    endfun
+
+    fun! s:composeTabLabel(cur)
         let label = ''
-        let bufnrlist = tabpagebuflist(v:lnum)
         " add '+' if one of the buffers in the tab page is modified
-        for bufnr in bufnrlist
-            if getbufvar(bufnr, '&modified')
+        let bufs = tabpagebuflist(a:cur)
+        for buf in bufs
+            if getbufvar(buf, '&modified')
                 let label .= '+'
                 break
             endif
         endfor
         " append the tab number
-        let label .= v:lnum . ': '
+        let label .= a:cur . ': '
         " append the buffer name
-        let name = bufname(bufnrlist[tabpagewinnr(v:lnum) - 1])
+        let name = bufname(bufs[tabpagewinnr(a:cur) - 1])
         if name == ''
             " give a name to no-name documents
             if &buftype == 'quickfix'
@@ -297,7 +294,7 @@
         endif
         let label .= name
         " append the number of windows in the tab page if more than 1
-        let wincount = tabpagewinnr(v:lnum, '$')
+        let wincount = tabpagewinnr(a:cur, '$')
         if wincount > 1
             let label .= ' [' . wincount . ']'
         endif

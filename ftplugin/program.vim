@@ -100,8 +100,9 @@ endif
 if utils#enabledPlugin('autoclose') >= 0
     nmap <buffer> <Leader>A <Plug>ToggleAutoCloseMappings
 
-    " manually load
-    call utils#loadPlugin('autoclose')
-    " FIXME:
-    " confliction with non-English input(ESC mapping)
+    " don't load unless explicitly requested
+    " since the plugin conflicts with non-English input(ESC mapping)
+    if exists('g:needAutoclose')
+        call utils#loadPlugin('autoclose')
+    endif
 endif
