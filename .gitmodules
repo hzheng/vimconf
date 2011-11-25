@@ -100,3 +100,6 @@
 [submodule "bundle/pytest"]
 	path = bundle/pytest
 	url = https://github.com/alfredodeza/pytest.vim.git
+[submodule "bundle/vim-latex"]
+	path = bundle/vim-latex
+	url = git://vim-latex.git.sourceforge.net/gitroot/vim-latex/vim-latex

@@ -38,6 +38,8 @@
         call utils#disablePlugins('pydiction', 'pep8')
         " rst-specific plugins
         call utils#disablePlugins('vst')
+        " tex-specific plugins
+        call utils#disablePlugins('vim-latex')
 
         if !has('python')
             " disable plugin that needs python 
@@ -114,9 +116,16 @@
     endfun
 
     fun! s:doLoadPlugin(dir)
-        let pluginSrc = globpath(a:dir, 'plugin/**/*.vim')
-        for src in split(pluginSrc, '\n')
-            "echomsg 'running ' . src
+        call s:loadPath(globpath(a:dir, 'plugin/**/*.vim'))
+        if &ft != ''
+            call s:loadPath(globpath(a:dir, 'ftplugin/' . &ft . '/*.vim'))
+            call s:loadPath(globpath(a:dir, 'ftplugin/' . &ft . '_*.vim'))
+        endif
+    endfun
+
+    fun! s:loadPath(path)
+        for src in split(a:path, '\n')
+            "echomsg 'loading ' . src
             exe 'so ' . src 
         endfor
     endfun

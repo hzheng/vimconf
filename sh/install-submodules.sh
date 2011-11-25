@@ -17,5 +17,5 @@ echo "******installing pyflakes..."
 read -p "Patch submodules(if you have done this before, press 'n' to skip)?(y/n) " -n 1
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
-    patch -p0 -i $DIR/bundle.patch
+    patch -p0 -i "$DIR"/bundle.patch
 fi

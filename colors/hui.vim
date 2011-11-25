@@ -20,7 +20,7 @@ let colors_name = "hui"
 
 " Base color
 " ----------
-hi Normal           guifg=#e0e0e0           guibg=#202020
+hi Normal           guifg=#a0a0a0           guibg=#202020
 hi Normal           ctermfg=253             ctermbg=235
 
 
@@ -198,10 +198,10 @@ hi Cursor           ctermfg=bg              ctermbg=153
 hi CursorIM         guifg=bg                guibg=#96cdcd
 hi CursorIM         ctermfg=bg              ctermbg=116
 " cursor column
-hi CursorColumn     guifg=NONE              guibg=#333333           gui=none
+hi CursorColumn     guifg=#ffffff           guibg=#444444           gui=none
 hi CursorColumn     ctermfg=NONE            ctermbg=236             cterm=none
 " cursor line/row
-hi CursorLine       gui=NONE                guibg=#333333           gui=none
+hi CursorLine       guifg=NONE              guibg=#555555           gui=none
 hi CursorLine       cterm=NONE              ctermbg=236             cterm=none
 
 

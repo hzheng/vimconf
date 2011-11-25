@@ -6,6 +6,8 @@ A Vim configuration which supports plugin loading as per file type.
 Installation
 ------------
 
+*NOTE*: If you are using Vim on Windows, please install Cygwin.
+
 1. Check out from github::
 
     git clone git://github.com/hzheng/vimconf.git

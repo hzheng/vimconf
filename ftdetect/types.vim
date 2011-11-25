@@ -41,12 +41,14 @@ endfun
 
 fun! s:reviewType()
     let filename = expand("%")
-
     " check filetype
     if &ft == "python"
         if s:MatchPattern("django") || s:MaybeDjango(filename)
             set ft=python.django
         endif
+        return
+    elseif &ft == "plaintex"
+        set ft=tex
         return
     endif
 
