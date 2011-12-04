@@ -69,6 +69,10 @@ let b:_loaded_program = 1
     vnoremap <buffer> af :<C-U>silent! norm! [zV]z<CR>
     "vnoremap <buffer> af :<C-U>silent! norm! [[v%<CR>
     omap <buffer> af :norm Vaf<CR>
+
+    vnoremap <buffer> if :<C-U>silent! norm! [zjV]zk<CR>
+    omap <buffer> if :norm Vif<CR>
+    
 " }
 
 "=============Plugin settings=============
