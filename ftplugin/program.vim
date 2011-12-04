@@ -62,6 +62,15 @@ let b:_loaded_program = 1
     nmap <buffer> <F8>       :cn<CR>
 " }
 
+" Text object {
+    " a function object
+    " TODO: currently may depend on syntax, code style, 
+    "       indent method and cursor position
+    vnoremap <buffer> af :<C-U>silent! norm! [zV]z<CR>
+    "vnoremap <buffer> af :<C-U>silent! norm! [[v%<CR>
+    omap <buffer> af :norm Vaf<CR>
+" }
+
 "=============Plugin settings=============
 
 if utils#enabledPlugin('taglist') >= 0

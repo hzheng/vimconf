@@ -90,8 +90,8 @@
     " facilitate screen move
     nmap <Space>    <C-F>
     nmap <S-Space>  <C-B>
-    nmap <BS>       <C-U>
     nmap <CR>       <C-D>
+    nmap <BS>       <C-U>
 
     " go to older jump position(constrast with Tab or C-I)
     nmap <S-Tab>    <C-O>
