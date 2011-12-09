@@ -92,6 +92,8 @@
     nmap <S-Space>  <C-B>
     nmap <CR>       <C-D>
     nmap <BS>       <C-U>
+    nmap <down>     <C-E>
+    nmap <up>       <C-Y>
 
     " go to older jump position(constrast with Tab or C-I)
     nmap <S-Tab>    <C-O>
@@ -222,8 +224,8 @@
     nmap <Leader>S   <c-w>s
     "nmap <Leader>S   :sp<SPACE>
     "nmap <ESC>q   <c-w>q
-    nmap <down>      <c-w>j
-    nmap <up>        <c-w>k
+    "nmap <down>      <c-w>j
+    "nmap <up>        <c-w>k
     nmap <left>      <c-w>h
     nmap <right>     <c-w>l
     "nmap <Leader>N   <c-w>n
