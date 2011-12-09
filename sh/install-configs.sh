@@ -28,3 +28,4 @@ mkdir -p $TMP_DIR/session
 mkdir -p $TMP_DIR/swap 
 mkdir -p $TMP_DIR/undo 
 mkdir -p $TMP_DIR/view 
+mkdir -p $TMP_DIR/tmp 

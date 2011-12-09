@@ -43,7 +43,7 @@ fun! s:reviewType()
     let filename = expand("%")
     " check filetype
     if &ft == "python"
-        if s:MatchPattern("django") || s:MaybeDjango(filename)
+        if s:matchPattern("django") || s:maybeDjango(filename)
             set ft=python.django
         endif
         return
@@ -76,7 +76,7 @@ fun! s:reviewType()
 endfun
 
 " utils {
-    fun! s:MaybeDjango(filename)
+    fun! s:maybeDjango(filename)
         if a:filename =~ '^\(admin\|manage\|settings\|urls\|models\|views\|forms\)\.py$'
             return 1
         endif
@@ -87,7 +87,7 @@ endfun
         endif
     endfun
 
-    fun! s:MatchPattern(pattern)
+    fun! s:matchPattern(pattern)
         let n = line("$")
         if n > 100
             let n = 100
@@ -117,4 +117,3 @@ endfun
         endfor
     endfun
 " }
-        "echomsg 'assumed as source code of a program'

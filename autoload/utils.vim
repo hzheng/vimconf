@@ -407,3 +407,38 @@
         echohl None
     endfun
 " }
+
+" File manipulation {
+    " virtual printer's name
+    let g:VIRTUAL_PRINTER = 'CUPS_PDF' 
+    " virtual printer's output directory
+    let g:PRINT_OUTPUT = expand('~/cups-pdf') 
+
+    fun! utils#savePdf()
+        " print to virtual printer
+        exe 'silent !cat %  | lp -s -d ' . g:VIRTUAL_PRINTER
+        " wait until printing is finished
+        exe 'silent !until [ ' . g:PRINT_OUTPUT . ' -nt % ];do sleep 1;done'
+        "echomsg 'finished printing'
+        redir => printed
+        " find the latest modified one
+        exe 'silent! !ls -t ' . g:PRINT_OUTPUT . '/*pdf | head -n 1'
+        redir END
+        let saved = ''
+        " strip the first line(command itself) and \r
+        "let saved = split(printed, '\r\n')[1]
+        for line in split(printed, '\r\n')
+            if matchstr(line, ':!') == ''
+                let saved = line
+                break
+            endif
+        endfor
+        if saved == '' " works only in GVim?
+            echoerr 'cannot find printed file'
+            return 1
+        endif
+
+        " XXX: have to sleep 2 seconds? (even 1 sec does NOT work?)
+        exe 'silent !sleep 2 && mv -f ' . saved . ' %'
+    endfun
+" }

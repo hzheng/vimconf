@@ -58,8 +58,8 @@
 " }
 
 " Fold {
-    set nofoldenable        "dont fold by default
-    set foldnestmax=4       "deepest fold
+    set nofoldenable        " don't fold by default
+    set foldnestmax=4       " deepest fold
     set foldlevel=2         "not work?
 
     nmap <Leader>f0 :setl foldlevel=0<CR>
@@ -110,6 +110,8 @@
     set pastetoggle=<F2> " paste toggle (sane indentation on pastes)
 
     set gdefault " set g as default when substitute
+
+    set nrformats+=alpha
 
     " auto complete {
         "set complete=.,w,b,u,t,i,k,s
@@ -343,6 +345,29 @@
     " }
 " }
 
+"=============External programs=============
+
+" read/write PDF
+" warning: writing PDF will lose format
+if executable('pdftotext')
+    augroup Pdf
+        au!
+        au BufReadPre *.pdf set readonly nowrap
+        au BufReadPost *.pdf silent %!pdftotext "%" -nopgbrk -layout -q -eol unix -
+        "au BufReadPost *.pdf silent %!pdftotext -nopgbrk "%" - |fmt -csw78
+
+        au BufWritePost *.pdf call utils#savePdf()
+    augroup END
+endif
+
+" read Word
+if executable('antiword')
+    augroup Word
+        au!
+        au BufReadPre *.doc set readonly
+        au BufReadPost *.doc %!antiword "%"
+    augroup END
+endif
 
 "=============Plugin settings=============
 
