@@ -184,6 +184,11 @@
         set undoreload=10000
         exe 'set undodir='. g:VIMTMP . '/undo'
     endif
+
+    " set a stronger encryption
+    if version >= 703
+        set cryptmethod=blowfish
+    endif
 " }
 
 " Save state {
@@ -195,10 +200,10 @@
     set sessionoptions-=blank
 
     if has('gui_running') " auto change session only in GUI
-        au VimEnter * nested :call utils#LoadSession()
-        au VimLeave * :call utils#UpdateSession()
+        au VimEnter * nested :call utils#loadSession()
+        au VimLeave * :call utils#updateSession()
     endif
-    nmap <Leader>ss :call utils#SaveSession()<CR>
+    nmap <Leader>ss :call utils#saveSession()<CR>
 
     " save viminfo
     exe 'set viminfo+=n' . g:VIMTMP . '/viminfo'
@@ -282,8 +287,8 @@
 " }
 
 " External {
-    nn <silent> <S-CR> :call utils#OpenUrl()<CR><CR>
-    nn <silent> <S-leftmouse> :call utils#OpenUrl()<CR><CR>
+    nn <silent> <S-CR> :call utils#openUrl()<CR><CR>
+    nn <silent> <S-leftmouse> :call utils#openUrl()<CR><CR>
 " }
 
 " GUI {
@@ -303,7 +308,7 @@
         color spring
         "set term=builtin_ansi  " make arrow and other keys work
         " tab
-        set tabline=%!utils#TabLine()
+        set tabline=%!utils#tabLine()
         hi TabLineSel ctermfg=red ctermbg=gray cterm=NONE 
         hi TabLineFill ctermfg=darkgray ctermbg=NONE cterm=underline 
         hi TabLine ctermfg=darkgray ctermbg=NONE cterm=underline
@@ -335,15 +340,15 @@
     endif
 
     " line {
-        nmap <Leader>CC :call utils#ToggleColorColumn()<cr>
+        nmap <Leader>CC :call utils#toggleColorColumn()<cr>
 
         if exists('&relativenumber') && &modifiable
             setl relativenumber
         else
             setl number
         endif
-        nmap <F6> :call utils#ToggleNumber()<cr>
-        imap <F6> <Esc>:call utils#ToggleNumber()<cr>
+        nmap <F6> :call utils#toggleNumber()<cr>
+        imap <F6> <Esc>:call utils#toggleNumber()<cr>
     " }
 " }
 
@@ -455,7 +460,7 @@ if utils#enabledPlugin('calendar') > 0
     "cmap cal Calendar<SPACE>
     "cmap caL CalendarH<SPACE>
     let calendar_diary = '$DIARY_DIR'
-    au BufNewFile *.cal call utils#CalInit()
+    au BufNewFile *.cal call utils#calInit()
 endif
 
 if utils#enabledPlugin('ack') > 0

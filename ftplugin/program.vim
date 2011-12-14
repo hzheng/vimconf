@@ -50,8 +50,8 @@ let b:_loaded_program = 1
     imap <buffer> <F10> <ESC>:call utils#make()<CR>
 
     " toggle all errors
-    nmap <buffer> <C-F9> :call utils#ToggleQuickfix(0)<CR>
-    imap <buffer> <C-F9> <ESC>:call utils#ToggleQuickfix(0)<CR>
+    nmap <buffer> <C-F9> :call utils#toggleQuickfix(0)<CR>
+    imap <buffer> <C-F9> <ESC>:call utils#toggleQuickfix(0)<CR>
     " redisplay the last error
     nmap <buffer> <S-F9>     :cc<CR>
     " list all VALID errors

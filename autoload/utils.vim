@@ -132,34 +132,34 @@
 " }
 
 " File {
-    fun! GetSessionDir()
+    fun! s:getSessionDir()
         return fnameescape(g:SESSIONS . getcwd())
     endfun
 
-    fun! GetSessionFile()
-        return GetSessionDir() . '/session.vim'
+    fun! s:getSessionFile()
+        return s:getSessionDir() . '/session.vim'
     endfun
 
-    fun! utils#SaveSession()
-        let sessiondir = GetSessionDir()
+    fun! utils#saveSession()
+        let sessiondir = s:getSessionDir()
         if (filewritable(sessiondir) != 2)
             exe 'silent !mkdir -p ' sessiondir
             redraw!
         endif
-        exe 'mksession! ' GetSessionFile()
+        exe 'mksession! ' s:getSessionFile()
     endfun
 
-    fun! utils#UpdateSession()
-        let sessionfile = GetSessionFile()
+    fun! utils#updateSession()
+        let sessionfile = s:getSessionFile()
         if (filereadable(sessionfile))
             exe 'mksession! ' . sessionfile
             echo 'updating session'
         endif
     endfun
 
-    fun! utils#LoadSession()
+    fun! utils#loadSession()
         if argc() == 0
-            let sessionfile = GetSessionFile()
+            let sessionfile = s:getSessionFile()
             if (filereadable(sessionfile))
                 exe 'so' sessionfile
             else
@@ -168,7 +168,7 @@
         endif
     endfun
 
-    fun! utils#GetUrl()
+    fun! utils#getUrl()
         let target = expand('<cfile>')
         if target == ''
             return ''
@@ -186,8 +186,8 @@
         endif
     endfun
 
-    fun! utils#OpenUrl()
-        let url = utils#GetUrl()
+    fun! utils#openUrl()
+        let url = utils#getUrl()
         if url == ''
             echo 'empty target'
             return
@@ -195,13 +195,13 @@
         
         " mac
         "echo url
-        exe '!open '.url
+        exe '!open '. url
     endfun
 " }
 
 " Window {
     " toggles the quickfix window.
-    fun! utils#ToggleQuickfix(forced)
+    fun! utils#toggleQuickfix(forced)
         if exists('g:quickfixWin') && a:forced == 0
             cclose
         else
@@ -220,7 +220,7 @@
 " }
 
 " Format {
-    fun! utils#ToggleColorColumn()
+    fun! utils#toggleColorColumn()
         if !exists('&colorcolumn')
             return
         endif
@@ -232,7 +232,7 @@
         endif
     endfun
 
-    fun! utils#ToggleNumber()
+    fun! utils#toggleNumber()
         if exists('&relativenumber')
             if &relativenumber
                 setl number
@@ -246,7 +246,7 @@
         endif
     endfun
 
-    fun! utils#InsertStatuslineColor(mode)
+    fun! utils#insertStatuslineColor(mode)
         if a:mode == 'i'
             hi statusline guibg=magenta
         elseif a:mode == 'r'
@@ -256,7 +256,7 @@
         endif
     endfun
 
-    fun! utils#TabLine()
+    fun! utils#tabLine()
         let label = ''
         let curtab = tabpagenr()
         let i = 0
@@ -272,7 +272,7 @@
         return label
     endfun
 
-    fun! utils#GuiTabLabel()
+    fun! utils#guiTabLabel()
         return s:composeTabLabel(v:lnum)
     endfun
 
@@ -310,7 +310,7 @@
         return label
     endfun
 
-    fun! utils#GuiTabToolTip()
+    fun! utils#guiTabToolTip()
         let tip = ''
         for bufnr in tabpagebuflist(v:lnum)
             " separate buffer entries
@@ -341,12 +341,12 @@
 " }
 
 " Calendar {
-    fun! utils#CalInit()
+    fun! utils#calInit()
         exe 'read '. g:TEMPLATES . '/diary'
-        call InsertChineseDate()
+        call s:insertChineseDate()
     endfun
 
-    fun! InsertChineseDate()
+    fun! s:insertChineseDate()
         exe 'norm! ggdd'
         let path = split(expand('%'), '/')
         if len(path) > 3

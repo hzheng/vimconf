@@ -29,7 +29,7 @@
 " }
 
 " Status line {
-    au InsertEnter * call utils#InsertStatuslineColor(v:insertmode)
+    au InsertEnter * call utils#insertStatuslineColor(v:insertmode)
     au InsertLeave * hi statusline guibg=blue
 " }
 
@@ -39,11 +39,11 @@
 
     if exists('g:useGuiTab') " use GUI tab
         set guioptions+=e
-        set guitabtooltip=%{utils#GuiTabToolTip()}
-        set guitablabel=%{utils#GuiTabLabel()}
+        set guitabtooltip=%{utils#guiTabToolTip()}
+        set guitablabel=%{utils#guiTabLabel()}
     else " use non-GUI tab
         set guioptions-=e
-        set tabline=%!utils#TabLine()
+        set tabline=%!utils#tabLine()
     endif
 " }
 
