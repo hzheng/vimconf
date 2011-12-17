@@ -4,17 +4,32 @@
     " the following MUST be put outside the init function due to sfile
     let g:VIMFILES = expand('<sfile>:p:h:h')
 
-    " TODO: support configuration file
     fun! utils#init(conf)
+        " directories
         let g:VIMCONF = a:conf
         let g:FTPLUGIN = g:VIMFILES . '/ftplugin'
         let g:TEMPLATES = g:VIMFILES . '/templates'
         let g:VIMTMP = g:VIMFILES . '/tmp'
         let g:SESSIONS = g:VIMTMP . '/session'
 
+        " UI
         let g:QUICKFIX_HEIGHT = 20
 
-        call s:loadPlugins()
+        " plugin
+        let g:LOAD_PLUGIN = 1
+        let g:BUNDLE_DIR = 'bundle'
+
+        " virtual printer's name
+        let g:VIRTUAL_PRINTER = 'CUPS_PDF' 
+        " virtual printer's output directory
+        let g:PRINT_OUTPUT = expand('~/cups-pdf') 
+
+        " load configuration file(may override the above variables)
+        exe 'so ' . g:VIMFILES . '/configuration.vim'
+
+        if g:LOAD_PLUGIN
+            call s:loadPlugins()
+        endif
     endfun
 " }
         
@@ -22,8 +37,8 @@
     " NOTE: after adding a new plugin, remember to execute :Helptags<CR>
     " TODO: support configuration file to customize plugins
     fun! s:loadPlugins()
-        let g:BUNDLE_DIR = 'bundle'
         let g:BUNDLE_PATH = g:VIMFILES . '/' . g:BUNDLE_DIR
+
         " manually(instead auto) load pathogen for sake of git submodule
         exe 'runtime ' . g:BUNDLE_DIR . '/pathogen/autoload/pathogen.vim'
 
@@ -66,7 +81,9 @@
     "  0 means temporarily disabled(will be loaded later)
     "  1 means enabled
     fun! utils#enabledPlugin(plugin)
-        if !isdirectory(g:BUNDLE_PATH . '/' . a:plugin)
+        if !exists('g:BUNDLE_PATH')
+            return -2
+        elseif !isdirectory(g:BUNDLE_PATH . '/' . a:plugin)
             return -1 " TODO: add disabled by configuration
         elseif index(g:pathogen_disabled, a:plugin) >= 0
             return 0
@@ -409,11 +426,6 @@
 " }
 
 " File manipulation {
-    " virtual printer's name
-    let g:VIRTUAL_PRINTER = 'CUPS_PDF' 
-    " virtual printer's output directory
-    let g:PRINT_OUTPUT = expand('~/cups-pdf') 
-
     fun! utils#savePdf()
         " print to virtual printer
         exe 'silent !cat %  | lp -s -d ' . g:VIRTUAL_PRINTER

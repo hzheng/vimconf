@@ -8,8 +8,10 @@
 
 " Screen {
     if has('fullscreen')
-        set fuopt=maxvert,maxhorz  " full screen
-        au GUIEnter * set fullscreen
+        if exists('g:DEFAULT_FULLSCREEN')
+            set fuopt=maxvert,maxhorz  " full screen
+            au GUIEnter * set fullscreen
+        endif
         " toggle fullscreen mode
         nmap <F1> :set fullscreen!<CR>
     endif

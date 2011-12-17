@@ -305,7 +305,9 @@
         " mostly are put into .gvimrc
         color hui
     else
-        color spring
+        if g:LOAD_PLUGIN " make sure color plugin is loaded
+            color spring
+        endif
         "set term=builtin_ansi  " make arrow and other keys work
         " tab
         set tabline=%!utils#tabLine()
