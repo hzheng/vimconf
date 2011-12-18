@@ -199,7 +199,7 @@
     " do not store empty windows(avoid nerdtree problem)
     set sessionoptions-=blank
 
-    if has('gui_running') " auto change session only in GUI
+    if has('gui_running') && g:LOAD_PLUGIN " auto change session in heavy GUI
         au VimEnter * nested :call utils#loadSession()
         au VimLeave * :call utils#updateSession()
     endif
@@ -283,7 +283,7 @@
     imap <F11> <ESC>:messages<CR>
 
     " show the full path of the current buffer
-    nmap <C-F2> :echo expand('%:p')<CR>
+    nmap <C-F10> :echo expand('%:p')<CR>
 " }
 
 " External {
