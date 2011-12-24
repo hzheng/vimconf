@@ -2,7 +2,17 @@
 
 SH_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 CONF_DIR=$(dirname $SH_DIR)
-TMP_DIR=$CONF_DIR/tmp
+#TMP_DIR=$CONF_DIR/tmp
+TMP_DIR=$VIM_TMPDIR
+
+if [ -z $TMP_DIR ]; then
+    echo please set environment variable \$VIM_TMPDIR
+    exit 1
+fi
+if [ ! -d "$TMP_DIR" ]; then
+    echo make sure the directory \"$TMP_DIR\" exists
+    exit 1
+fi
 
 echo "******creating links..."
 

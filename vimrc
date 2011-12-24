@@ -37,7 +37,7 @@
     set formatoptions-=t
 " }
 
-" indentation/tab {
+" Indentation/Tab {
     " turn off C indentation, and set the comments option to the default.
     "c/c++ type will override this in ftplugin
     au FileType * set nocindent comments& 

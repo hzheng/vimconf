@@ -9,7 +9,8 @@
         let g:VIMCONF = a:conf
         let g:FTPLUGIN = g:VIMFILES . '/ftplugin'
         let g:TEMPLATES = g:VIMFILES . '/templates'
-        let g:VIMTMP = g:VIMFILES . '/tmp'
+        "let g:VIMTMP = g:VIMFILES . '/tmp'
+        let g:VIMTMP = expand($VIM_TMPDIR)
         let g:SESSIONS = g:VIMTMP . '/session'
 
         " UI
