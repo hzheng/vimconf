@@ -9,9 +9,10 @@
         let g:VIMCONF = a:conf
         let g:FTPLUGIN = g:VIMFILES . '/ftplugin'
         let g:TEMPLATES = g:VIMFILES . '/templates'
-        "let g:VIMTMP = g:VIMFILES . '/tmp'
         let g:VIMTMP = expand($VIM_TMPDIR)
-        let g:SESSIONS = g:VIMTMP . '/session'
+        if g:VIMTMP == ''  " just in case
+            let g:VIMTMP = g:VIMFILES . '/tmp'
+        endif
 
         " UI
         let g:QUICKFIX_HEIGHT = 20
@@ -26,7 +27,15 @@
         let g:PRINT_OUTPUT = expand('~/cups-pdf') 
 
         " load configuration file(may override the above variables)
-        exe 'so ' . g:VIMFILES . '/configuration.vim'
+        let g:CONF_FILE = g:VIMFILES . '/configuration.vim'
+        exe 'so ' . g:CONF_FILE 
+
+        if !isdirectory(g:VIMTMP)
+            echoerr("g:VIMTMP's value(" . g:VIMTMP . ") is not a directory. "
+                        \ . "Please set it in " . g:CONF_FILE
+                        \ . " or set environment variable VIM_TMPDIR")
+        endif
+        let g:SESSIONS = g:VIMTMP . '/session'
 
         if g:LOAD_PLUGIN
             call s:loadPlugins()
