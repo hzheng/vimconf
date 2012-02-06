@@ -28,8 +28,8 @@ let b:_loaded_rst = 1
     nn <buffer> <Leader>u:     yypVr:
 
     " time
-    ab date .. \|date\| date::
-    ab time .. \|time\| date:: %H:%M
+    ab <buffer> date .. \|date\| date::
+    ab <buffer> time .. \|time\| date:: %H:%M
 " }
 
 "=============Plugin settings=============
