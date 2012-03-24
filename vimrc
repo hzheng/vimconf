@@ -240,8 +240,8 @@
     "nmap <S-Tab>    :tabnew<CR>
     nmap <C-M-left>   :tabprevious<CR>
     imap <C-M-left>   <ESC>:tabprevious<CR>
-    nmap <C-M-right>  :tabNext<CR>
-    imap <C-M-right>  <ESC>:tabNext<CR>
+    nmap <C-M-right>  :tabnext<CR>
+    imap <C-M-right>  <ESC>:tabnext<CR>
     nmap <C-M-up>     :tabfirst<CR>
     imap <C-M-up>     <ESC>:tabfirst<CR>
     nmap <C-M-down>   :tablast<CR>
