@@ -2,7 +2,7 @@
 
 " Environment {
     " the following MUST be put outside the init function due to sfile
-    let g:VIMFILES = expand('<sfile>:p:h:h')
+    let g:VIMFILES = escape(expand('<sfile>:p:h:h'), ' ')
 
     fun! utils#init(conf)
         " directories
