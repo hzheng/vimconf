@@ -304,6 +304,7 @@
     if has('gui_running')
         " mostly are put into .gvimrc
         color hui
+        "color solarized
     else
         if g:LOAD_PLUGIN " make sure color plugin is loaded
             color spring

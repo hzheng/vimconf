@@ -12,7 +12,7 @@ augroup filetypedetect
     " plaintext type
     au BufRead,BufNewFile *.txt setf text
     " rst type
-    au BufRead,BufNewFile TODO,README,*.cal setf rst
+    au BufRead,BufNewFile TODO,README,*.cal setf markdown
     " configuration file
     au BufRead,BufNewFile *.conf setf cfg
 augroup END

@@ -24,7 +24,8 @@
     set guioptions-=R      " remove the right scrollbar
     "set guioptions=mcr
 
-    set guifont=Consolas:h13
+    "set guifont=Consolas:h13
+    set guifont=Monaco:h12
 
     set lines=80           " default in my screen: 75
     "set background=dark
