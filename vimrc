@@ -161,6 +161,8 @@
     au BufLeave,FocusLost * silent! wa
     " hide buffer instead of closing
     set hidden
+    " save with root's permission
+    cmap w!! w !sudo tee % >/dev/null
 
     set wildmode=longest,full
     " suffixes to put to the end of the list when completing file names
