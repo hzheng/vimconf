@@ -4,7 +4,7 @@
 
 \## AUTHOR: $USER_FULLNAME
 
-SCRIPT_NAME=$(basename "$BASH_SOURCE" .sh)
+declare -r SCRIPT_NAME=$(basename "$BASH_SOURCE" .sh)
 
 ## exit the shell(default status code: 1) after printing the message to stderr
 bail() {

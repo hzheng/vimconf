@@ -90,7 +90,7 @@
     " facilitate screen move
     nmap <Space>    <C-F>
     nmap <S-Space>  <C-B>
-    nmap <CR>       <C-D>
+    "nmap <CR>       <C-D>
     nmap <BS>       <C-U>
     nmap <down>     <C-E>
     nmap <up>       <C-Y>
