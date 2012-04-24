@@ -30,11 +30,9 @@ usage() {
 while getopts ":h" opt; do
     case $opt in
         h)
-            usage 0
-            ;;
+            usage 0;;
         \?)
-            usage "Invalid option: -$OPTARG \\n"
-            ;;
+            usage "Invalid option: -$OPTARG \\n";;
     esac
 done
 

@@ -31,7 +31,7 @@ fun! <SID>PythonGrep(tool)
     if a:tool == "pylint"
         let &grepprg = 'pylint --output-format=parseable --reports=n'
     elseif a:tool == "pychecker"
-        let &grepprg = 'pychecker --limit 50 -Q -q'
+        let &grepprg = 'pychecker -Q -q'
     else
         echohl WarningMsg
         echo "PythonGrep Error: Unknown Tool"
