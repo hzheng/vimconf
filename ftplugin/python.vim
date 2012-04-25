@@ -7,14 +7,14 @@ endif
 let b:_loaded_python = 1
 
 " Edit {
-    set ofu=pythoncomplete#Complete
+    setl ofu=pythoncomplete#Complete
 
-    set fdm=indent   "fold based on indent
-    set nosmartindent "no smart indent
+    setl fdm=indent   "fold based on indent
+    setl nosmartindent "no smart indent
 " }
 
 " Debug {
-    set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
+    setl efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
 " }
 
 "=============Lint settings=============
@@ -57,8 +57,8 @@ endfun
 
 if executable('pylint')
     if (!hasmapto('<SID>PythonGrep(pylint)') && (maparg('<S-F3>') == ''))
-        map <S-F3> :call <SID>PythonGrep('pylint')<CR>
-        map! <S-F3> :call <SID>PythonGrep('pylint')<CR>
+        map <buffer> <S-F3> :call <SID>PythonGrep('pylint')<CR>
+        map! <buffer> <S-F3> :call <SID>PythonGrep('pylint')<CR>
     else
         if (!has("gui_running") || has("win32"))
             echo "Python Pylint Error: No Key mapped.\n".
@@ -69,8 +69,8 @@ endif
 
 if executable('pychecker')
     if (!hasmapto('<SID>PythonGrep(pychecker)') && (maparg('<S-F4>') == ''))
-        map <S-F4> :call <SID>PythonGrep('pychecker')<CR>
-        map! <S-F4> :call <SID>PythonGrep('pychecker')<CR>
+        map <buffer> <S-F4> :call <SID>PythonGrep('pychecker')<CR>
+        map! <buffer> <S-F4> :call <SID>PythonGrep('pychecker')<CR>
     else
         if (!has("gui_running") || has("win32"))
             echo "Python Pychecker Error: No Key mapped.\n".

@@ -433,6 +433,54 @@
         echon msg repeat(' ', &columns - strlen(msg) - 1)
         echohl None
     endfun
+
+    fun! utils#debugGrep(debugCmd, errorFmt, redirect)
+        set lazyredraw
+        " Close any existing cwindows.
+        cclose
+        let l:grepformat_save = &grepformat
+        let l:grepprogram_save = &grepprg
+        set grepformat&vim
+        set grepformat&vim
+        let &grepformat = a:errorFmt
+        let &grepprg = a:debugCmd
+        if &readonly == 0 | update | endif
+        if a:redirect
+            silent! grep! < %
+        else
+            silent! grep! %
+        endif
+        let &grepformat = l:grepformat_save
+        let &grepprg = l:grepprogram_save
+        let l:mod_total = 0
+        let l:win_count = 1
+        " Determine correct window height
+        windo let l:win_count = l:win_count + 1
+        if l:win_count <= 2 | let l:win_count = 4 | endif
+        windo let l:mod_total = l:mod_total + winheight(0)/l:win_count |
+                    \ exe 'resize +'.l:mod_total
+        " Open cwindow
+        exe 'belowright copen '.l:mod_total
+        nnoremap <buffer> <silent> c :cclose<CR>
+        set nolazyredraw
+        redraw!
+    endfun
+
+    fun! utils#mapDebugger(key, debugger, args, errorFmt, ...)
+        if !executable(a:debugger)
+            echomsg 'Cannot find ' . a:debugger
+            return -1
+        endif
+        if (maparg(a:key) != '')
+            echomsg 'Key ' . a:key .  ' has already been mapped'
+            return -1
+        endif
+        let l:map="<buffer><" . a:key . "> :call utils#debugGrep('"
+                    \. a:debugger . " " . a:args . "', '" 
+                    \. a:errorFmt . "'," . a:0 . ")<CR>"
+        exe 'map ' . l:map
+        exe 'map! ' . l:map
+    endfun
 " }
 
 " File manipulation {
