@@ -17,9 +17,10 @@ let b:_loaded_javascript = 1
         call utils#mapDebugger('S-F4', 'jslint', '',
                     \'%-G,
                     \%-P%f,
-                    \%E\ %#\#%n\ %m,
-                    \%C%.%#//\ Line\ %l\,\ Pos\ %c,
-                    \%-G%.%#\ is\ OK.')
+                    \%E%>\ %#\#%n\ %m,
+                    \%Z%.%#//\ Line\ %l\,\ Pos\ %c,
+                    \%-G%f\ is\ OK.,
+                    \%-Q')
     else " assume SpiderMoney-version which accept input from stdin
         call utils#mapDebugger('S-F4', 'jslint', '', 
                     \'Lint\ at\ line\ %l\ character\ %c: %m, %-G%.%#', 1)
