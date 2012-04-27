@@ -440,7 +440,7 @@
         cclose
         let l:grepformat_save = &grepformat
         let l:grepprogram_save = &grepprg
-        set grepformat&vim
+        "set grepformat&vim
         set grepformat&vim
         let &grepformat = a:errorFmt
         let &grepprg = a:debugCmd

@@ -21,3 +21,17 @@ let b:_loaded_cpp = 1
 
     let c_space_errors = 1 " show redundant spaces
 " }
+
+" Compile {
+    if &filetype == 'cpp'
+        let b:compiler = 'g++'
+    elseif &filetype == 'c'
+        let b:compiler = 'gcc'
+    endif
+
+    if !filereadable(expand('%:p:h').'/Makefile')
+        exe 'setl makeprg=' . b:compiler . 
+                    \'\ -ansi\ -Wall\ -Werror\ -Wextra\ -pedantic-errors' .
+                    \'\ -g\ -o\ %<\ %'
+    endif
+" }

@@ -9,24 +9,21 @@ let b:_loaded_types = 1
 au FileType * call s:reviewType()
 
 fun! s:reviewType()
-    if &filetype =~ '^\(pdf\|zip\|tar\)$'
+    if &filetype =~ '^\(pdf\|doc\|zip\|tar\)$'
         "echomsg 'binary file'
         return
-    elseif &filetype =~ '^\(text\)$'
-        "echomsg 'plain text file'
-        return
-    elseif &filetype =~ '^\(diff\|help\|rst\|markdown\)$'
-        "echomsg 'structured text file'
+    elseif &filetype =~ '^\(text\|diff\|help\)$'
+        "echomsg 'text file'
         return
     elseif &filetype == 'plaintex'
-        set ft=tex
+        set filetype=tex
         return
     endif
 
     let filename = fnameescape(expand('%'))
     if &filetype == 'python'
         if s:matchPattern('django') || s:maybeDjango(filename)
-            set ft=python.django
+            set filetype=python.django
             return
         endif
     endif

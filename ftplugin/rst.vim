@@ -32,6 +32,13 @@ let b:_loaded_rst = 1
     ab <buffer> time .. \|time\| date:: %H:%M
 " }
 
+" Debug {
+    if executable('rst2html.py')
+        setl efm=%f:%l:\ %m
+        setl makeprg=rst2html.py\ %\ /tmp/%<.html
+    endif
+" }
+
 "=============Plugin settings=============
 
 if utils#enabledPlugin('vst') >= 0
