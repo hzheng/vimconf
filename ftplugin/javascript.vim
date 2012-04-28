@@ -6,6 +6,10 @@ endif
 
 let b:_loaded_javascript = 1
 
+" Fast input {
+    imap <buffer> <leader>us "use strict";<CR>
+" }
+
 " Debug {
     " JavaScript Lint
     call utils#mapDebugger('S-F3', 'jsl', 

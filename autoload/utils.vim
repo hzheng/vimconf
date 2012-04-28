@@ -408,8 +408,12 @@
             endif
         endfor
         if errMsg == ''
+            silent cclose
             call s:showBar('') 
         else
+            silent cwindow
+            " don't show bar any more
+            return
             " strip leading spaces
             let errMsg = substitute(errMsg, '^ *', '', 'g')
             "silent cc!

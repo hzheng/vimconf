@@ -7,12 +7,12 @@ endif
 let b:_loaded_html = 1
 
 
-" Debug {
-    setl efm=\"%f\":%l.%c-%m
-    setl makeprg=curl\ -s\ -F\ laxtype=yes\ -F\ parser=html5\
-                \ -F\ level=warn\ -F\ out=gnu\ -F\ doc=@%\
-                \ http://validator.nu
+" Fast input {
+    " use <ESC> to avoid the cursor being moved by plugins(e.g. xmledit)
+    imap <buffer> <leader>d5 <!DOCTYPE html><ESC>A<CR>
 " }
+
+exe "so " escape(expand('<sfile>:p:h'), ' ') . '/xml_common.vim'
 
 "=============Plugin settings=============
 

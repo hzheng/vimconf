@@ -26,6 +26,11 @@ fun! s:reviewType()
             set filetype=python.django
             return
         endif
+    elseif &filetype == 'html'
+        if getline(1) =~? '<!DOCTYPE html>'
+            set filetype=html.html5
+            return
+        endif
     endif
 
     "echomsg 'assumed as source code of a program'
