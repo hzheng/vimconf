@@ -16,19 +16,19 @@ fun! s:reviewType()
         "echomsg 'text file'
         return
     elseif &filetype == 'plaintex'
-        set filetype=tex
+        setl filetype=tex
         return
     endif
 
     let filename = fnameescape(expand('%'))
     if &filetype == 'python'
         if s:matchPattern('django') || s:maybeDjango(filename)
-            set filetype=python.django
+            setl filetype=python.django
             return
         endif
     elseif &filetype == 'html'
         if getline(1) =~? '<!DOCTYPE html>'
-            set filetype=html.html5
+            setl filetype=html5
             return
         endif
     endif
