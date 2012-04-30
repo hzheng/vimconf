@@ -9,6 +9,7 @@ let b:_loaded_types = 1
 au FileType * call s:reviewType()
 
 fun! s:reviewType()
+    "echomsg 'reviewing filetype: ' . &filetype
     if &filetype =~ '^\(pdf\|doc\|zip\|tar\)$'
         "echomsg 'binary file'
         return
@@ -28,7 +29,7 @@ fun! s:reviewType()
         endif
     elseif &filetype == 'html'
         if getline(1) =~? '<!DOCTYPE html>'
-            setl filetype=html5
+            call s:changeType('html5')
             return
         endif
     endif
@@ -48,6 +49,14 @@ fun! s:reviewType()
 endfun
 
 " utils {
+    fun! s:changeType(newType)
+        "echomsg 'before changing type:' &filetype
+        let b:changing_filetype = &filetype
+        exe "setl filetype=" . a:newType
+        unlet b:changing_filetype
+        "echomsg 'after changing type:' &filetype
+    endfun
+
     fun! s:maybeDjango(filename)
         if a:filename =~ '^\(admin\|manage\|settings\|urls\|models\|views\|forms\)\.py$'
             return 1

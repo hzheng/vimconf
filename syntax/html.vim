@@ -1,31 +1,24 @@
 " Vim syntax file
-" Language:	HTML4/HTML5
+" Language:	HTML
 
-" Below is exclusively for html4/html5
-" syn ...
-
-if &filetype !~ 'html5'
-    finish
+if !exists("main_syntax")
+    if version < 600
+        syntax clear
+    elseif exists("b:current_syntax")
+        finish
+    endif
+    let main_syntax = 'html'
 endif
 
-" Below is exclusively for html5
-" Based on http://gist.github.com/256840
+if &filetype =~ 'html5'
+    " coming here means html5 is detected from ftdetect/types.vim,
+    " hence we have to manually source html5 syntax
+    let b:current_syntax = "html"
+    so <sfile>:p:h/html5.vim
+    "runtime! syntax/html5.vim
+    unlet b:current_syntax
+endif
 
-" HTML 5 tags
-syn keyword htmlTagName contained article aside audio bb canvas command datagrid
-syn keyword htmlTagName contained datalist details dialog embed figure footer
-syn keyword htmlTagName contained header hgroup keygen mark meter nav output
-syn keyword htmlTagName contained progress time ruby rt rp section time video
-syn keyword htmlTagName contained source figcaption
-
-" HTML 5 arguments
-syn keyword htmlArg contained autofocus autocomplete placeholder min max step
-syn keyword htmlArg contained contenteditable contextmenu draggable hidden item
-syn keyword htmlArg contained itemprop list sandbox subject spellcheck
-syn keyword htmlArg contained novalidate seamless pattern formtarget manifest
-syn keyword htmlArg contained formaction formenctype formmethod formnovalidate
-syn keyword htmlArg contained sizes scoped async reversed sandbox srcdoc
-syn keyword htmlArg contained hidden role
-syn match   htmlArg "\<\(aria-[\-a-zA-Z0-9_]\+\)=" contained
-syn match   htmlArg contained "\s*data-[-a-zA-Z0-9_]\+"
-
+if main_syntax == 'html'
+    unlet main_syntax
+endif
