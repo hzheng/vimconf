@@ -161,8 +161,6 @@
     au BufLeave,FocusLost * silent! wa
     " hide buffer instead of closing
     set hidden
-    " save with root's permission
-    cmap w!! w !sudo tee % >/dev/null
 
     set wildmode=longest,full
     " suffixes to put to the end of the list when completing file names
@@ -275,6 +273,9 @@
 
     imap <F5> <Esc>:up<cr>
     nmap <F5> :up<cr>
+    " save with root's permission
+    "cmap w!! w !sudo tee % >/dev/null
+    nmap <Leader>w :w !sudo tee % >/dev/null<CR><CR>
     "map  <S-CR>       :w<CR>
     "map  <F4>       :w<CR>
     "map! <F4>       <ESC>:w<CR>
@@ -347,11 +348,12 @@
     " line {
         nmap <Leader>CC :call utils#toggleColorColumn()<cr>
 
-        if exists('&relativenumber') && &modifiable
-            setl relativenumber
-        else
-            setl number
-        endif
+        setl number
+        "if exists('&relativenumber') && &modifiable
+            "setl relativenumber
+        "else
+            "setl number
+        "endif
         nmap <F6> :call utils#toggleNumber()<cr>
         imap <F6> <Esc>:call utils#toggleNumber()<cr>
     " }

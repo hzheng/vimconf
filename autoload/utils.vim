@@ -220,9 +220,17 @@
             return
         endif
         
-        " mac
-        "echo url
-        exe '!open '. url
+        if executable('open') " on Mac
+            exe '!open '. url
+        elseif executable('gnome-open') " on Linux
+            exe '!gnome-open '. url
+        elseif executable('kde-open') " on Linux
+            exe '!kde-open '. url
+        elseif executable('xdg-open') " on Linux
+            exe '!xdg-open '. url
+        else " presumably on Windows
+            exe '!' . $PATH_TO_BROWSER . ' ' . url
+        endif
     endfun
 " }
 
