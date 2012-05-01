@@ -220,17 +220,16 @@
             return
         endif
         
-        if executable('open') " on Mac
-            exe '!open '. url
-        elseif executable('gnome-open') " on Linux
-            exe '!gnome-open '. url
-        elseif executable('kde-open') " on Linux
-            exe '!kde-open '. url
-        elseif executable('xdg-open') " on Linux
-            exe '!xdg-open '. url
-        else " presumably on Windows
-            exe '!' . $PATH_TO_BROWSER . ' ' . url
-        endif
+        "  openers in Mac, Linux and Windows respectively
+        let openers = ['open', 
+                    \'gnome-open', 'kde-open', 'exo-open', 'xdg-open',
+                    \$PATH_TO_BROWSER]
+        for opener in openers
+            if executable(opener)
+                exe '!' . opener . ' ' . url
+                return
+            endif
+        endfor
     endfun
 " }
 
