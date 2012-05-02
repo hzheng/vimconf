@@ -25,3 +25,9 @@ let b:_loaded_md = 1
         setl makeprg=Markdown.pl\ --html4tags\ %\ >/tmp/%<.html
     endif
 " }
+
+" View {
+    if executable('bcat')
+        nn <buffer> <Leader>pv :!markdown % \|bcat<CR><CR>
+    endif
+" }

@@ -20,6 +20,13 @@ let b:_loaded_xml_common = 1
         let b:parser = 'xml'
     endif
 
+    if &makeprg != 'make'
+        " if makeprg has been set, don't override it.
+        " some plugin(e.g. markdown plugin) may invoke
+        " this script for non-sgml file
+        finish
+    endif
+
     setl efm=\"%f\":%l.%c-%m
     exe 'setl makeprg=curl\ -s\ -F\ laxtype=yes\ -F\ parser=' .
                 \b:parser .
