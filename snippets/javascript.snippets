@@ -1,0 +1,20 @@
+# Strict mode
+snippet strict
+	"use strict";
+	${1:}
+# Log
+snippet log
+	console.log("${1:msg}")
+# Ajax
+snippet ajax
+	$.ajax({
+		type: "${1:POST}",
+		url: "${2}",
+		data: ${3:data},
+		success: function(data, textStatus, xhr) {
+		},
+		error: function(xhr, textStatus, errorThrown) {
+		},
+		complete: function(xhr, textStatus) {
+		},
+	});
