@@ -4,7 +4,12 @@ snippet strict
 	${1:}
 # Log
 snippet log
-	console.log("${1:msg}")
+	console.log("${1:msg}");
+snippet lg
+	log("${1:msg}");
+# Debug
+snippet json
+	JSON.stringify(${1:obj})
 # Ajax
 snippet ajax
 	$.ajax({

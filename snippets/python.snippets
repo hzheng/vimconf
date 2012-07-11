@@ -38,6 +38,17 @@ snippet ifm
 	if __name__ == '__main__':
 		${2:sys.exit(main())}
 
+# Logging
+snippet debug
+	logger.debug(${1:msg})
+snippet info
+	logger.info(${1:msg})
+snippet warn
+	logger.warning(${1:msg})
+snippet err
+	logger.error(${1:msg})
+snippet crit
+	logger.critical(${1:msg})
 # Debug
 snippet pdb
 	import pdb; pdb.set_trace()
