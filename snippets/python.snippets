@@ -41,14 +41,34 @@ snippet ifm
 # Logging
 snippet debug
 	logger.debug(${1:msg})
+snippet debugf
+	logger.debug("${1:msg1}{}${2:msg2}".format(${3:var}))
+snippet debugff
+	logger.debug("${1:msg1}{}${2:msg2}{}${3:msg3}".format(${4:var}, ${5:var}))
 snippet info
 	logger.info(${1:msg})
+snippet infof
+	logger.info("${1:msg1}{}${2:msg2}".format(${3:var}))
+snippet infoff
+	logger.info("${1:msg1}{}${2:msg2}{}${3:msg3}".format(${4:var}, ${5:var}))
 snippet warn
 	logger.warning(${1:msg})
+snippet warnf
+	logger.warning("${1:msg1}{}${2:msg2}".format(${3:var}))
+snippet warnff
+	logger.warning("${1:msg1}{}${2:msg2}{}${3:msg3}".format(${4:var}, ${5:var}))
 snippet err
 	logger.error(${1:msg})
+snippet errf
+	logger.error("${1:msg1}{}${2:msg2}".format(${3:var}))
+snippet errff
+	logger.error("${1:msg1}{}${2:msg2}{}${3:msg3}".format(${4:var}, ${5:var}))
 snippet crit
 	logger.critical(${1:msg})
+snippet critf
+	logger.critical("${1:msg1}{}${2:msg2}".format(${3:var}))
+snippet critff
+	logger.critical("${1:msg1}{}${2:msg2}{}${3:msg3}".format(${4:var}, ${5:var}))
 # Debug
 snippet pdb
 	import pdb; pdb.set_trace()

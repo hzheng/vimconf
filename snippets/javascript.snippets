@@ -10,6 +10,18 @@ snippet lg
 # Debug
 snippet json
 	JSON.stringify(${1:obj})
+snippet dir
+	console.dir(${1:obj});
+snippet trace
+	console.trace();
+snippet time
+	console.time("${1:name}");
+snippet timee
+	console.timeEnd("${1:name}");
+snippet profile
+	console.profile("${1:title}");
+snippet profilee
+	console.profileEnd();
 # Ajax
 snippet ajax
 	$.ajax({
