@@ -428,7 +428,7 @@ if utils#enabledPlugin('command-t') > 0
     nmap <Leader>e :CommandT<CR>
     nmap <Leader>y :CommandTFlush<CR>
     "let g:CommandTSearchPath = $HOME . '$HOME/Projects'
-    let g:CommandTMatchWindowAtTop = 0
+    let g:CommandTMatchWindowAtTop = 1
     let g:CommandTMaxFiles = 20000
 endif
 
