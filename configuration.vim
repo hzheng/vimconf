@@ -3,7 +3,7 @@
 " define variables according to environment variable VIM
 if match($VIM, 'MacVim.*vim$') > 0
     "echomsg 'MacVim'
-    let g:DEFAULT_FULLSCREEN = 1
+    "let g:DEFAULT_FULLSCREEN = 1
 elseif match($VIM, 'Vim.app.*vim$') > 0
     "echomsg 'lightweight Vim in Mac'
     let g:LOAD_PLUGIN = 0
