@@ -320,9 +320,9 @@
         hi TabLine ctermfg=darkgray ctermbg=NONE cterm=underline
         " cursor
         set cursorline
-        hi CursorLine ctermbg=lightgray cterm=NONE
+        "hi CursorLine ctermbg=lightgray cterm=NONE
         set cursorcolumn
-        hi CursorColumn ctermbg=lightgray
+        "hi CursorColumn ctermbg=lightgray
         " highlight cursor
     endif
 
