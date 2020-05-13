@@ -18,7 +18,8 @@ let b:_loaded_python = 1
 
     call utils#mapDebugger('S-F3', 'pylint', 
                 \'--output-format=parseable --reports=n', '%f:%l:%m')
-    call utils#mapDebugger('S-F4', 'pychecker', '-Q -q', '%f:%l:%m')
+    "call utils#mapDebugger('S-F4', 'pychecker', '-Q -q', '%f:%l:%m')
+    "call utils#mapDebugger('S-F4', 'pyflakes', '', '%f:%l:%m')
 " }
 
 "=============Plugin settings=============
