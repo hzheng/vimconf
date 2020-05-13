@@ -386,7 +386,7 @@
         if len(path) > 3
             let date = path[len(path) - 3 :]
             let day = substitute(date[2], '.cal', '日', 'g')
-            exe 'norm! i       ' date[0] . '年' . date[1] . '月' . day
+            exe 'norm! i#' date[0] . '年' . date[1] . '月' . day
             exe 'norm! o'
         endif
     endfun
